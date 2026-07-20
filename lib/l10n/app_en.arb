@@ -1,0 +1,7 @@
+{
+  "@@locale": "en",
+  "loginTitle": "Welcome Back",
+  "loginSubtitle": "Enter your details to continue",
+  "emailOrUsername": "Username, Email, or Phone",
+  "password": "Password"
+}

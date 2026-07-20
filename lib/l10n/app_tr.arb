@@ -1,0 +1,7 @@
+{
+  "@@locale": "tr",
+  "loginTitle": "Tekrar Hoş Geldin",
+  "loginSubtitle": "Devam etmek için bilgilerini gir",
+  "emailOrUsername": "Kullanıcı Adı, E-posta veya Telefon",
+  "password": "Şifre"
+}
