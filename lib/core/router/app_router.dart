@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:gymplanner_mobile/features/exercise/presentation/pages/exercise_library_page.dart';
+import 'package:gymplanner_mobile/features/workout_routine/presentation/pages/workout_programs_page.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../features/auth/presentation/pages/login_page.dart';
@@ -93,7 +93,7 @@ GoRouter appRouter(AppRouterRef ref) {
                 GoRoute(
                   path: AppRoutes.fitness,
                   builder: (context, state) =>
-                      const ExerciseLibraryPage(),
+                      const WorkoutProgramsPage(),
                 ),
               ],
             ),
