@@ -1,10 +1,12 @@
+// lib/features/workout_routine/presentation/pages/workout_programs_page.dart
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../core/theme/app_spacing.dart';
 import '../controllers/workout_programs_controller.dart';
 import '../widgets/program_creator_sheet.dart';
-import '../widgets/program_detail_sheet.dart';
+import 'program_detail_page.dart'; // ⬅️ YENİ IMPORT
 
 class WorkoutProgramsPage extends ConsumerWidget {
   const WorkoutProgramsPage({super.key});
@@ -64,9 +66,16 @@ class WorkoutProgramsPage extends ConsumerWidget {
                 return Card(
                   child: ListTile(
                     onTap: () =>
-                        ProgramDetailSheet.show(
+                        Navigator.of(
                           context,
-                          routine,
+                        ).push(
+                          MaterialPageRoute(
+                            builder: (_) =>
+                                ProgramDetailPage(
+                                  routineId:
+                                      routine.id,
+                                ),
+                          ),
                         ),
                     title: Text(routine.name),
                     subtitle: Text(

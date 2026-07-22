@@ -50,6 +50,8 @@ class WorkoutRoutineRemoteDataSource {
   Future<WorkoutRoutineDto> createWorkoutRoutine({
     required String name,
     String? description,
+    required int daysPerWeek, // ⬅️ YENİ
+    required String trainingGoal, // ⬅️ YENİ
   }) async {
     try {
       final response = await _dio.post(
@@ -59,6 +61,8 @@ class WorkoutRoutineRemoteDataSource {
           if (description != null &&
               description.isNotEmpty)
             'description': description,
+          'daysPerWeek': daysPerWeek, // ⬅️ YENİ
+          'trainingGoal': trainingGoal, // ⬅️ YENİ
         },
       );
       final data =
@@ -92,6 +96,8 @@ class WorkoutRoutineRemoteDataSource {
     String? name,
     String? description,
     bool? isActive,
+    int? daysPerWeek, // ⬅️ YENİ
+    String? trainingGoal, // ⬅️ YENİ
   }) async {
     try {
       await _dio.post(
@@ -102,6 +108,11 @@ class WorkoutRoutineRemoteDataSource {
             'description': description,
           if (isActive != null)
             'isActive': isActive,
+          if (daysPerWeek != null)
+            'daysPerWeek': daysPerWeek, // ⬅️ YENİ
+          if (trainingGoal != null)
+            'trainingGoal':
+                trainingGoal, // ⬅️ YENİ
         },
       );
     } on DioException catch (error, stackTrace) {

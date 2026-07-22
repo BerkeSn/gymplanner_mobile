@@ -3,24 +3,29 @@
 import 'package:gymplanner_mobile/features/workout_routine/domain/entities/workout_routine_entity.dart';
 
 import '../../../../core/error/result.dart';
+import '../entities/training_goal.dart';
 import '../entities/week_day.dart';
 
 abstract class WorkoutRoutineRepository {
   Future<Result<List<WorkoutRoutineEntity>>>
   getWorkoutRoutines();
 
-  Future<Result<WorkoutRoutineEntity>>
+Future<Result<WorkoutRoutineEntity>>
   createWorkoutRoutine({
     required String name,
     String? description,
+    required int daysPerWeek, // ⬅️ YENİ
+    required TrainingGoal trainingGoal, // ⬅️ YENİ
   });
 
-  Future<Result<void>> updateWorkoutRoutine({
-    required int id,
-    String? name,
-    String? description,
-    bool? isActive,
-  });
+Future<Result<void>> updateWorkoutRoutine({
+  required int id,
+  String? name,
+  String? description,
+  bool? isActive,
+  int? daysPerWeek,                // ⬅️ YENİ
+  TrainingGoal? trainingGoal,      // ⬅️ YENİ
+});
 
   Future<Result<void>> deleteWorkoutRoutine(
     int id,

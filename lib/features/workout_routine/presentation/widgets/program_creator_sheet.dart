@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_spacing.dart';
+import '../../../../core/theme/app_text_styles.dart';
 import '../../../../core/utils/app_logger.dart';
 import '../../../../core/widgets/app_text_field.dart';
 import '../../../../core/widgets/primary_button.dart';
+import '../../domain/entities/training_goal.dart';
 import '../controllers/workout_programs_controller.dart';
 
 /// standardized_program_creator_modal.html temel alınmıştır.
-/// NOT: Mockup'taki "Days/Week" ve "Training Goal" seçicileri backend
-/// modelinde karşılığı olmadığı için BİLİNÇLİ OLARAK bu sürümde yok —
-/// eklenirse WorkoutRoutine modeline yeni alan gerekir (Faz sonrası karar).
+/// Days/Week ve Training Goal artık backend'de gerçek karşılığı olan
+/// (daysPerWeek, trainingGoal) alanlar — mockup'taki görsel dile birebir
+/// sadık kalınmıştır (2 kolonlu dropdown grid).
 class ProgramCreatorSheet
     extends ConsumerStatefulWidget {
   const ProgramCreatorSheet({super.key});
@@ -33,8 +36,13 @@ class _ProgramCreatorSheetState
   final _nameController = TextEditingController();
   final _descriptionController =
       TextEditingController();
+  int _selectedDaysPerWeek = 3;
+  TrainingGoal _selectedGoal =
+      TrainingGoal.hypertrophy;
   bool _isSubmitting = false;
   String? _errorText;
+
+  static const _dayOptions = [3, 4, 5, 6];
 
   @override
   void dispose() {
@@ -72,6 +80,8 @@ class _ProgramCreatorSheetState
                 ? null
                 : _descriptionController.text
                       .trim(),
+            daysPerWeek: _selectedDaysPerWeek,
+            trainingGoal: _selectedGoal,
           );
       if (mounted) Navigator.of(context).pop();
     } catch (error, stackTrace) {
@@ -113,20 +123,93 @@ class _ProgramCreatorSheetState
           children: [
             Text(
               'Yeni Program',
-              style: Theme.of(
-                context,
-              ).textTheme.headlineMedium,
+              style: AppTextStyles.headlineMedium,
             ),
             const SizedBox(height: AppSpacing.lg),
+            Text(
+              'Program Adı',
+              style: AppTextStyles.labelSmall,
+            ),
+            const SizedBox(height: AppSpacing.sm),
             AppTextField(
-              label: 'Program Adı',
+              label: 'Örn. Minimalist Kuvvet',
               controller: _nameController,
             ),
             const SizedBox(height: AppSpacing.lg),
+            Text(
+              'Açıklama',
+              style: AppTextStyles.labelSmall,
+            ),
+            const SizedBox(height: AppSpacing.sm),
             AppTextField(
-              label: 'Açıklama (opsiyonel)',
+              label:
+                  'Bu programın odağını tanımla...',
               controller: _descriptionController,
             ),
+            const SizedBox(height: AppSpacing.lg),
+
+            // ⬇️ YENİ: Mockup'taki 2 kolonlu grid (Days/Week + Training Goal)
+            Row(
+              children: [
+                Expanded(
+                  child: _LabeledDropdown<int>(
+                    label: 'Gün / Hafta',
+                    value: _selectedDaysPerWeek,
+                    items: _dayOptions
+                        .map(
+                          (d) => DropdownMenuItem(
+                            value: d,
+                            child: Text('$d Gün'),
+                          ),
+                        )
+                        .toList(),
+                    onChanged: (value) {
+                      if (value != null) {
+                        setState(
+                          () =>
+                              _selectedDaysPerWeek =
+                                  value,
+                        );
+                      }
+                    },
+                  ),
+                ),
+                const SizedBox(
+                  width: AppSpacing.md,
+                ),
+                Expanded(
+                  child:
+                      _LabeledDropdown<
+                        TrainingGoal
+                      >(
+                        label: 'Antrenman Hedefi',
+                        value: _selectedGoal,
+                        items: TrainingGoal.values
+                            .map(
+                              (
+                                goal,
+                              ) => DropdownMenuItem(
+                                value: goal,
+                                child: Text(
+                                  goal.turkishLabel,
+                                ),
+                              ),
+                            )
+                            .toList(),
+                        onChanged: (value) {
+                          if (value != null) {
+                            setState(
+                              () =>
+                                  _selectedGoal =
+                                      value,
+                            );
+                          }
+                        },
+                      ),
+                ),
+              ],
+            ),
+
             if (_errorText != null) ...[
               const SizedBox(
                 height: AppSpacing.md,
@@ -140,13 +223,73 @@ class _ProgramCreatorSheetState
             ],
             const SizedBox(height: AppSpacing.xl),
             PrimaryButton(
-              label: 'Oluştur',
+              label: 'Program Oluştur',
               isLoading: _isSubmitting,
               onPressed: _handleCreate,
             ),
           ],
         ),
       ),
+    );
+  }
+}
+
+/// Mockup'taki "input-premium" stilindeki select kutusu — AppTextField'ın
+/// dropdown karşılığı. Tema renklerinden bağımsız hardcode yok.
+class _LabeledDropdown<T>
+    extends StatelessWidget {
+  final String label;
+  final T value;
+  final List<DropdownMenuItem<T>> items;
+  final ValueChanged<T?> onChanged;
+
+  const _LabeledDropdown({
+    required this.label,
+    required this.value,
+    required this.items,
+    required this.onChanged,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment:
+          CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: AppTextStyles.labelSmall,
+        ),
+        const SizedBox(height: AppSpacing.sm),
+        Container(
+          padding: const EdgeInsets.symmetric(
+            horizontal: AppSpacing.md,
+          ),
+          decoration: BoxDecoration(
+            color:
+                AppColors.surfaceContainerLowest,
+            borderRadius: BorderRadius.circular(
+              12,
+            ),
+            border: Border.all(
+              color: AppColors.outlineVariant,
+            ),
+          ),
+          child: DropdownButtonHideUnderline(
+            child: DropdownButton<T>(
+              value: value,
+              isExpanded: true,
+              items: items,
+              onChanged: onChanged,
+              style: AppTextStyles.bodyLarge,
+              icon: const Icon(
+                Icons.expand_more,
+                color: AppColors.outline,
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

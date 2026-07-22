@@ -1,60 +1,29 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+// lib/features/exercise/presentation/pages/exercise_selection_page.dart
 
-import '../../../../core/theme/app_spacing.dart';
+import 'package:flutter/material.dart';
+
 import '../../domain/entities/exercise_entity.dart';
-import '../controllers/exercise_library_controller.dart';
+import '../widgets/exercise_list_view.dart';
 
 /// Program'a hareket eklerken kullanılan seçim ekranı. Bir hareketin
 /// üzerine dokunulunca context.pop(exercise) ile GERİ DÖNER — ekranı
-/// açan taraf (schedule_exercise_sheet) sonucu bekler.
+/// açan taraf (ProgramDetailSheet) sonucu bekler.
 class ExerciseSelectionPage
-    extends ConsumerWidget {
+    extends StatelessWidget {
   const ExerciseSelectionPage({super.key});
 
   @override
-  Widget build(
-    BuildContext context,
-    WidgetRef ref,
-  ) {
-    final asyncState = ref.watch(
-      exerciseLibraryControllerProvider,
-    );
-
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Hareket Seç'),
       ),
-      body: asyncState.when(
-        loading: () => const Center(
-          child: CircularProgressIndicator(),
-        ),
-        error: (error, _) =>
-            Center(child: Text(error.toString())),
-        data: (state) => ListView.separated(
-          padding: const EdgeInsets.all(
-            AppSpacing.containerMargin,
-          ),
-          itemCount:
-              state.filteredExercises.length,
-          separatorBuilder: (_, __) =>
-              const SizedBox(
-                height: AppSpacing.sm,
-              ),
-          itemBuilder: (context, index) {
-            final exercise =
-                state.filteredExercises[index];
-            return ListTile(
-              title: Text(exercise.name),
-              subtitle: Text(
-                '${exercise.muscleGroupName} • ${exercise.equipmentName}',
-              ),
-              onTap: () => Navigator.of(
-                context,
-              ).pop<ExerciseEntity>(exercise),
-            );
-          },
-        ),
+      body: ExerciseListView(
+        onExerciseTap: (exercise) => Navigator.of(
+          context,
+        ).pop<ExerciseEntity>(exercise),
+        trailingBuilder: (context, exercise) =>
+            const Icon(Icons.chevron_right),
       ),
     );
   }

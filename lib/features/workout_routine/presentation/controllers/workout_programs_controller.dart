@@ -1,10 +1,10 @@
 // presentation/controllers/workout_programs_controller.dart
 
+import 'package:gymplanner_mobile/features/workout_routine/domain/entities/training_goal.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../../core/error/result.dart';
 import '../../../../core/utils/app_logger.dart';
-import '../../domain/entities/routine_exercise_entity.dart';
 import '../../domain/entities/week_day.dart';
 import '../../domain/entities/workout_routine_entity.dart';
 import '../providers/workout_routine_providers.dart';
@@ -63,6 +63,8 @@ class WorkoutProgramsController
   Future<WorkoutRoutineEntity?> createProgram({
     required String name,
     String? description,
+    required int daysPerWeek, // ⬅️ YENİ
+    required TrainingGoal trainingGoal, // ⬅️ YENİ
   }) async {
     try {
       final repository = ref.read(
@@ -72,6 +74,8 @@ class WorkoutProgramsController
           .createWorkoutRoutine(
             name: name,
             description: description,
+            daysPerWeek: daysPerWeek,
+            trainingGoal: trainingGoal,
           );
       if (result
           is Failure<WorkoutRoutineEntity>) {

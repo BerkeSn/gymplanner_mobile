@@ -1,5 +1,4 @@
-// models/workout_routine_dto.dart
-
+import '../../domain/entities/training_goal.dart';
 import '../../domain/entities/workout_routine_entity.dart';
 import 'routine_exercise_dto.dart';
 
@@ -8,6 +7,8 @@ class WorkoutRoutineDto {
   final String name;
   final String? description;
   final bool isActive;
+  final int daysPerWeek;
+  final String trainingGoal;
   final List<RoutineExerciseDto> routineExercises;
 
   WorkoutRoutineDto({
@@ -15,6 +16,8 @@ class WorkoutRoutineDto {
     required this.name,
     this.description,
     required this.isActive,
+    required this.daysPerWeek,
+    required this.trainingGoal,
     this.routineExercises = const [],
   });
 
@@ -33,6 +36,11 @@ class WorkoutRoutineDto {
             json['description'] as String?,
         isActive:
             json['isActive'] as bool? ?? false,
+        daysPerWeek:
+            json['daysPerWeek'] as int? ?? 3,
+        trainingGoal:
+            json['trainingGoal'] as String? ??
+            'Hypertrophy',
         routineExercises: rawExercises
             .map(
               (e) => RoutineExerciseDto.fromJson(
@@ -54,6 +62,10 @@ class WorkoutRoutineDto {
       name: name,
       description: description,
       isActive: isActive,
+      daysPerWeek: daysPerWeek,
+      trainingGoal: TrainingGoalX.fromApi(
+        trainingGoal,
+      ),
       routineExercises: routineExercises
           .map((e) => e.toEntity())
           .toList(),

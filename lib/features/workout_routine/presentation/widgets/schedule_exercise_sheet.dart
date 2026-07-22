@@ -1,9 +1,14 @@
+// lib/features/workout_routine/presentation/widgets/schedule_exercise_sheet.dart
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_spacing.dart';
+import '../../../../core/theme/app_text_styles.dart';
 import '../../../../core/utils/app_logger.dart';
 import '../../../../core/widgets/app_text_field.dart';
+import '../../../../core/widgets/exercise_placeholder_thumbnail.dart';
 import '../../../../core/widgets/primary_button.dart';
 import '../../../exercise/domain/entities/exercise_entity.dart';
 import '../../domain/entities/week_day.dart';
@@ -28,9 +33,14 @@ class ScheduleExerciseSheet
     return showModalBottomSheet(
       context: context,
       isScrollControlled: true,
-      builder: (_) => ScheduleExerciseSheet(
-        routineId: routineId,
-        exercise: exercise,
+      // Hero görsele yer açmak için sheet'i ekranın büyük kısmını
+      // kaplayacak şekilde sabitliyoruz (mockup'taki tam sayfa hissi).
+      builder: (_) => FractionallySizedBox(
+        heightFactor: 0.92,
+        child: ScheduleExerciseSheet(
+          routineId: routineId,
+          exercise: exercise,
+        ),
       ),
     );
   }
@@ -122,6 +132,9 @@ class _ScheduleExerciseSheetState
     final bottomInset = MediaQuery.of(
       context,
     ).viewInsets.bottom;
+    final screenHeight = MediaQuery.of(
+      context,
+    ).size.height;
 
     return Padding(
       padding: EdgeInsets.only(
@@ -132,31 +145,86 @@ class _ScheduleExerciseSheetState
           AppSpacing.containerMargin,
         ),
         child: Column(
-          mainAxisSize: MainAxisSize.min,
           crossAxisAlignment:
               CrossAxisAlignment.start,
           children: [
+            Container(
+              width: 40,
+              height: 4,
+              margin: const EdgeInsets.only(
+                bottom: AppSpacing.md,
+              ),
+              decoration: BoxDecoration(
+                color: AppColors.outlineVariant,
+                borderRadius:
+                    BorderRadius.circular(999),
+              ),
+            ),
             Text(
               widget.exercise.name,
-              style: Theme.of(
-                context,
-              ).textTheme.headlineMedium,
+              style: AppTextStyles.headlineMedium,
+            ),
+            const SizedBox(height: AppSpacing.md),
+
+            // ⬇️ YENİ: Başlık ile gün seçimi arasında, tam genişlikte,
+            // ekran yüksekliğinin büyük bir kısmını kaplayan hero görsel.
+            ExercisePlaceholderHero(
+              imageUrl: widget.exercise.imageUrl,
+              muscleGroupName:
+                  widget.exercise.muscleGroupName,
+              height: screenHeight * 0.34,
+            ),
+
+            const SizedBox(height: AppSpacing.lg),
+            Text(
+              '${widget.exercise.muscleGroupName} • ${widget.exercise.equipmentName}',
+              style: AppTextStyles.bodyMedium,
             ),
             const SizedBox(height: AppSpacing.lg),
-            const Text('Gün'),
+
+            Text(
+              'Gün',
+              style: AppTextStyles.labelSmall,
+            ),
             const SizedBox(height: AppSpacing.sm),
             Wrap(
               spacing: AppSpacing.sm,
+              runSpacing: AppSpacing.sm,
               children: WeekDay.values.map((day) {
+                final isSelected =
+                    _selectedDay == day;
                 return ChoiceChip(
                   label: Text(day.turkishLabel),
-                  selected: _selectedDay == day,
+                  selected: isSelected,
                   onSelected: (_) => setState(
                     () => _selectedDay = day,
+                  ),
+                  // ⬇️ DEĞİŞTİ: Açıkça mavi (AppColors.primary), Material'ın
+                  // varsayılan ikincil rengi yerine.
+                  selectedColor:
+                      AppColors.primary,
+                  backgroundColor: AppColors
+                      .surfaceContainerLow,
+                  showCheckmark: false,
+                  labelStyle: TextStyle(
+                    color: isSelected
+                        ? AppColors.onPrimary
+                        : AppColors
+                              .onSurfaceVariant,
+                    fontWeight: isSelected
+                        ? FontWeight.w600
+                        : FontWeight.w400,
+                  ),
+                  side: BorderSide(
+                    color: isSelected
+                        ? AppColors.primary
+                        : AppColors
+                              .outlineVariant,
                   ),
                 );
               }).toList(),
             ),
+
             const SizedBox(height: AppSpacing.lg),
             Row(
               children: [
@@ -198,6 +266,7 @@ class _ScheduleExerciseSheetState
               isLoading: _isSubmitting,
               onPressed: _handleConfirm,
             ),
+            const SizedBox(height: AppSpacing.lg),
           ],
         ),
       ),

@@ -1,5 +1,6 @@
 // repositories/workout_routine_repository_impl.dart
 
+import 'package:gymplanner_mobile/features/workout_routine/domain/entities/training_goal.dart';
 import 'package:gymplanner_mobile/features/workout_routine/domain/entities/workout_routine_entity.dart';
 
 import '../../../../core/error/app_exception.dart';
@@ -46,12 +47,16 @@ class WorkoutRoutineRepositoryImpl
   createWorkoutRoutine({
     required String name,
     String? description,
+    required int daysPerWeek,
+    required TrainingGoal trainingGoal,
   }) async {
     try {
       final dto = await _remoteDataSource
           .createWorkoutRoutine(
             name: name,
             description: description,
+            daysPerWeek: daysPerWeek,
+            trainingGoal: trainingGoal.apiValue,
           );
       return Success(dto.toEntity());
     } on AppException catch (error) {
@@ -74,6 +79,8 @@ class WorkoutRoutineRepositoryImpl
     String? name,
     String? description,
     bool? isActive,
+    int? daysPerWeek,
+    TrainingGoal? trainingGoal,
   }) async {
     try {
       await _remoteDataSource
@@ -82,6 +89,8 @@ class WorkoutRoutineRepositoryImpl
             name: name,
             description: description,
             isActive: isActive,
+            daysPerWeek: daysPerWeek,
+            trainingGoal: trainingGoal?.apiValue,
           );
       return const Success(null);
     } on AppException catch (error) {
