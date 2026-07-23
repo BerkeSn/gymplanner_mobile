@@ -106,6 +106,36 @@ class AuthRemoteDataSource {
     }
   }
 
+Future<UserDto> getProfile() async {
+    try {
+      final response = await _dio.get(
+        '/user/getProfile',
+      );
+      final data =
+          response.data as Map<String, dynamic>;
+      return UserDto.fromJson(
+        data['user'] as Map<String, dynamic>,
+      );
+    } on DioException catch (error, stackTrace) {
+      throw AppExceptionFactory.network(
+        source:
+            'AuthRemoteDataSource - getProfile',
+        message:
+            _extractMessage(error) ??
+            'Profil bilgisi alınamadı.',
+        originalError: error,
+        stackTrace: stackTrace,
+      );
+    } catch (error, stackTrace) {
+      throw AppExceptionFactory.unexpected(
+        source:
+            'AuthRemoteDataSource - getProfile',
+        error: error,
+        stackTrace: stackTrace,
+      );
+    }
+  }
+
   String? _extractMessage(DioException error) {
     final data = error.response?.data;
     if (data is Map<String, dynamic>) {

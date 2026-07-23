@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gymplanner_mobile/core/widgets/language_toggle_button.dart';
 
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_spacing.dart';
@@ -33,6 +34,17 @@ class HomeDashboardPage extends ConsumerWidget {
                 // TODO(faz7): Ayarlar sayfası bağlanacak.
               },
             ),
+            const LanguageToggleButton(), // ⬅️ YENİ
+            IconButton(
+              icon: const Icon(
+                Icons.settings_outlined,
+              ),
+              onPressed: () {
+                // TODO(faz7): Ayarlar sayfası bağlanacak — dil toggle'ı da
+                // gerçek Ayarlar sayfasına taşınacak, şimdilik burada test amaçlı.
+              },
+            ),
+
           ],
         ),
         body: SafeArea(

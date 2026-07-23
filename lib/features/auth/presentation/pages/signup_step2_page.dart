@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:gymplanner_mobile/core/error/app_exception.dart';
 import 'package:gymplanner_mobile/core/utils/app_logger.dart';
 import 'package:gymplanner_mobile/core/widgets/responsive_form_scaffold.dart';
+import 'package:gymplanner_mobile/features/body_measurement/presentation/controller/body_measurement_controller.dart';
 
 import '../../../../core/router/app_router.dart';
 import '../../../../core/theme/app_spacing.dart';
@@ -91,12 +92,25 @@ class _SignupStep2PageState
       if (!mounted) return;
 
       if (user != null) {
-        ref
-            .read(
-              signupFormControllerProvider
-                  .notifier,
-            )
-            .reset();
+        // TODO(faz4) KAPANDI: height/weight artık ilk ölçüm kaydı olarak
+        // backend'e gönderiliyor.
+        final height = double.tryParse(
+          _heightController.text,
+        );
+        final weight = double.tryParse(
+          _weightController.text,
+        );
+        if (height != null && weight != null) {
+          await ref
+              .read(
+                bodyMeasurementControllerProvider
+                    .notifier,
+              )
+              .addMeasurement(
+                weight: weight,
+                height: height,
+              );
+        }
 
         ref
             .read(
@@ -104,9 +118,8 @@ class _SignupStep2PageState
                   .notifier,
             )
             .reset();
-        context.go(
-          AppRoutes.dashboard,
-        ); // ⬅️ DEĞİŞTİ
+        if (mounted)
+          context.go(AppRoutes.dashboard);
       } else {
         final error = ref
             .read(authControllerProvider)

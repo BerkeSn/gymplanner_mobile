@@ -121,6 +121,120 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Password'**
   String get password;
+
+  /// No description provided for @bodyMeasurementsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Body Measurements'**
+  String get bodyMeasurementsTitle;
+
+  /// No description provided for @logDataButton.
+  ///
+  /// In en, this message translates to:
+  /// **'LOG DATA'**
+  String get logDataButton;
+
+  /// No description provided for @addMeasurementTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Measurement'**
+  String get addMeasurementTitle;
+
+  /// No description provided for @addMeasurementSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Update your physical metrics to track evolution.'**
+  String get addMeasurementSubtitle;
+
+  /// No description provided for @dateLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Date'**
+  String get dateLabel;
+
+  /// No description provided for @weightLabelKg.
+  ///
+  /// In en, this message translates to:
+  /// **'Weight (kg)'**
+  String get weightLabelKg;
+
+  /// No description provided for @heightLabelCm.
+  ///
+  /// In en, this message translates to:
+  /// **'Height (cm)'**
+  String get heightLabelCm;
+
+  /// No description provided for @neckLabelCm.
+  ///
+  /// In en, this message translates to:
+  /// **'Neck (cm)'**
+  String get neckLabelCm;
+
+  /// No description provided for @waistLabelCm.
+  ///
+  /// In en, this message translates to:
+  /// **'Waist (cm)'**
+  String get waistLabelCm;
+
+  /// No description provided for @bodyFatLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Body Fat Percentage (%) — optional'**
+  String get bodyFatLabel;
+
+  /// No description provided for @goalLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Goal'**
+  String get goalLabel;
+
+  /// No description provided for @goalLoseWeight.
+  ///
+  /// In en, this message translates to:
+  /// **'Lose Weight'**
+  String get goalLoseWeight;
+
+  /// No description provided for @goalGainMuscle.
+  ///
+  /// In en, this message translates to:
+  /// **'Gain Muscle'**
+  String get goalGainMuscle;
+
+  /// No description provided for @goalMaintain.
+  ///
+  /// In en, this message translates to:
+  /// **'Maintain'**
+  String get goalMaintain;
+
+  /// No description provided for @saveMeasurementButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Save Measurement'**
+  String get saveMeasurementButton;
+
+  /// No description provided for @cancelButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get cancelButton;
+
+  /// No description provided for @noMeasurementsYet.
+  ///
+  /// In en, this message translates to:
+  /// **'You haven\'t added a measurement yet.'**
+  String get noMeasurementsYet;
+
+  /// No description provided for @measurementSaveError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not save measurement'**
+  String get measurementSaveError;
+
+  /// No description provided for @validationWeightHeightRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Weight and height are required.'**
+  String get validationWeightHeightRequired;
 }
 
 class _AppLocalizationsDelegate

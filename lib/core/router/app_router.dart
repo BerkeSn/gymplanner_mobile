@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:gymplanner_mobile/features/body_measurement/presentation/pages/body_measurement_timeline_page.dart';
 import 'package:gymplanner_mobile/features/workout_routine/presentation/pages/workout_programs_page.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -37,35 +38,51 @@ GoRouter appRouter(AppRouterRef ref) {
       routes: [
         GoRoute(
           path: AppRoutes.splash,
-          builder: (context, state) => const SplashPage(),
+          builder: (context, state) =>
+              const SplashPage(),
         ),
         GoRoute(
           path: AppRoutes.login,
-          builder: (context, state) => const LoginPage(),
+          builder: (context, state) =>
+              const LoginPage(),
         ),
         GoRoute(
           path: AppRoutes.signupStep1,
-          builder: (context, state) => const SignupStep1Page(),
+          builder: (context, state) =>
+              const SignupStep1Page(),
         ),
         GoRoute(
           path: AppRoutes.signupStep2,
-          builder: (context, state) => const SignupStep2Page(),
+          builder: (context, state) =>
+              const SignupStep2Page(),
+        ),
+
+        GoRoute(
+          path: AppRoutes.insights,
+          builder: (context, state) =>
+              const BodyMeasurementTimelinePage(), // ⬅️ DEĞİŞTİ
         ),
 
         // ⬇️ YENİ: Bottom nav shell — 5 bağımsız sekme
         StatefulShellRoute.indexedStack(
-          builder: (context, state, navigationShell) {
-            return AppShell(navigationShell: navigationShell);
-          },
+          builder:
+              (context, state, navigationShell) {
+                return AppShell(
+                  navigationShell:
+                      navigationShell,
+                );
+              },
           branches: [
             StatefulShellBranch(
               routes: [
                 GoRoute(
                   path: AppRoutes.nutrition,
-                  builder: (context, state) => const PlaceholderPage(
-                    title: 'Beslenme',
-                    icon: Icons.restaurant_outlined,
-                  ),
+                  builder: (context, state) =>
+                      const PlaceholderPage(
+                        title: 'Beslenme',
+                        icon: Icons
+                            .restaurant_outlined,
+                      ),
                 ),
               ],
             ),
@@ -73,7 +90,8 @@ GoRouter appRouter(AppRouterRef ref) {
               routes: [
                 GoRoute(
                   path: AppRoutes.dashboard,
-                  builder: (context, state) => const HomeDashboardPage(),
+                  builder: (context, state) =>
+                      const HomeDashboardPage(),
                 ),
               ],
             ),
@@ -81,10 +99,12 @@ GoRouter appRouter(AppRouterRef ref) {
               routes: [
                 GoRoute(
                   path: AppRoutes.insights,
-                  builder: (context, state) => const PlaceholderPage(
-                    title: 'Analiz',
-                    icon: Icons.insights_outlined,
-                  ),
+                  builder: (context, state) =>
+                      const PlaceholderPage(
+                        title: 'Analiz',
+                        icon: Icons
+                            .insights_outlined,
+                      ),
                 ),
               ],
             ),
@@ -101,10 +121,12 @@ GoRouter appRouter(AppRouterRef ref) {
               routes: [
                 GoRoute(
                   path: AppRoutes.profile,
-                  builder: (context, state) => const PlaceholderPage(
-                    title: 'Profil',
-                    icon: Icons.person_outline,
-                  ),
+                  builder: (context, state) =>
+                      const PlaceholderPage(
+                        title: 'Profil',
+                        icon:
+                            Icons.person_outline,
+                      ),
                 ),
               ],
             ),
@@ -113,6 +135,8 @@ GoRouter appRouter(AppRouterRef ref) {
       ],
     );
   } catch (error, stackTrace) {
-    throw Exception('[app_router - appRouter]: ${error.toString()}\n$stackTrace');
+    throw Exception(
+      '[app_router - appRouter]: ${error.toString()}\n$stackTrace',
+    );
   }
 }

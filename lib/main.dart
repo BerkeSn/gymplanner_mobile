@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gymplanner_mobile/core/config/env_config.dart';
+import 'package:gymplanner_mobile/core/locale/locale_controller.dart';
 import 'package:gymplanner_mobile/core/router/app_router.dart';
 import 'package:gymplanner_mobile/core/utils/app_logger.dart';
 
@@ -28,11 +29,19 @@ class GymPlannerApp extends ConsumerWidget {
   ) {
     try {
       final router = ref.watch(appRouterProvider);
+      final localeAsync = ref.watch(
+        localeControllerProvider,
+      );
+      final currentLocale =
+          localeAsync.valueOrNull ??
+          const Locale('tr');
+
       return MaterialApp.router(
         title: 'GymPlanner',
         debugShowCheckedModeBanner: false,
         theme: AppTheme.light,
         routerConfig: router,
+        locale: currentLocale,
         localizationsDelegates: const [
           AppLocalizations.delegate,
           GlobalMaterialLocalizations.delegate,
