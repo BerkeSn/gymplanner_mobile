@@ -17,6 +17,31 @@ class WorkoutLogRepositoryImpl
   );
 
   @override
+  Future<Result<List<WorkoutLogEntity>>>
+  getWorkoutLogs() async {
+    try {
+      final dtos = await _remoteDataSource
+          .getWorkoutLogs();
+      return Success(
+        dtos
+            .map((dto) => dto.toEntity())
+            .toList(),
+      );
+    } on AppException catch (error) {
+      return Failure(error);
+    } catch (error, stackTrace) {
+      return Failure(
+        AppExceptionFactory.unexpected(
+          source:
+              'WorkoutLogRepositoryImpl - getWorkoutLogs',
+          error: error,
+          stackTrace: stackTrace,
+        ),
+      );
+    }
+  }
+
+  @override
   Future<Result<WorkoutLogEntity>>
   startWorkoutLog(int workoutRoutineId) async {
     try {

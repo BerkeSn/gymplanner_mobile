@@ -45,5 +45,23 @@ final workoutLogRepositoryProvider =
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef WorkoutLogRepositoryRef = AutoDisposeProviderRef<WorkoutLogRepository>;
+String _$completedWorkoutCountHash() =>
+    r'2211e412a48f52aa428a67ae4fce12ea855e818c';
+
+/// See also [completedWorkoutCount].
+@ProviderFor(completedWorkoutCount)
+final completedWorkoutCountProvider = AutoDisposeFutureProvider<int>.internal(
+  completedWorkoutCount,
+  name: r'completedWorkoutCountProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$completedWorkoutCountHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef CompletedWorkoutCountRef = AutoDisposeFutureProviderRef<int>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

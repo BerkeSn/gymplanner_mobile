@@ -1,26 +1,27 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'auth_controller.dart';
+part of 'nutrition_controller.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$authControllerHash() => r'09f2e4529b2009c66429c30c7b6eec351ad6aab8';
+String _$nutritionControllerHash() =>
+    r'b640cde7f205ce89f45656d9c44f6c57bbd7ca48';
 
-/// See also [AuthController].
-@ProviderFor(AuthController)
-final authControllerProvider =
-    AsyncNotifierProvider<AuthController, UserEntity?>.internal(
-      AuthController.new,
-      name: r'authControllerProvider',
+/// See also [NutritionController].
+@ProviderFor(NutritionController)
+final nutritionControllerProvider =
+    AsyncNotifierProvider<NutritionController, NutritionState>.internal(
+      NutritionController.new,
+      name: r'nutritionControllerProvider',
       debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
           ? null
-          : _$authControllerHash,
+          : _$nutritionControllerHash,
       dependencies: null,
       allTransitiveDependencies: null,
     );
 
-typedef _$AuthController = AsyncNotifier<UserEntity?>;
+typedef _$NutritionController = AsyncNotifier<NutritionState>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

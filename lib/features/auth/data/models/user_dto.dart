@@ -1,5 +1,3 @@
-// models/user_dto.dart
-
 import '../../domain/entities/user_entity.dart';
 
 class UserDto {
@@ -11,6 +9,7 @@ class UserDto {
   final String? phone;
   final String? birthdate;
   final String gender;
+  final String? locationPreference; // ⬅️ YENİ
 
   UserDto({
     required this.id,
@@ -21,6 +20,7 @@ class UserDto {
     this.phone,
     this.birthdate,
     required this.gender,
+    this.locationPreference,
   });
 
   factory UserDto.fromJson(
@@ -37,6 +37,9 @@ class UserDto {
         birthdate: json['birthdate'] as String?,
         gender:
             json['gender'] as String? ?? 'other',
+        locationPreference:
+            json['locationPreference']
+                as String?, // ⬅️ YENİ
       );
     } catch (error, stackTrace) {
       throw Exception(
@@ -57,6 +60,10 @@ class UserDto {
           ? DateTime.tryParse(birthdate!)
           : null,
       gender: GenderX.fromApi(gender),
+      locationPreference:
+          LocationPreferenceX.fromApi(
+            locationPreference ?? 'Gym',
+          ), // ⬅️ YENİ
     );
   }
 }

@@ -235,6 +235,270 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Weight and height are required.'**
   String get validationWeightHeightRequired;
+
+  /// No description provided for @nutritionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Nutrition'**
+  String get nutritionTitle;
+
+  /// No description provided for @kcalLeftLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'kcal left'**
+  String get kcalLeftLabel;
+
+  /// No description provided for @targetLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Target'**
+  String get targetLabel;
+
+  /// No description provided for @foodLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Food'**
+  String get foodLabel;
+
+  /// No description provided for @proteinLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Protein'**
+  String get proteinLabel;
+
+  /// No description provided for @carbsLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Carbs'**
+  String get carbsLabel;
+
+  /// No description provided for @fatsLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Fats'**
+  String get fatsLabel;
+
+  /// No description provided for @thirtyDayTrendTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'30-Day Trend'**
+  String get thirtyDayTrendTitle;
+
+  /// No description provided for @recentMealsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Recent Meals'**
+  String get recentMealsTitle;
+
+  /// No description provided for @addMealButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Meal'**
+  String get addMealButton;
+
+  /// No description provided for @mealNameLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Meal Name'**
+  String get mealNameLabel;
+
+  /// No description provided for @servingWeightLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Serving Weight (g)'**
+  String get servingWeightLabel;
+
+  /// No description provided for @totalCaloriesLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Calories'**
+  String get totalCaloriesLabel;
+
+  /// No description provided for @noMealsToday.
+  ///
+  /// In en, this message translates to:
+  /// **'No meals logged today.'**
+  String get noMealsToday;
+
+  /// No description provided for @mealTypeBreakfast.
+  ///
+  /// In en, this message translates to:
+  /// **'Breakfast'**
+  String get mealTypeBreakfast;
+
+  /// No description provided for @mealTypeLunch.
+  ///
+  /// In en, this message translates to:
+  /// **'Lunch'**
+  String get mealTypeLunch;
+
+  /// No description provided for @mealTypeDinner.
+  ///
+  /// In en, this message translates to:
+  /// **'Dinner'**
+  String get mealTypeDinner;
+
+  /// No description provided for @mealTypeSnack.
+  ///
+  /// In en, this message translates to:
+  /// **'Snack'**
+  String get mealTypeSnack;
+
+  /// No description provided for @saveMealButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Save Meal'**
+  String get saveMealButton;
+
+  /// No description provided for @mealSaveError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not save meal'**
+  String get mealSaveError;
+
+  /// No description provided for @validationMealNameCaloriesRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Meal name and calories are required.'**
+  String get validationMealNameCaloriesRequired;
+
+  /// No description provided for @profileTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'My Profile'**
+  String get profileTitle;
+
+  /// No description provided for @editProfileButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Profile'**
+  String get editProfileButton;
+
+  /// No description provided for @totalWorkoutsLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Workouts'**
+  String get totalWorkoutsLabel;
+
+  /// No description provided for @totalMeasurementsLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Measurements'**
+  String get totalMeasurementsLabel;
+
+  /// No description provided for @quickActionsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Quick Access'**
+  String get quickActionsTitle;
+
+  /// No description provided for @bodyMeasurementsMenuItem.
+  ///
+  /// In en, this message translates to:
+  /// **'Body Measurements'**
+  String get bodyMeasurementsMenuItem;
+
+  /// No description provided for @activeProgramMenuItem.
+  ///
+  /// In en, this message translates to:
+  /// **'Workout Programs'**
+  String get activeProgramMenuItem;
+
+  /// No description provided for @logoutButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Log Out'**
+  String get logoutButton;
+
+  /// No description provided for @logoutConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Log Out'**
+  String get logoutConfirmTitle;
+
+  /// No description provided for @logoutConfirmMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to log out of your account?'**
+  String get logoutConfirmMessage;
+
+  /// No description provided for @editProfileTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Profile'**
+  String get editProfileTitle;
+
+  /// No description provided for @firstNameLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'First Name'**
+  String get firstNameLabel;
+
+  /// No description provided for @lastNameLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Last Name'**
+  String get lastNameLabel;
+
+  /// No description provided for @usernameLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Username'**
+  String get usernameLabel;
+
+  /// No description provided for @emailLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Email'**
+  String get emailLabel;
+
+  /// No description provided for @phoneLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone'**
+  String get phoneLabel;
+
+  /// No description provided for @genderLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Gender'**
+  String get genderLabel;
+
+  /// No description provided for @locationPreferenceLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Training Preference'**
+  String get locationPreferenceLabel;
+
+  /// No description provided for @locationHome.
+  ///
+  /// In en, this message translates to:
+  /// **'At Home'**
+  String get locationHome;
+
+  /// No description provided for @locationGym.
+  ///
+  /// In en, this message translates to:
+  /// **'At the Gym'**
+  String get locationGym;
+
+  /// No description provided for @saveChangesButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Save Changes'**
+  String get saveChangesButton;
+
+  /// No description provided for @profileUpdateError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not update profile'**
+  String get profileUpdateError;
+
+  /// No description provided for @profileUpdateSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile updated'**
+  String get profileUpdateSuccess;
 }
 
 class _AppLocalizationsDelegate

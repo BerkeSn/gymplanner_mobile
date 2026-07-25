@@ -1,26 +1,27 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'auth_controller.dart';
+part of 'edit_profile_controller.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$authControllerHash() => r'09f2e4529b2009c66429c30c7b6eec351ad6aab8';
+String _$editProfileControllerHash() =>
+    r'38b046be7786c6d52c7538a4856c9f778e04ca25';
 
-/// See also [AuthController].
-@ProviderFor(AuthController)
-final authControllerProvider =
-    AsyncNotifierProvider<AuthController, UserEntity?>.internal(
-      AuthController.new,
-      name: r'authControllerProvider',
+/// See also [EditProfileController].
+@ProviderFor(EditProfileController)
+final editProfileControllerProvider =
+    AutoDisposeAsyncNotifierProvider<EditProfileController, void>.internal(
+      EditProfileController.new,
+      name: r'editProfileControllerProvider',
       debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
           ? null
-          : _$authControllerHash,
+          : _$editProfileControllerHash,
       dependencies: null,
       allTransitiveDependencies: null,
     );
 
-typedef _$AuthController = AsyncNotifier<UserEntity?>;
+typedef _$EditProfileController = AutoDisposeAsyncNotifier<void>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

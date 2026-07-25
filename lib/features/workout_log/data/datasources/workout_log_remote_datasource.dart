@@ -95,4 +95,39 @@ class WorkoutLogRemoteDataSource {
     }
     return null;
   }
+
+  Future<List<WorkoutLogDto>>
+  getWorkoutLogs() async {
+    try {
+      final response = await _dio.get(
+        '/workoutlogs/getWorkoutLogs',
+      );
+      final list = response.data as List<dynamic>;
+      return list
+          .map(
+            (json) => WorkoutLogDto.fromJson(
+              json as Map<String, dynamic>,
+            ),
+          )
+          .toList();
+    } on DioException catch (error, stackTrace) {
+      throw AppExceptionFactory.network(
+        source:
+            'WorkoutLogRemoteDataSource - getWorkoutLogs',
+        message:
+            _extractMessage(error) ??
+            'Antrenman geçmişi alınamadı.',
+        originalError: error,
+        stackTrace: stackTrace,
+      );
+    } catch (error, stackTrace) {
+      throw AppExceptionFactory.unexpected(
+        source:
+            'WorkoutLogRemoteDataSource - getWorkoutLogs',
+        error: error,
+        stackTrace: stackTrace,
+      );
+    }
+  }
+
 }

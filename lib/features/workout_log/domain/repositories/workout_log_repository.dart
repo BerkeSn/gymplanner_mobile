@@ -6,6 +6,10 @@ import 'package:gymplanner_mobile/features/workout_log/domain/entites/workout_se
 import '../../../../core/error/result.dart';
 
 abstract class WorkoutLogRepository {
+
+  Future<Result<List<WorkoutLogEntity>>>
+  getWorkoutLogs();
+
   Future<Result<WorkoutLogEntity>>
   startWorkoutLog(int workoutRoutineId);
 

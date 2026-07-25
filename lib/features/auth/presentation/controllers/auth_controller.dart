@@ -1,5 +1,6 @@
 // presentation/controllers/auth_controller.dart
 
+import 'package:gymplanner_mobile/core/utils/app_logger.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../../core/error/result.dart';
@@ -116,4 +117,23 @@ class AuthController extends _$AuthController {
       return null;
     }
   }
+
+  Future<void> logout() async {
+    try {
+      final repository = ref.read(
+        authRepositoryProvider,
+      );
+      await repository.logout();
+      state = const AsyncData(null);
+    } catch (error, stackTrace) {
+      AppLogger.error(
+        'AuthController - logout',
+        error,
+        stackTrace,
+      );
+      // Token silinemese bile UI'ı login'e döndür — kullanıcı sıkışıp kalmasın.
+      state = const AsyncData(null);
+    }
+  }
+
 }
