@@ -211,4 +211,70 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get profileUpdateSuccess => 'Profil güncellendi';
+
+  @override
+  String get addFriendsTitle => 'Arkadaş Ekle';
+
+  @override
+  String get searchByNameHint => 'İsim veya kullanıcı adıyla ara';
+
+  @override
+  String get addButton => 'Ekle';
+
+  @override
+  String get requestSentLabel => 'İstek Gönderildi';
+
+  @override
+  String get pendingRequestsTitle => 'Bekleyen İstekler';
+
+  @override
+  String get acceptButton => 'Kabul Et';
+
+  @override
+  String get declineButton => 'Reddet';
+
+  @override
+  String get noSearchResults => 'Sonuç bulunamadı.';
+
+  @override
+  String get noPendingRequests => 'Bekleyen istek yok.';
+
+  @override
+  String get searchMinCharsHint => 'Aramak için en az 2 karakter gir.';
+
+  @override
+  String get friendRequestError => 'İstek gönderilemedi';
+
+  @override
+  String get respondRequestError => 'İşlem gerçekleştirilemedi';
+
+  @override
+  String get messagesTitle => 'Mesajlar';
+
+  @override
+  String get chatsTab => 'Sohbetler';
+
+  @override
+  String get friendsTab => 'Arkadaşlar';
+
+  @override
+  String get messageButtonLabel => 'Mesaj';
+
+  @override
+  String get typeMessageHint => 'Mesaj yaz...';
+
+  @override
+  String get noConversationsYet => 'Henüz bir sohbetin yok.';
+
+  @override
+  String get noMessagesYet => 'Henüz mesaj yok. İlk mesajı sen gönder!';
+
+  @override
+  String get noFriendsYet => 'Henüz arkadaşın yok.';
+
+  @override
+  String get conversationStartError => 'Sohbet başlatılamadı';
+
+  @override
+  String get messageSendError => 'Mesaj gönderilemedi';
 }

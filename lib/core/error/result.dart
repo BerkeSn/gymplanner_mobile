@@ -17,3 +17,10 @@ class Failure<T> extends Result<T> {
   final AppException exception;
   const Failure(this.exception);
 }
+
+extension ResultX<T> on Result<T> {
+  T? get valueOrNull => switch (this) {
+    Success<T>(data: final data) => data,
+    Failure<T>() => null,
+  };
+}

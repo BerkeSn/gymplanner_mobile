@@ -212,4 +212,70 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get profileUpdateSuccess => 'Profile updated';
+
+  @override
+  String get addFriendsTitle => 'Add Friends';
+
+  @override
+  String get searchByNameHint => 'Search by name or username';
+
+  @override
+  String get addButton => 'Add';
+
+  @override
+  String get requestSentLabel => 'Request Sent';
+
+  @override
+  String get pendingRequestsTitle => 'Pending Requests';
+
+  @override
+  String get acceptButton => 'Accept';
+
+  @override
+  String get declineButton => 'Decline';
+
+  @override
+  String get noSearchResults => 'No results found.';
+
+  @override
+  String get noPendingRequests => 'No pending requests.';
+
+  @override
+  String get searchMinCharsHint => 'Type at least 2 characters to search.';
+
+  @override
+  String get friendRequestError => 'Could not send request';
+
+  @override
+  String get respondRequestError => 'Could not complete action';
+
+  @override
+  String get messagesTitle => 'Messages';
+
+  @override
+  String get chatsTab => 'Chats';
+
+  @override
+  String get friendsTab => 'Friends';
+
+  @override
+  String get messageButtonLabel => 'Message';
+
+  @override
+  String get typeMessageHint => 'Type a message...';
+
+  @override
+  String get noConversationsYet => 'You don\'t have any conversations yet.';
+
+  @override
+  String get noMessagesYet => 'No messages yet. Send the first one!';
+
+  @override
+  String get noFriendsYet => 'You don\'t have any friends yet.';
+
+  @override
+  String get conversationStartError => 'Could not start conversation';
+
+  @override
+  String get messageSendError => 'Could not send message';
 }

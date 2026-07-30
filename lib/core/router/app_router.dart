@@ -41,19 +41,23 @@ GoRouter appRouter(AppRouterRef ref) {
       routes: [
         GoRoute(
           path: AppRoutes.splash,
-          builder: (context, state) => const SplashPage(),
+          builder: (context, state) =>
+              const SplashPage(),
         ),
         GoRoute(
           path: AppRoutes.login,
-          builder: (context, state) => const LoginPage(),
+          builder: (context, state) =>
+              const LoginPage(),
         ),
         GoRoute(
           path: AppRoutes.signupStep1,
-          builder: (context, state) => const SignupStep1Page(),
+          builder: (context, state) =>
+              const SignupStep1Page(),
         ),
         GoRoute(
           path: AppRoutes.signupStep2,
-          builder: (context, state) => const SignupStep2Page(),
+          builder: (context, state) =>
+              const SignupStep2Page(),
         ),
 
         // ❌ SİLİNDİ: Shell dışındaki çakışan '/insights' ve '/nutrition'
@@ -61,15 +65,20 @@ GoRouter appRouter(AppRouterRef ref) {
 
         // Bottom nav shell — 5 bağımsız sekme, HER path SADECE burada tanımlı.
         StatefulShellRoute.indexedStack(
-          builder: (context, state, navigationShell) {
-            return AppShell(navigationShell: navigationShell);
-          },
+          builder:
+              (context, state, navigationShell) {
+                return AppShell(
+                  navigationShell:
+                      navigationShell,
+                );
+              },
           branches: [
             StatefulShellBranch(
               routes: [
                 GoRoute(
                   path: AppRoutes.nutrition,
-                  builder: (context, state) => const CalorieTrackerPage(), // ⬅️ DÜZELTİ: placeholder değil, gerçek sayfa
+                  builder: (context, state) =>
+                      const CalorieTrackerPage(), // ⬅️ DÜZELTİ: placeholder değil, gerçek sayfa
                 ),
               ],
             ),
@@ -77,7 +86,8 @@ GoRouter appRouter(AppRouterRef ref) {
               routes: [
                 GoRoute(
                   path: AppRoutes.dashboard,
-                  builder: (context, state) => const HomeDashboardPage(),
+                  builder: (context, state) =>
+                      const HomeDashboardPage(),
                 ),
               ],
             ),
@@ -94,7 +104,8 @@ GoRouter appRouter(AppRouterRef ref) {
               routes: [
                 GoRoute(
                   path: AppRoutes.fitness,
-                  builder: (context, state) => const WorkoutProgramsPage(),
+                  builder: (context, state) =>
+                      const WorkoutProgramsPage(),
                 ),
               ],
             ),
@@ -112,6 +123,8 @@ GoRouter appRouter(AppRouterRef ref) {
       ],
     );
   } catch (error, stackTrace) {
-    throw Exception('[app_router - appRouter]: ${error.toString()}\n$stackTrace');
+    throw Exception(
+      '[app_router - appRouter]: ${error.toString()}\n$stackTrace',
+    );
   }
 }

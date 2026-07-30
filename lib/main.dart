@@ -6,7 +6,9 @@ import 'package:gymplanner_mobile/core/locale/locale_controller.dart';
 import 'package:gymplanner_mobile/core/router/app_router.dart';
 import 'package:gymplanner_mobile/core/utils/app_logger.dart';
 
+import 'core/socket/socket_service.dart';
 import 'core/theme/app_theme.dart';
+import 'features/auth/presentation/controllers/auth_controller.dart';
 import 'l10n/app_localizations.dart';
 
 void main() {
@@ -35,6 +37,27 @@ class GymPlannerApp extends ConsumerWidget {
       final currentLocale =
           localeAsync.valueOrNull ??
           const Locale('tr');
+
+      ref.listen(authControllerProvider, (
+        previous,
+        next,
+      ) {
+        try {
+          final socketService = ref.read(
+            socketServiceProvider,
+          );
+          final user = next.valueOrNull;
+          if (user != null) {
+            socketService.connect(user.id);
+          } else {
+            socketService.disconnect();
+          }
+        } catch (error, stackTrace) {
+          debugPrint(
+            '[main - authControllerProvider listener]: $error\n$stackTrace',
+          );
+        }
+      });
 
       return MaterialApp.router(
         title: 'GymPlanner',

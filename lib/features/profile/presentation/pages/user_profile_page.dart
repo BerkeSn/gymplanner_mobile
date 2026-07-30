@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:gymplanner_mobile/features/body_measurement/presentation/controller/body_measurement_controller.dart';
+import 'package:gymplanner_mobile/features/messaging/presentation/pages/messages_page.dart';
+import 'package:gymplanner_mobile/features/social/presentation/pages/add_friends_page.dart';
 
 import '../../../../core/router/app_router.dart';
 import '../../../../core/theme/app_colors.dart';
@@ -179,6 +181,32 @@ class UserProfilePage extends ConsumerWidget {
               onTap: () =>
                   context.go(AppRoutes.fitness),
             ),
+            const SizedBox(height: AppSpacing.sm),
+            _MenuRow(
+              icon: Icons.person_add_outlined,
+              label: l10n.addFriendsTitle,
+              onTap: () =>
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (_) =>
+                          const AddFriendsPage(),
+                    ),
+                  ),
+            ),
+
+            const SizedBox(height: AppSpacing.sm),
+            _MenuRow(
+              icon: Icons.chat_bubble_outline,
+              label: l10n.messagesTitle,
+              onTap: () =>
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (_) =>
+                          const MessagesPage(),
+                    ),
+                  ),
+            ),
+            
             const SizedBox(height: AppSpacing.xl),
             SizedBox(
               width: double.infinity,

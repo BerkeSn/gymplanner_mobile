@@ -14,8 +14,17 @@ class EnvConfig {
   static const String apiBaseUrl =
       String.fromEnvironment(
         'API_BASE_URL',
-        defaultValue: 'https://gymplanner-80ny.onrender.com/api',
+        defaultValue: 'https://gymplanner-0ppj.onrender.com/api',
       );
+
+  static String get socketBaseUrl {
+    return apiBaseUrl.endsWith('/api')
+        ? apiBaseUrl.substring(
+            0,
+            apiBaseUrl.length - 4,
+          )
+        : apiBaseUrl;
+  }
 
   static const Duration connectTimeout = Duration(
     seconds: 90,

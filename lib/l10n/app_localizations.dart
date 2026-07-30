@@ -499,6 +499,138 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Profile updated'**
   String get profileUpdateSuccess;
+
+  /// No description provided for @addFriendsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Friends'**
+  String get addFriendsTitle;
+
+  /// No description provided for @searchByNameHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Search by name or username'**
+  String get searchByNameHint;
+
+  /// No description provided for @addButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Add'**
+  String get addButton;
+
+  /// No description provided for @requestSentLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Request Sent'**
+  String get requestSentLabel;
+
+  /// No description provided for @pendingRequestsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Pending Requests'**
+  String get pendingRequestsTitle;
+
+  /// No description provided for @acceptButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Accept'**
+  String get acceptButton;
+
+  /// No description provided for @declineButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Decline'**
+  String get declineButton;
+
+  /// No description provided for @noSearchResults.
+  ///
+  /// In en, this message translates to:
+  /// **'No results found.'**
+  String get noSearchResults;
+
+  /// No description provided for @noPendingRequests.
+  ///
+  /// In en, this message translates to:
+  /// **'No pending requests.'**
+  String get noPendingRequests;
+
+  /// No description provided for @searchMinCharsHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Type at least 2 characters to search.'**
+  String get searchMinCharsHint;
+
+  /// No description provided for @friendRequestError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not send request'**
+  String get friendRequestError;
+
+  /// No description provided for @respondRequestError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not complete action'**
+  String get respondRequestError;
+
+  /// No description provided for @messagesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Messages'**
+  String get messagesTitle;
+
+  /// No description provided for @chatsTab.
+  ///
+  /// In en, this message translates to:
+  /// **'Chats'**
+  String get chatsTab;
+
+  /// No description provided for @friendsTab.
+  ///
+  /// In en, this message translates to:
+  /// **'Friends'**
+  String get friendsTab;
+
+  /// No description provided for @messageButtonLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Message'**
+  String get messageButtonLabel;
+
+  /// No description provided for @typeMessageHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Type a message...'**
+  String get typeMessageHint;
+
+  /// No description provided for @noConversationsYet.
+  ///
+  /// In en, this message translates to:
+  /// **'You don\'t have any conversations yet.'**
+  String get noConversationsYet;
+
+  /// No description provided for @noMessagesYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No messages yet. Send the first one!'**
+  String get noMessagesYet;
+
+  /// No description provided for @noFriendsYet.
+  ///
+  /// In en, this message translates to:
+  /// **'You don\'t have any friends yet.'**
+  String get noFriendsYet;
+
+  /// No description provided for @conversationStartError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not start conversation'**
+  String get conversationStartError;
+
+  /// No description provided for @messageSendError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not send message'**
+  String get messageSendError;
 }
 
 class _AppLocalizationsDelegate

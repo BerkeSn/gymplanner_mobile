@@ -46,7 +46,7 @@ final workoutLogRepositoryProvider =
 // ignore: unused_element
 typedef WorkoutLogRepositoryRef = AutoDisposeProviderRef<WorkoutLogRepository>;
 String _$completedWorkoutCountHash() =>
-    r'2211e412a48f52aa428a67ae4fce12ea855e818c';
+    r'50413a65631aff1a4a71daa0cb1736bddf265f63';
 
 /// See also [completedWorkoutCount].
 @ProviderFor(completedWorkoutCount)
