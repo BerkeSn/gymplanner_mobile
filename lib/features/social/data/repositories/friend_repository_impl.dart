@@ -2,6 +2,7 @@
 
 import 'package:gymplanner_mobile/features/social/data/datasource/friend_remote_datasource.dart';
 import 'package:gymplanner_mobile/features/social/domain/entites/friendship_request_entity.dart';
+import 'package:gymplanner_mobile/features/social/domain/entites/public_profile_entity.dart';
 import 'package:gymplanner_mobile/features/social/domain/entites/user_summary_entity.dart';
 
 import '../../../../core/error/app_exception.dart';
@@ -14,6 +15,27 @@ class FriendRepositoryImpl
   const FriendRepositoryImpl(
     this._remoteDataSource,
   );
+
+  @override
+  Future<Result<PublicProfileEntity>>
+  getPublicProfile(int userId) async {
+    try {
+      final dto = await _remoteDataSource
+          .getPublicProfile(userId);
+      return Success(dto.toEntity());
+    } on AppException catch (error) {
+      return Failure(error);
+    } catch (error, stackTrace) {
+      return Failure(
+        AppExceptionFactory.unexpected(
+          source:
+              'FriendRepositoryImpl - getPublicProfile',
+          error: error,
+          stackTrace: stackTrace,
+        ),
+      );
+    }
+  }
 
   @override
   Future<Result<List<UserSummaryEntity>>>

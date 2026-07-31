@@ -88,5 +88,11 @@
   "noMessagesYet": "No messages yet. Send the first one!",
   "noFriendsYet": "You don't have any friends yet.",
   "conversationStartError": "Could not start conversation",
-  "messageSendError": "Could not send message"
+  "messageSendError": "Could not send message",
+  "addFriendButton": "Add Friend",
+  "friendshipRequestSentLabel": "Request Sent",
+  "friendshipRequestReceivedLabel": "Sent you a request",
+  "friendsStatusLabel": "You're Friends",
+  "friendshipRejectedLabel": "Previous interaction ended with this user",
+  "profileLoadError": "Could not load profile"
 }

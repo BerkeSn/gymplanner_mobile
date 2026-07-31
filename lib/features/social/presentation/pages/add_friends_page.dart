@@ -4,6 +4,7 @@ import 'package:gymplanner_mobile/features/social/domain/entites/friendship_requ
 import 'package:gymplanner_mobile/features/social/domain/entites/user_summary_entity.dart';
 import 'package:gymplanner_mobile/features/social/presentation/controller/pending_requests_controller.dart';
 import 'package:gymplanner_mobile/features/social/presentation/controller/user_search_controller.dart';
+import 'package:gymplanner_mobile/features/social/presentation/pages/public_profile_page.dart';
 
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_spacing.dart';
@@ -184,50 +185,63 @@ class _SearchResultTile extends StatelessWidget {
       padding: const EdgeInsets.only(
         bottom: AppSpacing.sm,
       ),
-      child: Row(
-        children: [
-          CircleAvatar(
-            backgroundColor:
-                AppColors.primaryContainer,
-            child: Text(
-              user.displayName.isNotEmpty
-                  ? user.displayName[0]
-                        .toUpperCase()
-                  : '?',
-              style: const TextStyle(
-                color:
-                    AppColors.onPrimaryContainer,
+      child: InkWell(
+        // ⬅️ YENİ SARMALAYICI
+        onTap: () => Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (_) => PublicProfilePage(
+              userId: user.id,
+            ),
+          ),
+        ),
+        borderRadius: BorderRadius.circular(12),
+        child: Row(
+          children: [
+            CircleAvatar(
+              backgroundColor:
+                  AppColors.primaryContainer,
+              child: Text(
+                user.displayName.isNotEmpty
+                    ? user.displayName[0]
+                          .toUpperCase()
+                    : '?',
+                style: const TextStyle(
+                  color: AppColors
+                      .onPrimaryContainer,
+                ),
               ),
             ),
-          ),
-          const SizedBox(width: AppSpacing.md),
-          Expanded(
-            child: Column(
-              crossAxisAlignment:
-                  CrossAxisAlignment.start,
-              children: [
-                Text(
-                  user.displayName,
-                  style: AppTextStyles.bodyLarge,
-                ),
-                Text(
-                  '@${user.username}',
-                  style: AppTextStyles.bodyMedium,
-                ),
-              ],
-            ),
-          ),
-          isRequested
-              ? Chip(
-                  label: Text(
-                    l10n.requestSentLabel,
+            const SizedBox(width: AppSpacing.md),
+            Expanded(
+              child: Column(
+                crossAxisAlignment:
+                    CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    user.displayName,
+                    style:
+                        AppTextStyles.bodyLarge,
                   ),
-                )
-              : FilledButton(
-                  onPressed: onAdd,
-                  child: Text(l10n.addButton),
-                ),
-        ],
+                  Text(
+                    '@${user.username}',
+                    style:
+                        AppTextStyles.bodyMedium,
+                  ),
+                ],
+              ),
+            ),
+            isRequested
+                ? Chip(
+                    label: Text(
+                      l10n.requestSentLabel,
+                    ),
+                  )
+                : FilledButton(
+                    onPressed: onAdd,
+                    child: Text(l10n.addButton),
+                  ),
+          ],
+        ),
       ),
     );
   }

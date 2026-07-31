@@ -278,4 +278,23 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get messageSendError => 'Could not send message';
+
+  @override
+  String get addFriendButton => 'Add Friend';
+
+  @override
+  String get friendshipRequestSentLabel => 'Request Sent';
+
+  @override
+  String get friendshipRequestReceivedLabel => 'Sent you a request';
+
+  @override
+  String get friendsStatusLabel => 'You\'re Friends';
+
+  @override
+  String get friendshipRejectedLabel =>
+      'Previous interaction ended with this user';
+
+  @override
+  String get profileLoadError => 'Could not load profile';
 }

@@ -631,6 +631,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Could not send message'**
   String get messageSendError;
+
+  /// No description provided for @addFriendButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Friend'**
+  String get addFriendButton;
+
+  /// No description provided for @friendshipRequestSentLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Request Sent'**
+  String get friendshipRequestSentLabel;
+
+  /// No description provided for @friendshipRequestReceivedLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Sent you a request'**
+  String get friendshipRequestReceivedLabel;
+
+  /// No description provided for @friendsStatusLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'re Friends'**
+  String get friendsStatusLabel;
+
+  /// No description provided for @friendshipRejectedLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Previous interaction ended with this user'**
+  String get friendshipRejectedLabel;
+
+  /// No description provided for @profileLoadError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load profile'**
+  String get profileLoadError;
 }
 
 class _AppLocalizationsDelegate

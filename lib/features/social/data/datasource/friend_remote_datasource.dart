@@ -1,6 +1,7 @@
 // datasources/friend_remote_datasource.dart
 
 import 'package:dio/dio.dart';
+import 'package:gymplanner_mobile/features/social/data/models/public_profile_dto.dart';
 
 import '../../../../core/error/app_exception.dart';
 import '../models/friendship_request_dto.dart';
@@ -190,5 +191,35 @@ class FriendRemoteDataSource {
           ?.toString();
     }
     return null;
+  }
+
+  Future<PublicProfileDto> getPublicProfile(
+    int userId,
+  ) async {
+    try {
+      final response = await _dio.get(
+        '/user/getPublicProfile/$userId',
+      );
+      final data =
+          response.data as Map<String, dynamic>;
+      return PublicProfileDto.fromJson(data);
+    } on DioException catch (error, stackTrace) {
+      throw AppExceptionFactory.network(
+        source:
+            'FriendRemoteDataSource - getPublicProfile',
+        message:
+            _extractMessage(error) ??
+            'Profil alınamadı.',
+        originalError: error,
+        stackTrace: stackTrace,
+      );
+    } catch (error, stackTrace) {
+      throw AppExceptionFactory.unexpected(
+        source:
+            'FriendRemoteDataSource - getPublicProfile',
+        error: error,
+        stackTrace: stackTrace,
+      );
+    }
   }
 }

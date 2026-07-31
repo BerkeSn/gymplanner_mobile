@@ -88,5 +88,11 @@
   "noMessagesYet": "Henüz mesaj yok. İlk mesajı sen gönder!",
   "noFriendsYet": "Henüz arkadaşın yok.",
   "conversationStartError": "Sohbet başlatılamadı",
-  "messageSendError": "Mesaj gönderilemedi"
+  "messageSendError": "Mesaj gönderilemedi",
+  "addFriendButton": "Arkadaş Ekle",
+  "friendshipRequestSentLabel": "İstek Gönderildi",
+  "friendshipRequestReceivedLabel": "Sana istek gönderdi",
+  "friendsStatusLabel": "Arkadaşsınız",
+  "friendshipRejectedLabel": "Bu kullanıcıyla önceki etkileşim sonlanmış",
+  "profileLoadError": "Profil yüklenemedi"
 }

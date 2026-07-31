@@ -277,4 +277,23 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get messageSendError => 'Mesaj gönderilemedi';
+
+  @override
+  String get addFriendButton => 'Arkadaş Ekle';
+
+  @override
+  String get friendshipRequestSentLabel => 'İstek Gönderildi';
+
+  @override
+  String get friendshipRequestReceivedLabel => 'Sana istek gönderdi';
+
+  @override
+  String get friendsStatusLabel => 'Arkadaşsınız';
+
+  @override
+  String get friendshipRejectedLabel =>
+      'Bu kullanıcıyla önceki etkileşim sonlanmış';
+
+  @override
+  String get profileLoadError => 'Profil yüklenemedi';
 }
