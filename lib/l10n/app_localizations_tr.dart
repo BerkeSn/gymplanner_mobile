@@ -296,4 +296,101 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get profileLoadError => 'Profil yüklenemedi';
+
+  @override
+  String get insightsTitle => 'Analiz';
+
+  @override
+  String get measurementsTab => 'Ölçümler';
+
+  @override
+  String get consistencyTab => 'Disiplin';
+
+  @override
+  String get currentStreakLabel => 'Güncel Seri';
+
+  @override
+  String get longestStreakLabel => 'En Uzun Seri';
+
+  @override
+  String get totalActiveLabel => 'Toplam Aktif';
+
+  @override
+  String get totalMissedLabel => 'Toplam Kaçırılan';
+
+  @override
+  String get consistencyLabel => 'Tutarlılık';
+
+  @override
+  String get activeDayLegend => 'Aktif';
+
+  @override
+  String get missedDayLegend => 'Kaçırıldı';
+
+  @override
+  String get consecutiveDaysLabel => 'Ardışık Gün';
+
+  @override
+  String get allTimeRecordLabel => 'Tüm Zamanlar Rekoru';
+
+  @override
+  String get fitnessTitle => 'Antrenman';
+
+  @override
+  String get myProgramsTab => 'Programlarım';
+
+  @override
+  String get libraryTab => 'Kütüphane';
+
+  @override
+  String get noProgramsYet => 'Henüz bir program oluşturmadın.';
+
+  @override
+  String get startWalkBanner => 'Yürüyüş Başlat';
+
+  @override
+  String get activeWalkTitle => 'Aktif Yürüyüş';
+
+  @override
+  String get stepsLabel => 'Adım';
+
+  @override
+  String get distanceLabel => 'Mesafe';
+
+  @override
+  String get durationLabel => 'Süre';
+
+  @override
+  String get pauseButton => 'Duraklat';
+
+  @override
+  String get resumeButton => 'Devam Et';
+
+  @override
+  String get finishButton => 'Bitir';
+
+  @override
+  String get walkFinishedTitle => 'Yürüyüş Tamamlandı';
+
+  @override
+  String get greatSessionLabel => 'Harika bir seans!';
+
+  @override
+  String get caloriesEstimateLabel => 'Tahmini Kalori';
+
+  @override
+  String get doneButton => 'Tamam';
+
+  @override
+  String get locationPermissionDenied =>
+      'Konum izni verilmeden yürüyüş takibi yapılamaz.';
+
+  @override
+  String get walkHistoryTitle => 'Yürüyüş Geçmişi';
+
+  @override
+  String get noWalksYet => 'Henüz bir yürüyüş kaydın yok.';
+
+  @override
+  String get walkSaveError => 'Yürüyüş kaydedilemedi';
 }

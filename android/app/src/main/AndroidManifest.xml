@@ -1,4 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    // Değiştirilen kısımlar: AndroidManifest.xml dosyasına konum ve aktivite tanıma izinleri eklendi.
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION"/>
+    
     <application
         android:label="gymplanner_mobile"
         android:name="${applicationName}"

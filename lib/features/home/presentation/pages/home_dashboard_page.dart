@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gymplanner_mobile/core/widgets/language_toggle_button.dart';
+import 'package:gymplanner_mobile/features/walk_tracking/presentation/pages/active_walk_page.dart';
+import 'package:gymplanner_mobile/l10n/app_localizations.dart';
 
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_spacing.dart';
@@ -67,6 +69,12 @@ class HomeDashboardPage extends ConsumerWidget {
                   height: AppSpacing.lg,
                 ),
                 const _ActiveRoutineCard(),
+
+                const SizedBox(
+                  height: AppSpacing.lg,
+                ),
+                _StartWalkBanner(),
+
                 const SizedBox(
                   height: AppSpacing.lg,
                 ),
@@ -403,6 +411,53 @@ class _NutritionSummarySection
           ),
         ),
       ],
+    );
+  }
+}
+
+class _StartWalkBanner extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    return InkWell(
+      onTap: () => Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (_) => const ActiveWalkPage(),
+        ),
+      ),
+      borderRadius: BorderRadius.circular(16),
+      child: Container(
+        padding: const EdgeInsets.all(
+          AppSpacing.lg,
+        ),
+        decoration: BoxDecoration(
+          color: AppColors.primaryContainer,
+          borderRadius: BorderRadius.circular(16),
+        ),
+        child: Row(
+          children: [
+            const Icon(
+              Icons.directions_walk,
+              color: AppColors.onPrimaryContainer,
+            ),
+            const SizedBox(width: AppSpacing.md),
+            Expanded(
+              child: Text(
+                l10n.startWalkBanner,
+                style: AppTextStyles.bodyLarge
+                    .copyWith(
+                      color: AppColors
+                          .onPrimaryContainer,
+                    ),
+              ),
+            ),
+            const Icon(
+              Icons.chevron_right,
+              color: AppColors.onPrimaryContainer,
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

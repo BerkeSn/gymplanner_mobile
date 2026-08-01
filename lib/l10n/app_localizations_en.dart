@@ -297,4 +297,101 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get profileLoadError => 'Could not load profile';
+
+  @override
+  String get insightsTitle => 'Insights';
+
+  @override
+  String get measurementsTab => 'Measurements';
+
+  @override
+  String get consistencyTab => 'Consistency';
+
+  @override
+  String get currentStreakLabel => 'Current Streak';
+
+  @override
+  String get longestStreakLabel => 'Longest Streak';
+
+  @override
+  String get totalActiveLabel => 'Total Active';
+
+  @override
+  String get totalMissedLabel => 'Total Missed';
+
+  @override
+  String get consistencyLabel => 'Consistency';
+
+  @override
+  String get activeDayLegend => 'Active';
+
+  @override
+  String get missedDayLegend => 'Missed';
+
+  @override
+  String get consecutiveDaysLabel => 'Consecutive Days';
+
+  @override
+  String get allTimeRecordLabel => 'All-time Record';
+
+  @override
+  String get fitnessTitle => 'Fitness';
+
+  @override
+  String get myProgramsTab => 'My Programs';
+
+  @override
+  String get libraryTab => 'Library';
+
+  @override
+  String get noProgramsYet => 'You haven\'t created a program yet.';
+
+  @override
+  String get startWalkBanner => 'Start Walking';
+
+  @override
+  String get activeWalkTitle => 'Active Walk';
+
+  @override
+  String get stepsLabel => 'Steps';
+
+  @override
+  String get distanceLabel => 'Distance';
+
+  @override
+  String get durationLabel => 'Duration';
+
+  @override
+  String get pauseButton => 'Pause';
+
+  @override
+  String get resumeButton => 'Resume';
+
+  @override
+  String get finishButton => 'Finish';
+
+  @override
+  String get walkFinishedTitle => 'Walk Finished';
+
+  @override
+  String get greatSessionLabel => 'Great session!';
+
+  @override
+  String get caloriesEstimateLabel => 'Estimated Calories';
+
+  @override
+  String get doneButton => 'Done';
+
+  @override
+  String get locationPermissionDenied =>
+      'Walk tracking requires location permission.';
+
+  @override
+  String get walkHistoryTitle => 'Walk History';
+
+  @override
+  String get noWalksYet => 'You don\'t have any walks yet.';
+
+  @override
+  String get walkSaveError => 'Could not save walk';
 }

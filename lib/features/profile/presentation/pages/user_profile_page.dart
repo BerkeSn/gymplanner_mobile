@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:gymplanner_mobile/features/body_measurement/presentation/controller/body_measurement_controller.dart';
 import 'package:gymplanner_mobile/features/messaging/presentation/pages/messages_page.dart';
 import 'package:gymplanner_mobile/features/social/presentation/pages/add_friends_page.dart';
+import 'package:gymplanner_mobile/features/walk_tracking/presentation/pages/walk_history_page.dart';
 
 import '../../../../core/router/app_router.dart';
 import '../../../../core/theme/app_colors.dart';
@@ -203,6 +204,19 @@ class UserProfilePage extends ConsumerWidget {
                     MaterialPageRoute(
                       builder: (_) =>
                           const MessagesPage(),
+                    ),
+                  ),
+            ),
+
+            const SizedBox(height: AppSpacing.sm),
+            _MenuRow(
+              icon: Icons.directions_walk,
+              label: l10n.walkHistoryTitle,
+              onTap: () =>
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (_) =>
+                          const WalkHistoryPage(),
                     ),
                   ),
             ),

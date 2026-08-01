@@ -667,6 +667,198 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Could not load profile'**
   String get profileLoadError;
+
+  /// No description provided for @insightsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Insights'**
+  String get insightsTitle;
+
+  /// No description provided for @measurementsTab.
+  ///
+  /// In en, this message translates to:
+  /// **'Measurements'**
+  String get measurementsTab;
+
+  /// No description provided for @consistencyTab.
+  ///
+  /// In en, this message translates to:
+  /// **'Consistency'**
+  String get consistencyTab;
+
+  /// No description provided for @currentStreakLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Current Streak'**
+  String get currentStreakLabel;
+
+  /// No description provided for @longestStreakLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Longest Streak'**
+  String get longestStreakLabel;
+
+  /// No description provided for @totalActiveLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Active'**
+  String get totalActiveLabel;
+
+  /// No description provided for @totalMissedLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Missed'**
+  String get totalMissedLabel;
+
+  /// No description provided for @consistencyLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Consistency'**
+  String get consistencyLabel;
+
+  /// No description provided for @activeDayLegend.
+  ///
+  /// In en, this message translates to:
+  /// **'Active'**
+  String get activeDayLegend;
+
+  /// No description provided for @missedDayLegend.
+  ///
+  /// In en, this message translates to:
+  /// **'Missed'**
+  String get missedDayLegend;
+
+  /// No description provided for @consecutiveDaysLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Consecutive Days'**
+  String get consecutiveDaysLabel;
+
+  /// No description provided for @allTimeRecordLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'All-time Record'**
+  String get allTimeRecordLabel;
+
+  /// No description provided for @fitnessTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Fitness'**
+  String get fitnessTitle;
+
+  /// No description provided for @myProgramsTab.
+  ///
+  /// In en, this message translates to:
+  /// **'My Programs'**
+  String get myProgramsTab;
+
+  /// No description provided for @libraryTab.
+  ///
+  /// In en, this message translates to:
+  /// **'Library'**
+  String get libraryTab;
+
+  /// No description provided for @noProgramsYet.
+  ///
+  /// In en, this message translates to:
+  /// **'You haven\'t created a program yet.'**
+  String get noProgramsYet;
+
+  /// No description provided for @startWalkBanner.
+  ///
+  /// In en, this message translates to:
+  /// **'Start Walking'**
+  String get startWalkBanner;
+
+  /// No description provided for @activeWalkTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Active Walk'**
+  String get activeWalkTitle;
+
+  /// No description provided for @stepsLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Steps'**
+  String get stepsLabel;
+
+  /// No description provided for @distanceLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Distance'**
+  String get distanceLabel;
+
+  /// No description provided for @durationLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Duration'**
+  String get durationLabel;
+
+  /// No description provided for @pauseButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Pause'**
+  String get pauseButton;
+
+  /// No description provided for @resumeButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Resume'**
+  String get resumeButton;
+
+  /// No description provided for @finishButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Finish'**
+  String get finishButton;
+
+  /// No description provided for @walkFinishedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Walk Finished'**
+  String get walkFinishedTitle;
+
+  /// No description provided for @greatSessionLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Great session!'**
+  String get greatSessionLabel;
+
+  /// No description provided for @caloriesEstimateLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Estimated Calories'**
+  String get caloriesEstimateLabel;
+
+  /// No description provided for @doneButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get doneButton;
+
+  /// No description provided for @locationPermissionDenied.
+  ///
+  /// In en, this message translates to:
+  /// **'Walk tracking requires location permission.'**
+  String get locationPermissionDenied;
+
+  /// No description provided for @walkHistoryTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Walk History'**
+  String get walkHistoryTitle;
+
+  /// No description provided for @noWalksYet.
+  ///
+  /// In en, this message translates to:
+  /// **'You don\'t have any walks yet.'**
+  String get noWalksYet;
+
+  /// No description provided for @walkSaveError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not save walk'**
+  String get walkSaveError;
 }
 
 class _AppLocalizationsDelegate

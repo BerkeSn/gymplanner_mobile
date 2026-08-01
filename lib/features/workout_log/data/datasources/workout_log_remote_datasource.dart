@@ -1,6 +1,7 @@
 // datasources/workout_log_remote_datasource.dart
 
 import 'package:dio/dio.dart';
+import 'package:gymplanner_mobile/features/workout_log/data/models/streak_analytics_dto.dart';
 
 import '../../../../core/error/app_exception.dart';
 import '../models/workout_log_dto.dart';
@@ -124,6 +125,35 @@ class WorkoutLogRemoteDataSource {
       throw AppExceptionFactory.unexpected(
         source:
             'WorkoutLogRemoteDataSource - getWorkoutLogs',
+        error: error,
+        stackTrace: stackTrace,
+      );
+    }
+  }
+
+  Future<StreakAnalyticsDto>
+  getStreakAnalytics() async {
+    try {
+      final response = await _dio.get(
+        '/workoutlogs/getStreakAnalytics',
+      );
+      final data =
+          response.data as Map<String, dynamic>;
+      return StreakAnalyticsDto.fromJson(data);
+    } on DioException catch (error, stackTrace) {
+      throw AppExceptionFactory.network(
+        source:
+            'WorkoutLogRemoteDataSource - getStreakAnalytics',
+        message:
+            _extractMessage(error) ??
+            'Disiplin verisi alınamadı.',
+        originalError: error,
+        stackTrace: stackTrace,
+      );
+    } catch (error, stackTrace) {
+      throw AppExceptionFactory.unexpected(
+        source:
+            'WorkoutLogRemoteDataSource - getStreakAnalytics',
         error: error,
         stackTrace: stackTrace,
       );

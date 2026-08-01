@@ -1,5 +1,6 @@
 // repositories/workout_log_repository_impl.dart
 
+import 'package:gymplanner_mobile/features/workout_log/domain/entites/streak_analytics_entity.dart';
 import 'package:gymplanner_mobile/features/workout_log/domain/entites/workout_log_entity.dart';
 import 'package:gymplanner_mobile/features/workout_log/domain/entites/workout_set_entity.dart';
 
@@ -15,6 +16,27 @@ class WorkoutLogRepositoryImpl
   const WorkoutLogRepositoryImpl(
     this._remoteDataSource,
   );
+
+  @override
+  Future<Result<StreakAnalyticsEntity>>
+  getStreakAnalytics() async {
+    try {
+      final dto = await _remoteDataSource
+          .getStreakAnalytics();
+      return Success(dto.toEntity());
+    } on AppException catch (error) {
+      return Failure(error);
+    } catch (error, stackTrace) {
+      return Failure(
+        AppExceptionFactory.unexpected(
+          source:
+              'WorkoutLogRepositoryImpl - getStreakAnalytics',
+          error: error,
+          stackTrace: stackTrace,
+        ),
+      );
+    }
+  }
 
   @override
   Future<Result<List<WorkoutLogEntity>>>

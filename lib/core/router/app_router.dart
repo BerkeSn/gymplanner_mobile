@@ -1,4 +1,5 @@
 import 'package:go_router/go_router.dart';
+import 'package:gymplanner_mobile/features/insights/presentation/pages/insights_page.dart';
 import 'package:gymplanner_mobile/features/profile/presentation/pages/user_profile_page.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -6,7 +7,6 @@ import '../../features/auth/presentation/pages/login_page.dart';
 import '../../features/auth/presentation/pages/signup_step1_page.dart';
 import '../../features/auth/presentation/pages/signup_step2_page.dart';
 import '../../features/auth/presentation/pages/splash_page.dart';
-import '../../features/body_measurement/presentation/pages/body_measurement_timeline_page.dart';
 import '../../features/home/presentation/pages/home_dashboard_page.dart';
 import '../../features/nutrition/presentation/pages/calorie_tracker_page.dart';
 import '../../features/workout_routine/presentation/pages/workout_programs_page.dart';
@@ -96,7 +96,7 @@ GoRouter appRouter(AppRouterRef ref) {
                 GoRoute(
                   path: AppRoutes.insights,
                   builder: (context, state) =>
-                      const BodyMeasurementTimelinePage(), // ⬅️ DÜZELTİ: placeholder değil, gerçek sayfa
+                      const InsightsPage(),
                 ),
               ],
             ),

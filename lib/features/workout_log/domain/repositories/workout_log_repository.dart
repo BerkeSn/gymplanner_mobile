@@ -1,5 +1,6 @@
 // repositories/workout_log_repository.dart
 
+import 'package:gymplanner_mobile/features/workout_log/domain/entites/streak_analytics_entity.dart';
 import 'package:gymplanner_mobile/features/workout_log/domain/entites/workout_log_entity.dart';
 import 'package:gymplanner_mobile/features/workout_log/domain/entites/workout_set_entity.dart';
 
@@ -12,6 +13,9 @@ abstract class WorkoutLogRepository {
 
   Future<Result<WorkoutLogEntity>>
   startWorkoutLog(int workoutRoutineId);
+
+  Future<Result<StreakAnalyticsEntity>>
+  getStreakAnalytics();
 
   Future<Result<WorkoutSetEntity>> addSet({
     required int workoutLogId,
