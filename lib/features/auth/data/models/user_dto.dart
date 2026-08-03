@@ -1,3 +1,5 @@
+// features/auth/data/models/user_dto.dart
+
 import '../../domain/entities/user_entity.dart';
 
 class UserDto {
@@ -9,7 +11,9 @@ class UserDto {
   final String? phone;
   final String? birthdate;
   final String gender;
-  final String? locationPreference; // ⬅️ YENİ
+  final String? locationPreference;
+  final String? goal; // ⬅️ YENİ
+  final String? activityLevel; // ⬅️ YENİ
 
   UserDto({
     required this.id,
@@ -21,6 +25,8 @@ class UserDto {
     this.birthdate,
     required this.gender,
     this.locationPreference,
+    this.goal,
+    this.activityLevel,
   });
 
   factory UserDto.fromJson(
@@ -38,7 +44,10 @@ class UserDto {
         gender:
             json['gender'] as String? ?? 'other',
         locationPreference:
-            json['locationPreference']
+            json['locationPreference'] as String?,
+        goal: json['goal'] as String?, // ⬅️ YENİ
+        activityLevel:
+            json['activityLevel']
                 as String?, // ⬅️ YENİ
       );
     } catch (error, stackTrace) {
@@ -63,7 +72,13 @@ class UserDto {
       locationPreference:
           LocationPreferenceX.fromApi(
             locationPreference ?? 'Gym',
-          ), // ⬅️ YENİ
+          ),
+      goal: UserGoalX.fromApi(
+        goal ?? 'Maintain',
+      ), // ⬅️ YENİ
+      activityLevel: ActivityLevelX.fromApi(
+        activityLevel ?? 'moderate',
+      ), // ⬅️ YENİ
     );
   }
 }

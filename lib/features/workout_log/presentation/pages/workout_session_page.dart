@@ -411,7 +411,7 @@ class _SavedSetRow extends StatelessWidget {
         ),
         child: Row(
           children: [
-            const Icon(
+            Icon(
               Icons.check_circle,
               color: AppColors.primary,
               size: 20,
@@ -522,7 +522,7 @@ class _DraftSetRow extends StatelessWidget {
                         ),
                   )
                 : IconButton(
-                    icon: const Icon(
+                    icon: Icon(
                       Icons.check_circle_outline,
                       color: AppColors.primary,
                     ),

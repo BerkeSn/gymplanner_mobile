@@ -27,7 +27,7 @@ class RoutePathPreview extends StatelessWidget {
               16,
             ),
           ),
-          child: const Center(
+          child: Center(
             child: Icon(
               Icons.route,
               color: AppColors.outline,

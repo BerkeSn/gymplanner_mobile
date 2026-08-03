@@ -26,6 +26,8 @@ class EditProfileController
     String? phone,
     String? email,
     LocationPreference? locationPreference,
+    UserGoal? goal,
+    ActivityLevel? activityLevel,
   }) async {
     state = const AsyncLoading();
     try {
@@ -41,6 +43,8 @@ class EditProfileController
             email: email,
             locationPreference:
                 locationPreference,
+            goal: goal,
+            activityLevel: activityLevel,
           );
 
       if (result is Failure<UserEntity>) {

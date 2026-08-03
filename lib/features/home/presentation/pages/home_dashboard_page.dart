@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gymplanner_mobile/core/widgets/language_toggle_button.dart';
+import 'package:gymplanner_mobile/core/widgets/theme_selector_sheet.dart';
 import 'package:gymplanner_mobile/features/walk_tracking/presentation/pages/active_walk_page.dart';
 import 'package:gymplanner_mobile/l10n/app_localizations.dart';
 
@@ -29,14 +30,15 @@ class HomeDashboardPage extends ConsumerWidget {
           title: const Text('GymPlanner'),
           actions: [
             IconButton(
-              icon: const Icon(
-                Icons.settings_outlined,
+              icon: Icon(
+                Icons.palette_outlined,
               ),
-              onPressed: () {
-                // TODO(faz7): Ayarlar sayfası bağlanacak.
-              },
+              onPressed: () =>
+                  ThemeSelectorSheet.show(
+                    context,
+                  )
             ),
-            const LanguageToggleButton(), // ⬅️ YENİ
+            const LanguageToggleButton(),
             IconButton(
               icon: const Icon(
                 Icons.settings_outlined,
@@ -436,7 +438,7 @@ class _StartWalkBanner extends StatelessWidget {
         ),
         child: Row(
           children: [
-            const Icon(
+            Icon(
               Icons.directions_walk,
               color: AppColors.onPrimaryContainer,
             ),
@@ -451,7 +453,7 @@ class _StartWalkBanner extends StatelessWidget {
                     ),
               ),
             ),
-            const Icon(
+            Icon(
               Icons.chevron_right,
               color: AppColors.onPrimaryContainer,
             ),

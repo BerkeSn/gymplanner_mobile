@@ -22,6 +22,8 @@ class ProfileRepositoryImpl
     String? phone,
     String? email,
     LocationPreference? locationPreference,
+    UserGoal? goal,
+    ActivityLevel? activityLevel,
   }) async {
     try {
       final dto = await _remoteDataSource
@@ -33,6 +35,9 @@ class ProfileRepositoryImpl
             email: email,
             locationPreference:
                 locationPreference?.apiValue,
+            goal: goal?.apiValue,
+            activityLevel:
+                activityLevel?.apiValue,
           );
       return Success(dto.toEntity());
     } on AppException catch (error) {

@@ -205,7 +205,7 @@ class _SearchResultTile extends StatelessWidget {
                     ? user.displayName[0]
                           .toUpperCase()
                     : '?',
-                style: const TextStyle(
+                style: TextStyle(
                   color: AppColors
                       .onPrimaryContainer,
                 ),

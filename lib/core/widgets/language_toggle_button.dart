@@ -28,7 +28,7 @@ class LanguageToggleButton
           .toggleLocale(),
       child: Text(
         currentCode.toUpperCase(),
-        style: const TextStyle(
+        style: TextStyle(
           color: AppColors.primary,
           fontWeight: FontWeight.bold,
         ),

@@ -210,7 +210,7 @@ class _CalorieProgressCard
                     backgroundColor: AppColors
                         .surfaceContainerHigh,
                     valueColor:
-                        const AlwaysStoppedAnimation(
+                        AlwaysStoppedAnimation(
                           AppColors
                               .primaryContainer,
                         ),

@@ -1,5 +1,7 @@
-import '../../../../core/error/result.dart';
-import '../../../auth/domain/entities/user_entity.dart';
+// features/profile/domain/repositories/profile_repository.dart
+
+import 'package:gymplanner_mobile/core/error/result.dart';
+import 'package:gymplanner_mobile/features/auth/domain/entities/user_entity.dart';
 
 abstract class ProfileRepository {
   Future<Result<UserEntity>> updateProfile({
@@ -9,5 +11,7 @@ abstract class ProfileRepository {
     String? phone,
     String? email,
     LocationPreference? locationPreference,
+    UserGoal? goal, // ⬅️ YENİ
+    ActivityLevel? activityLevel, // ⬅️ YENİ
   });
 }

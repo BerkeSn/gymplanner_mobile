@@ -17,6 +17,8 @@ class ProfileRemoteDataSource {
     String? phone,
     String? email,
     String? locationPreference,
+    String? goal, // ⬅️ YENİ
+    String? activityLevel, // ⬅️ YENİ
   }) async {
     try {
       final response = await _dio.put(
@@ -31,6 +33,11 @@ class ProfileRemoteDataSource {
           if (locationPreference != null)
             'locationPreference':
                 locationPreference,
+          if (goal != null)
+            'goal': goal, // ⬅️ YENİ
+          if (activityLevel != null)
+            'activityLevel':
+                activityLevel, // ⬅️ YENİ
         },
       );
       final data =

@@ -38,13 +38,13 @@ class AppTextField extends StatelessWidget {
           labelStyle: AppTextStyles.bodyMedium,
           suffixIcon: suffixIcon,
           errorText: errorText,
-          border: const UnderlineInputBorder(
+          border: UnderlineInputBorder(
             borderSide: BorderSide(
               color: AppColors.outlineVariant,
             ),
           ),
           focusedBorder:
-              const UnderlineInputBorder(
+              UnderlineInputBorder(
                 borderSide: BorderSide(
                   color: AppColors.primary,
                   width: 1.5,

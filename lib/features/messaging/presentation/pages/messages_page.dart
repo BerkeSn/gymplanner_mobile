@@ -208,7 +208,7 @@ class _ConversationTile extends StatelessWidget {
                 name.isNotEmpty
                     ? name[0].toUpperCase()
                     : '?',
-                style: const TextStyle(
+                style: TextStyle(
                   color: AppColors
                       .onPrimaryContainer,
                 ),
@@ -250,7 +250,7 @@ class _ConversationTile extends StatelessWidget {
               Container(
                 width: 10,
                 height: 10,
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                   color: AppColors.primary,
                   shape: BoxShape.circle,
                 ),
@@ -331,7 +331,7 @@ class _FriendsTab extends ConsumerWidget {
                           ? friend.displayName[0]
                                 .toUpperCase()
                           : '?',
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: AppColors
                             .onPrimaryContainer,
                       ),

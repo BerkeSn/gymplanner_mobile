@@ -1,21 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:gymplanner_mobile/core/config/env_config.dart';
-import 'package:gymplanner_mobile/core/locale/locale_controller.dart';
-import 'package:gymplanner_mobile/core/router/app_router.dart';
-import 'package:gymplanner_mobile/core/utils/app_logger.dart';
 
+import 'core/locale/locale_controller.dart';
+import 'core/router/app_router.dart';
 import 'core/socket/socket_service.dart';
+import 'core/theme/app_colors.dart'; // ⬅️ YENİ
 import 'core/theme/app_theme.dart';
+import 'core/theme/theme_mode_controller.dart'; // ⬅️ YENİ
 import 'features/auth/presentation/controllers/auth_controller.dart';
 import 'l10n/app_localizations.dart';
 
 void main() {
-  AppLogger.info(
-    'main',
-    'API Base URL: ${EnvConfig.apiBaseUrl}',
-  );
   runApp(
     const ProviderScope(child: GymPlannerApp()),
   );
@@ -37,6 +33,31 @@ class GymPlannerApp extends ConsumerWidget {
       final currentLocale =
           localeAsync.valueOrNull ??
           const Locale('tr');
+
+      // ⬇️ YENİ: Kullanıcının seçtiği ThemeMode'u oku. ThemeMode.system
+      // seçiliyse cihazın o anki parlaklığını (MediaQuery) kullanıyoruz —
+      // AppColors.setBrightness çağrısı MaterialApp döndürülmeden ÖNCE
+      // yapılmalı ki bu frame'de build edilecek widget'lar doğru paleti okusun.
+      final themeModeAsync = ref.watch(
+        themeModeControllerProvider,
+      );
+      final themeMode =
+          themeModeAsync.valueOrNull ??
+          ThemeMode.system;
+      final platformBrightness =
+          MediaQuery.platformBrightnessOf(
+            context,
+          );
+      final effectiveBrightness =
+          switch (themeMode) {
+            ThemeMode.light => Brightness.light,
+            ThemeMode.dark => Brightness.dark,
+            ThemeMode.system =>
+              platformBrightness,
+          };
+      AppColors.setBrightness(
+        effectiveBrightness,
+      );
 
       ref.listen(authControllerProvider, (
         previous,
@@ -63,6 +84,8 @@ class GymPlannerApp extends ConsumerWidget {
         title: 'GymPlanner',
         debugShowCheckedModeBanner: false,
         theme: AppTheme.light,
+        darkTheme: AppTheme.dark,
+        themeMode: themeMode,
         routerConfig: router,
         locale: currentLocale,
         localizationsDelegates: const [
@@ -77,8 +100,6 @@ class GymPlannerApp extends ConsumerWidget {
         ],
       );
     } catch (error, stackTrace) {
-      // Kök seviyede beklenmeyen hata — kullanıcıya boş ekran yerine
-      // en azından bir fallback göster.
       debugPrint(
         '[GymPlannerApp - build]: $error\n$stackTrace',
       );

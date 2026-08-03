@@ -100,7 +100,7 @@ class _ConsistencyRing extends StatelessWidget {
                     backgroundColor: AppColors
                         .surfaceContainerHigh,
                     valueColor:
-                        const AlwaysStoppedAnimation(
+                        AlwaysStoppedAnimation(
                           AppColors.primary,
                         ),
                   ),

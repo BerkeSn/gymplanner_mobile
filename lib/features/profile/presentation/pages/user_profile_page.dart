@@ -314,7 +314,7 @@ class _MenuRow extends StatelessWidget {
                 style: AppTextStyles.bodyLarge,
               ),
             ),
-            const Icon(
+            Icon(
               Icons.chevron_right,
               color: AppColors.outline,
             ),

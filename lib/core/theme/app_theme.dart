@@ -1,4 +1,3 @@
-// lib/core/theme/app_theme.dart
 import 'package:flutter/material.dart';
 
 import 'app_colors.dart';
@@ -8,15 +7,25 @@ import 'app_text_styles.dart';
 class AppTheme {
   AppTheme._();
 
-  static ThemeData get light {
+  static ThemeData get light =>
+      _build(Brightness.light);
+  static ThemeData get dark =>
+      _build(Brightness.dark);
+
+  /// ÖNEMLİ: Bu çağrılmadan önce AppColors.setBrightness(...) ile doğru
+  /// mod ayarlanmış olmalı — GymPlannerApp.build() bunu garanti eder.
+  static ThemeData _build(Brightness brightness) {
     return ThemeData(
       useMaterial3: true,
+      brightness: brightness,
       scaffoldBackgroundColor:
           AppColors.background,
-      colorScheme: const ColorScheme.light(
+      colorScheme: ColorScheme(
+        brightness: brightness,
         primary: AppColors.primary,
         onPrimary: AppColors.onPrimary,
         secondary: AppColors.secondary,
+        onSecondary: AppColors.onPrimary,
         surface: AppColors.surface,
         onSurface: AppColors.onSurface,
         error: AppColors.error,
@@ -53,11 +62,11 @@ class AppTheme {
       inputDecorationTheme: InputDecorationTheme(
         filled: false,
         border: UnderlineInputBorder(
-          borderSide: const BorderSide(
+          borderSide: BorderSide(
             color: AppColors.outlineVariant,
           ),
         ),
-        focusedBorder: const UnderlineInputBorder(
+        focusedBorder: UnderlineInputBorder(
           borderSide: BorderSide(
             color: AppColors.primary,
             width: 1.5,

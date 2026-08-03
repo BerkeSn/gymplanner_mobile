@@ -282,7 +282,7 @@ class _LabeledDropdown<T>
               items: items,
               onChanged: onChanged,
               style: AppTextStyles.bodyLarge,
-              icon: const Icon(
+              icon: Icon(
                 Icons.expand_more,
                 color: AppColors.outline,
               ),

@@ -109,7 +109,7 @@ class _ActiveWalkPageState
                         backgroundColor: AppColors
                             .surfaceContainerHigh,
                         valueColor:
-                            const AlwaysStoppedAnimation(
+                            AlwaysStoppedAnimation(
                               AppColors.primary,
                             ),
                       ),
