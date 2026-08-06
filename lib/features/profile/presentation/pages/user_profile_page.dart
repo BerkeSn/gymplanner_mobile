@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:gymplanner_mobile/features/body_measurement/presentation/controller/body_measurement_controller.dart';
-import 'package:gymplanner_mobile/features/messaging/presentation/pages/messages_page.dart';
-import 'package:gymplanner_mobile/features/social/presentation/pages/add_friends_page.dart';
-import 'package:gymplanner_mobile/features/walk_tracking/presentation/pages/walk_history_page.dart';
+import 'package:gymplanner_mobile/core/error/result.dart';
+import 'package:gymplanner_mobile/features/workout_log/presentation/controllers/streak_analytics_controller.dart';
 
 import '../../../../core/router/app_router.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_spacing.dart';
 import '../../../../core/theme/app_text_styles.dart';
+import '../../../../core/widgets/language_selector_sheet.dart';
+import '../../../../core/widgets/theme_selector_sheet.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../../../auth/presentation/controllers/auth_controller.dart';
-import '../../../workout_log/presentation/providers/workout_log_providers.dart';
+import '../../../messaging/presentation/pages/messages_page.dart';
+import '../../../social/presentation/pages/add_friends_page.dart';
+import '../../../social/presentation/providers/friend_providers.dart';
+import '../../../walk_tracking/presentation/pages/walk_history_page.dart';
 import 'edit_profile_page.dart';
 
 class UserProfilePage extends ConsumerWidget {
@@ -66,16 +69,11 @@ class UserProfilePage extends ConsumerWidget {
     final user = ref
         .watch(authControllerProvider)
         .valueOrNull;
-    final measurementCount =
-        ref
-            .watch(
-              bodyMeasurementControllerProvider,
-            )
-            .valueOrNull
-            ?.length ??
-        0;
-    final workoutCountAsync = ref.watch(
-      completedWorkoutCountProvider,
+    final streakAsync = ref.watch(
+      streakAnalyticsControllerProvider,
+    );
+    final friendRepository = ref.watch(
+      friendRepositoryProvider,
     );
 
     if (user == null) {
@@ -90,6 +88,33 @@ class UserProfilePage extends ConsumerWidget {
       appBar: AppBar(
         title: Text(l10n.profileTitle),
         actions: [
+          // Mesajlar/Arkadaş Ekle artık Quick Access'te değil — avatar
+          // satırının yanına, ikon kısayolları olarak taşındı.
+          IconButton(
+            icon: const Icon(
+              Icons.chat_bubble_outline,
+            ),
+            onPressed: () =>
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) =>
+                        const MessagesPage(),
+                  ),
+                ),
+          ),
+          IconButton(
+            icon: const Icon(
+              Icons.person_add_outlined,
+            ),
+            onPressed: () =>
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) =>
+                        const AddFriendsPage(),
+                  ),
+                ),
+          ),
+          
           IconButton(
             icon: const Icon(Icons.edit_outlined),
             onPressed: () =>
@@ -133,17 +158,27 @@ class UserProfilePage extends ConsumerWidget {
               style: AppTextStyles.bodyMedium,
             ),
             const SizedBox(height: AppSpacing.xl),
+
+            // ⬇️ DEĞİŞTİ: Antrenman/Ölçüm sayısı yerine Arkadaş/Seri sayısı.
             Row(
               children: [
                 Expanded(
-                  child: _StatCell(
-                    label:
-                        l10n.totalWorkoutsLabel,
-                    value:
-                        workoutCountAsync
-                            .valueOrNull
-                            ?.toString() ??
-                        '—',
+                  child: FutureBuilder(
+                    future: friendRepository
+                        .getMyFriends(),
+                    builder: (context, snapshot) {
+                      final count = snapshot
+                          .data
+                          ?.valueOrNull
+                          ?.length;
+                      return _StatCell(
+                        label: l10n
+                            .totalFriendsLabel,
+                        value:
+                            count?.toString() ??
+                            '—',
+                      );
+                    },
                   ),
                 ),
                 const SizedBox(
@@ -152,13 +187,19 @@ class UserProfilePage extends ConsumerWidget {
                 Expanded(
                   child: _StatCell(
                     label: l10n
-                        .totalMeasurementsLabel,
-                    value: '$measurementCount',
+                        .currentStreakShortLabel,
+                    value:
+                        streakAsync
+                            .valueOrNull
+                            ?.currentStreak
+                            .toString() ??
+                        '—',
                   ),
                 ),
               ],
             ),
             const SizedBox(height: AppSpacing.xl),
+
             Align(
               alignment: Alignment.centerLeft,
               child: Text(
@@ -168,6 +209,26 @@ class UserProfilePage extends ConsumerWidget {
               ),
             ),
             const SizedBox(height: AppSpacing.md),
+
+            // ⬇️ DEĞİŞTİ: Mesaj/Arkadaş Ekle yerine Dil/Görünüm.
+            _MenuRow(
+              icon: Icons.language,
+              label: l10n.languageMenuItem,
+              onTap: () =>
+                  LanguageSelectorSheet.show(
+                    context,
+                  ),
+            ),
+            const SizedBox(height: AppSpacing.sm),
+            _MenuRow(
+              icon: Icons.dark_mode_outlined,
+              label: l10n.themeMenuItem,
+              onTap: () =>
+                  ThemeSelectorSheet.show(
+                    context,
+                  ),
+            ),
+            const SizedBox(height: AppSpacing.sm),
             _MenuRow(
               icon: Icons.straighten,
               label:
@@ -184,32 +245,6 @@ class UserProfilePage extends ConsumerWidget {
             ),
             const SizedBox(height: AppSpacing.sm),
             _MenuRow(
-              icon: Icons.person_add_outlined,
-              label: l10n.addFriendsTitle,
-              onTap: () =>
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (_) =>
-                          const AddFriendsPage(),
-                    ),
-                  ),
-            ),
-
-            const SizedBox(height: AppSpacing.sm),
-            _MenuRow(
-              icon: Icons.chat_bubble_outline,
-              label: l10n.messagesTitle,
-              onTap: () =>
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (_) =>
-                          const MessagesPage(),
-                    ),
-                  ),
-            ),
-
-            const SizedBox(height: AppSpacing.sm),
-            _MenuRow(
               icon: Icons.directions_walk,
               label: l10n.walkHistoryTitle,
               onTap: () =>
@@ -220,7 +255,7 @@ class UserProfilePage extends ConsumerWidget {
                     ),
                   ),
             ),
-            
+
             const SizedBox(height: AppSpacing.xl),
             SizedBox(
               width: double.infinity,

@@ -93,6 +93,7 @@ class NutritionController
   }
 
   Future<bool> addMeal({
+    DateTime? date, // ⬅️ YENİ
     required MealType mealType,
     required String name,
     double? servingWeight,
@@ -106,6 +107,7 @@ class NutritionController
         nutritionRepositoryProvider,
       );
       final result = await repository.createMeal(
+        date: date, // ⬅️ YENİ
         mealType: mealType,
         name: name,
         servingWeight: servingWeight,

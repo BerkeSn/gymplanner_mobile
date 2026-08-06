@@ -5,6 +5,7 @@ import 'package:gymplanner_mobile/features/profile/presentation/controller/edit_
 import '../../../../core/theme/app_spacing.dart';
 import '../../../../core/utils/app_logger.dart';
 import '../../../../core/widgets/app_text_field.dart';
+import '../../../../core/widgets/labeled_dropdown.dart';
 import '../../../../core/widgets/primary_button.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../../../auth/domain/entities/user_entity.dart';
@@ -32,6 +33,8 @@ class _EditProfilePageState
   late final TextEditingController
   _phoneController;
   late LocationPreference _selectedLocation;
+  late UserGoal _selectedGoal; // ⬅️ YENİ
+  late ActivityLevel _selectedActivity; // ⬅️ YENİ
   String? _errorText;
 
   @override
@@ -58,6 +61,12 @@ class _EditProfilePageState
     _selectedLocation =
         user?.locationPreference ??
         LocationPreference.gym;
+    _selectedGoal =
+        user?.goal ??
+        UserGoal.maintain; // ⬅️ YENİ
+    _selectedActivity =
+        user?.activityLevel ??
+        ActivityLevel.moderate; // ⬅️ YENİ
   }
 
   @override
@@ -89,6 +98,9 @@ class _EditProfilePageState
             email: _emailController.text.trim(),
             phone: _phoneController.text.trim(),
             locationPreference: _selectedLocation,
+            goal: _selectedGoal, // ⬅️ YENİ
+            activityLevel:
+                _selectedActivity, // ⬅️ YENİ
           );
 
       if (!mounted) return;
@@ -213,6 +225,93 @@ class _EditProfilePageState
                   ),
                 ],
               ),
+              const SizedBox(
+                height: AppSpacing.lg,
+              ),
+
+              // ⬇️ YENİ
+              LabeledDropdown<UserGoal>(
+                label: l10n.goalMenuLabel,
+                value: _selectedGoal,
+                items: [
+                  DropdownMenuItem(
+                    value: UserGoal.loseWeight,
+                    child: Text(
+                      l10n.goalLoseWeight,
+                    ),
+                  ),
+                  DropdownMenuItem(
+                    value: UserGoal.gainMuscle,
+                    child: Text(
+                      l10n.goalGainMuscle,
+                    ),
+                  ),
+                  DropdownMenuItem(
+                    value: UserGoal.maintain,
+                    child: Text(
+                      l10n.goalMaintain,
+                    ),
+                  ),
+                  DropdownMenuItem(
+                    value:
+                        UserGoal.improveEndurance,
+                    child: Text(
+                      l10n.goalImproveEndurance,
+                    ),
+                  ),
+                ],
+                onChanged: (value) {
+                  if (value != null)
+                    setState(
+                      () => _selectedGoal = value,
+                    );
+                },
+              ),
+              const SizedBox(
+                height: AppSpacing.lg,
+              ),
+
+              // ⬇️ YENİ
+              LabeledDropdown<ActivityLevel>(
+                label:
+                    l10n.activityLevelMenuLabel,
+                value: _selectedActivity,
+                items: [
+                  DropdownMenuItem(
+                    value:
+                        ActivityLevel.sedentary,
+                    child: Text(
+                      l10n.activityLevelSedentary,
+                    ),
+                  ),
+                  DropdownMenuItem(
+                    value: ActivityLevel.light,
+                    child: Text(
+                      l10n.activityLevelLight,
+                    ),
+                  ),
+                  DropdownMenuItem(
+                    value: ActivityLevel.moderate,
+                    child: Text(
+                      l10n.activityLevelModerate,
+                    ),
+                  ),
+                  DropdownMenuItem(
+                    value: ActivityLevel.active,
+                    child: Text(
+                      l10n.activityLevelActive,
+                    ),
+                  ),
+                ],
+                onChanged: (value) {
+                  if (value != null)
+                    setState(
+                      () => _selectedActivity =
+                          value,
+                    );
+                },
+              ),
+
               if (_errorText != null) ...[
                 const SizedBox(
                   height: AppSpacing.md,

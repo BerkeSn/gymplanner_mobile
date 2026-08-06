@@ -393,4 +393,114 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get walkSaveError => 'Yürüyüş kaydedilemedi';
+
+  @override
+  String get activityLevelLabel => 'Aktivite Seviyesi';
+
+  @override
+  String get activityLevelSedentary => 'Hareketsiz';
+
+  @override
+  String get activityLevelLight => 'Az Hareketli';
+
+  @override
+  String get activityLevelModerate => 'Orta Hareketli';
+
+  @override
+  String get activityLevelActive => 'Çok Hareketli';
+
+  @override
+  String get goalImproveEndurance => 'Dayanıklılık Artır';
+
+  @override
+  String get calculatingTargetMessage => 'Kalori hedefin hesaplanıyor...';
+
+  @override
+  String get yourDailyCalorieTargetTitle => 'Günlük Kalori Hedefin';
+
+  @override
+  String get calorieTargetSubtitle =>
+      'Bu hedef, bilgilerine göre otomatik hesaplandı. İstediğin zaman profilinden güncelleyebilirsin.';
+
+  @override
+  String get continueButton => 'Devam Et';
+
+  @override
+  String get totalFriendsLabel => 'Arkadaş';
+
+  @override
+  String get currentStreakShortLabel => 'Seri';
+
+  @override
+  String get languageMenuItem => 'Dil';
+
+  @override
+  String get themeMenuItem => 'Görünüm';
+
+  @override
+  String get goalMenuLabel => 'Hedefin';
+
+  @override
+  String get activityLevelMenuLabel => 'Aktivite Seviyen';
+
+  @override
+  String get lightThemeOption => 'Açık Tema';
+
+  @override
+  String get darkThemeOption => 'Koyu Tema';
+
+  @override
+  String get systemThemeOption => 'Sistem Ayarı';
+
+  @override
+  String get turkishLanguageOption => 'Türkçe';
+
+  @override
+  String get englishLanguageOption => 'İngilizce';
+
+  @override
+  String get appearanceTitle => 'Görünüm';
+
+  @override
+  String get welcomeGreetingLabel => 'HOŞ GELDİN';
+
+  @override
+  String get noActiveProgramLabel => 'Henüz aktif bir programın yok.';
+
+  @override
+  String get createProgramButton => 'Program Oluştur';
+
+  @override
+  String get restDayLabel => 'Dinlenme Günü';
+
+  @override
+  String get mealsForSelectedDayTitle => 'Bu Günün Öğünleri';
+
+  @override
+  String get calorieSummaryTitle => 'Kalori Özeti';
+
+  @override
+  String get exercisesCountSuffix => 'Hareket';
+
+  @override
+  String get editMeasurementTitle => 'Ölçümü Düzenle';
+
+  @override
+  String get hipLabelCm => 'Kalça (cm)';
+
+  @override
+  String get autoCalculateBodyFatLabel => 'Otomatik Hesapla';
+
+  @override
+  String get manualBodyFatLabel => 'Manuel Gir';
+
+  @override
+  String get bodyFatCalculatedLabel => 'Hesaplanan Yağ Oranı';
+
+  @override
+  String get insufficientDataForBodyFat =>
+      'Hesaplamak için boyun ve bel ölçüsü gerekli.';
+
+  @override
+  String get updateMeasurementButton => 'Güncelle';
 }

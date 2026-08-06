@@ -78,7 +78,20 @@ GoRouter appRouter(AppRouterRef ref) {
                 GoRoute(
                   path: AppRoutes.nutrition,
                   builder: (context, state) =>
-                      const CalorieTrackerPage(), // ⬅️ DÜZELTİ: placeholder değil, gerçek sayfa
+                      const CalorieTrackerPage(),
+                ),
+              ],
+            ),
+            StatefulShellBranch(
+              routes: [
+                GoRoute(
+                  path: AppRoutes.insights,
+                  builder: (context, state) =>
+                      InsightsPage(
+                        initialTabIndex:
+                            state.extra as int? ??
+                            0,
+                      ),
                 ),
               ],
             ),
@@ -88,15 +101,6 @@ GoRouter appRouter(AppRouterRef ref) {
                   path: AppRoutes.dashboard,
                   builder: (context, state) =>
                       const HomeDashboardPage(),
-                ),
-              ],
-            ),
-            StatefulShellBranch(
-              routes: [
-                GoRoute(
-                  path: AppRoutes.insights,
-                  builder: (context, state) =>
-                      const InsightsPage(),
                 ),
               ],
             ),

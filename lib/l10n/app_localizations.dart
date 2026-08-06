@@ -859,6 +859,222 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Could not save walk'**
   String get walkSaveError;
+
+  /// No description provided for @activityLevelLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Activity Level'**
+  String get activityLevelLabel;
+
+  /// No description provided for @activityLevelSedentary.
+  ///
+  /// In en, this message translates to:
+  /// **'Sedentary'**
+  String get activityLevelSedentary;
+
+  /// No description provided for @activityLevelLight.
+  ///
+  /// In en, this message translates to:
+  /// **'Lightly Active'**
+  String get activityLevelLight;
+
+  /// No description provided for @activityLevelModerate.
+  ///
+  /// In en, this message translates to:
+  /// **'Moderately Active'**
+  String get activityLevelModerate;
+
+  /// No description provided for @activityLevelActive.
+  ///
+  /// In en, this message translates to:
+  /// **'Very Active'**
+  String get activityLevelActive;
+
+  /// No description provided for @goalImproveEndurance.
+  ///
+  /// In en, this message translates to:
+  /// **'Improve Endurance'**
+  String get goalImproveEndurance;
+
+  /// No description provided for @calculatingTargetMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Calculating your calorie target...'**
+  String get calculatingTargetMessage;
+
+  /// No description provided for @yourDailyCalorieTargetTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Daily Calorie Target'**
+  String get yourDailyCalorieTargetTitle;
+
+  /// No description provided for @calorieTargetSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'This target was calculated automatically based on your info. You can update it anytime from your profile.'**
+  String get calorieTargetSubtitle;
+
+  /// No description provided for @continueButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get continueButton;
+
+  /// No description provided for @totalFriendsLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Friends'**
+  String get totalFriendsLabel;
+
+  /// No description provided for @currentStreakShortLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Streak'**
+  String get currentStreakShortLabel;
+
+  /// No description provided for @languageMenuItem.
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get languageMenuItem;
+
+  /// No description provided for @themeMenuItem.
+  ///
+  /// In en, this message translates to:
+  /// **'Appearance'**
+  String get themeMenuItem;
+
+  /// No description provided for @goalMenuLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Goal'**
+  String get goalMenuLabel;
+
+  /// No description provided for @activityLevelMenuLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Activity Level'**
+  String get activityLevelMenuLabel;
+
+  /// No description provided for @lightThemeOption.
+  ///
+  /// In en, this message translates to:
+  /// **'Light Theme'**
+  String get lightThemeOption;
+
+  /// No description provided for @darkThemeOption.
+  ///
+  /// In en, this message translates to:
+  /// **'Dark Theme'**
+  String get darkThemeOption;
+
+  /// No description provided for @systemThemeOption.
+  ///
+  /// In en, this message translates to:
+  /// **'System Default'**
+  String get systemThemeOption;
+
+  /// No description provided for @turkishLanguageOption.
+  ///
+  /// In en, this message translates to:
+  /// **'Turkish'**
+  String get turkishLanguageOption;
+
+  /// No description provided for @englishLanguageOption.
+  ///
+  /// In en, this message translates to:
+  /// **'English'**
+  String get englishLanguageOption;
+
+  /// No description provided for @appearanceTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Appearance'**
+  String get appearanceTitle;
+
+  /// No description provided for @welcomeGreetingLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'WELCOME'**
+  String get welcomeGreetingLabel;
+
+  /// No description provided for @noActiveProgramLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'You don\'t have an active program yet.'**
+  String get noActiveProgramLabel;
+
+  /// No description provided for @createProgramButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Create a Program'**
+  String get createProgramButton;
+
+  /// No description provided for @restDayLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Rest Day'**
+  String get restDayLabel;
+
+  /// No description provided for @mealsForSelectedDayTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'This Day\'s Meals'**
+  String get mealsForSelectedDayTitle;
+
+  /// No description provided for @calorieSummaryTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Calorie Summary'**
+  String get calorieSummaryTitle;
+
+  /// No description provided for @exercisesCountSuffix.
+  ///
+  /// In en, this message translates to:
+  /// **'Exercises'**
+  String get exercisesCountSuffix;
+
+  /// No description provided for @editMeasurementTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Measurement'**
+  String get editMeasurementTitle;
+
+  /// No description provided for @hipLabelCm.
+  ///
+  /// In en, this message translates to:
+  /// **'Hip (cm)'**
+  String get hipLabelCm;
+
+  /// No description provided for @autoCalculateBodyFatLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Auto-Calculate'**
+  String get autoCalculateBodyFatLabel;
+
+  /// No description provided for @manualBodyFatLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter Manually'**
+  String get manualBodyFatLabel;
+
+  /// No description provided for @bodyFatCalculatedLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Calculated Body Fat'**
+  String get bodyFatCalculatedLabel;
+
+  /// No description provided for @insufficientDataForBodyFat.
+  ///
+  /// In en, this message translates to:
+  /// **'Neck and waist measurements are required to calculate.'**
+  String get insufficientDataForBodyFat;
+
+  /// No description provided for @updateMeasurementButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Update'**
+  String get updateMeasurementButton;
 }
 
 class _AppLocalizationsDelegate

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gymplanner_mobile/features/nutrition/domain/entites/meal_type.dart';
 import 'package:gymplanner_mobile/features/nutrition/presentation/controller/nutrition_controller.dart';
+import 'package:gymplanner_mobile/features/nutrition/presentation/providers/meals_for_date_provider.dart';
 
 import '../../../../core/theme/app_spacing.dart';
 import '../../../../core/utils/app_logger.dart';
@@ -11,13 +12,22 @@ import '../../../../l10n/app_localizations.dart';
 
 class LogMealSheet
     extends ConsumerStatefulWidget {
-  const LogMealSheet({super.key});
+  final DateTime date;
+  const LogMealSheet({
+    super.key,
+    required this.date,
+  });
 
-  static Future<void> show(BuildContext context) {
+  static Future<void> show(
+    BuildContext context, {
+    DateTime? date,
+  }) {
     return showModalBottomSheet(
       context: context,
       isScrollControlled: true,
-      builder: (_) => const LogMealSheet(),
+      builder: (_) => LogMealSheet(
+        date: date ?? DateTime.now(),
+      ),
     );
   }
 
@@ -79,6 +89,7 @@ class _LogMealSheetState
             nutritionControllerProvider.notifier,
           )
           .addMeal(
+            date: widget.date, // ⬅️ YENİ
             mealType: _selectedType,
             name: _nameController.text.trim(),
             servingWeight: double.tryParse(
@@ -105,6 +116,9 @@ class _LogMealSheetState
       if (!mounted) return;
 
       if (success) {
+        ref.invalidate(
+          mealsForDateProvider(widget.date),
+        ); // ⬅️ YENİ: Dashboard'daki liste tazelensin
         Navigator.of(context).pop();
       } else {
         setState(

@@ -1,7 +1,3 @@
-// entities/body_measurement_entity.dart
-
-import 'measurement_goal.dart';
-
 class BodyMeasurementEntity {
   final int id;
   final DateTime date;
@@ -9,8 +5,8 @@ class BodyMeasurementEntity {
   final double height;
   final double? neck;
   final double? waist;
+  final double? hip;
   final double? bodyFatPercentage;
-  final MeasurementGoal goal;
 
   const BodyMeasurementEntity({
     required this.id,
@@ -19,7 +15,7 @@ class BodyMeasurementEntity {
     required this.height,
     this.neck,
     this.waist,
+    this.hip,
     this.bodyFatPercentage,
-    required this.goal,
   });
 }

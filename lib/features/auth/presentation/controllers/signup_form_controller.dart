@@ -1,5 +1,3 @@
-// presentation/controllers/signup_form_controller.dart
-
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../domain/entities/user_entity.dart';
@@ -14,6 +12,10 @@ class SignupFormData {
   final Gender gender;
   final String password;
   final DateTime? birthdate;
+  final LocationPreference
+  locationPreference; // ⬅️ YENİ
+  final UserGoal goal; // ⬅️ YENİ
+  final ActivityLevel activityLevel; // ⬅️ YENİ
 
   const SignupFormData({
     this.fullName = '',
@@ -23,6 +25,10 @@ class SignupFormData {
     this.gender = Gender.male,
     this.password = '',
     this.birthdate,
+    this.locationPreference =
+        LocationPreference.gym,
+    this.goal = UserGoal.maintain,
+    this.activityLevel = ActivityLevel.moderate,
   });
 
   SignupFormData copyWith({
@@ -33,6 +39,9 @@ class SignupFormData {
     Gender? gender,
     String? password,
     DateTime? birthdate,
+    LocationPreference? locationPreference,
+    UserGoal? goal,
+    ActivityLevel? activityLevel,
   }) {
     return SignupFormData(
       fullName: fullName ?? this.fullName,
@@ -42,13 +51,17 @@ class SignupFormData {
       gender: gender ?? this.gender,
       password: password ?? this.password,
       birthdate: birthdate ?? this.birthdate,
+      locationPreference:
+          locationPreference ??
+          this.locationPreference,
+      goal: goal ?? this.goal,
+      activityLevel:
+          activityLevel ?? this.activityLevel,
     );
   }
 }
 
-@Riverpod(
-  keepAlive: true,
-) // ⬅️ Bunun DOSYADA olduğunu satır satır doğrula
+@Riverpod(keepAlive: true)
 class SignupFormController
     extends _$SignupFormController {
   @override
@@ -77,6 +90,26 @@ class SignupFormController
     } catch (error, stackTrace) {
       throw Exception(
         '[SignupFormController - updateStep1]: ${error.toString()}\n$stackTrace',
+      );
+    }
+  }
+
+  // ⬇️ YENİ: Step 2'deki ek tercihleri kaydeder.
+  void updateStep2Preferences({
+    required LocationPreference
+    locationPreference,
+    required UserGoal goal,
+    required ActivityLevel activityLevel,
+  }) {
+    try {
+      state = state.copyWith(
+        locationPreference: locationPreference,
+        goal: goal,
+        activityLevel: activityLevel,
+      );
+    } catch (error, stackTrace) {
+      throw Exception(
+        '[SignupFormController - updateStep2Preferences]: ${error.toString()}\n$stackTrace',
       );
     }
   }

@@ -38,6 +38,9 @@ class _SignupStep1PageState
   DateTime? _birthdate;
   String? _validationError;
 
+  bool _obscurePassword = true; // ⬅️ YENİ
+  bool _obscureConfirmPassword = true; // ⬅️ YENİ
+
   @override
   void dispose() {
     _fullNameController.dispose();
@@ -148,98 +151,117 @@ class _SignupStep1PageState
       appBar: AppBar(
         title: const Text('Kayıt Ol — Adım 1/2'),
       ),
-        child: Column(
-          crossAxisAlignment:
-              CrossAxisAlignment.start,
-          children: [
-            AppTextField(
-              label: 'Ad Soyad',
-              controller: _fullNameController,
-            ),
-            const SizedBox(height: AppSpacing.lg),
-            AppTextField(
-              label: 'Username',
-              controller: _usernameController,
-            ),
-            const SizedBox(height: AppSpacing.lg),
-            AppTextField(
-              label: 'E-posta',
-              controller: _emailController,
-              keyboardType:
-                  TextInputType.emailAddress,
-            ),
-            const SizedBox(height: AppSpacing.lg),
-            AppTextField(
-              label: 'Telefon Numarası',
-              controller: _phoneController,
-              keyboardType: TextInputType.phone,
-            ),
-            const SizedBox(height: AppSpacing.lg),
-            Text(
-              'Cinsiyet',
-              style: AppTextStyles.labelSmall,
-            ),
-            const SizedBox(height: AppSpacing.sm),
-            Wrap(
-              spacing: AppSpacing.md,
-              children: Gender.values.map((
-                gender,
-              ) {
-                return ChoiceChip(
-                  label: Text(gender.name),
-                  selected:
-                      _selectedGender == gender,
-                  onSelected: (_) => setState(
-                    () =>
-                        _selectedGender = gender,
-                  ),
-                );
-              }).toList(),
-            ),
-            const SizedBox(height: AppSpacing.lg),
-            ListTile(
-              contentPadding: EdgeInsets.zero,
-              title: Text(
-                _birthdate == null
-                    ? 'Doğum Tarihi Seç'
-                    : '${_birthdate!.day}/${_birthdate!.month}/${_birthdate!.year}',
-              ),
-              trailing: const Icon(
-                Icons.calendar_today,
-              ),
-              onTap: _pickBirthdate,
-            ),
-            const SizedBox(height: AppSpacing.lg),
-            AppTextField(
-              label: 'Şifre',
-              controller: _passwordController,
-              obscureText: true,
-            ),
-            const SizedBox(height: AppSpacing.lg),
-            AppTextField(
-              label: 'Şifre Tekrar',
-              controller:
-                  _confirmPasswordController,
-              obscureText: true,
-            ),
-            if (_validationError != null) ...[
-              const SizedBox(
-                height: AppSpacing.md,
-              ),
-              Text(
-                _validationError!,
-                style: const TextStyle(
-                  color: Colors.red,
+      child: Column(
+        crossAxisAlignment:
+            CrossAxisAlignment.start,
+        children: [
+          AppTextField(
+            label: 'Ad Soyad',
+            controller: _fullNameController,
+          ),
+          const SizedBox(height: AppSpacing.lg),
+          AppTextField(
+            label: 'Username',
+            controller: _usernameController,
+          ),
+          const SizedBox(height: AppSpacing.lg),
+          AppTextField(
+            label: 'E-posta',
+            controller: _emailController,
+            keyboardType:
+                TextInputType.emailAddress,
+          ),
+          const SizedBox(height: AppSpacing.lg),
+          AppTextField(
+            label: 'Telefon Numarası',
+            controller: _phoneController,
+            keyboardType: TextInputType.phone,
+          ),
+          const SizedBox(height: AppSpacing.lg),
+          Text(
+            'Cinsiyet',
+            style: AppTextStyles.labelSmall,
+          ),
+          const SizedBox(height: AppSpacing.sm),
+          Wrap(
+            spacing: AppSpacing.md,
+            children: Gender.values.map((gender) {
+              return ChoiceChip(
+                label: Text(gender.name),
+                selected:
+                    _selectedGender == gender,
+                onSelected: (_) => setState(
+                  () => _selectedGender = gender,
                 ),
+              );
+            }).toList(),
+          ),
+          const SizedBox(height: AppSpacing.lg),
+          ListTile(
+            contentPadding: EdgeInsets.zero,
+            title: Text(
+              _birthdate == null
+                  ? 'Doğum Tarihi Seç'
+                  : '${_birthdate!.day}/${_birthdate!.month}/${_birthdate!.year}',
+            ),
+            trailing: const Icon(
+              Icons.calendar_today,
+            ),
+            onTap: _pickBirthdate,
+          ),
+          const SizedBox(height: AppSpacing.lg),
+          AppTextField(
+            label: 'Şifre',
+            controller: _passwordController,
+            obscureText: _obscurePassword,
+            suffixIcon: IconButton(
+              // ⬅️ YENİ
+              icon: Icon(
+                _obscurePassword
+                    ? Icons.visibility
+                    : Icons.visibility_off,
               ),
-            ],
-            const SizedBox(height: AppSpacing.xl),
-            PrimaryButton(
-              label: 'Devam Et',
-              onPressed: _handleNext,
+              onPressed: () => setState(
+                () => _obscurePassword =
+                    !_obscurePassword,
+              ),
+            ),
+          ),
+          const SizedBox(height: AppSpacing.lg),
+          AppTextField(
+            label: 'Şifre Tekrar',
+            controller:
+                _confirmPasswordController,
+            obscureText: _obscureConfirmPassword,
+            suffixIcon: IconButton(
+              // ⬅️ YENİ
+              icon: Icon(
+                _obscureConfirmPassword
+                    ? Icons.visibility
+                    : Icons.visibility_off,
+              ),
+              onPressed: () => setState(
+                () => _obscureConfirmPassword =
+                    !_obscureConfirmPassword,
+              ),
+            ),
+          ),
+          if (_validationError != null) ...[
+            const SizedBox(height: AppSpacing.md),
+            Text(
+              _validationError!,
+              style: const TextStyle(
+                color: Colors.red,
+              ),
             ),
           ],
-        ),
+          const SizedBox(height: AppSpacing.xl),
+          PrimaryButton(
+            label: 'Devam Et',
+            onPressed: _handleNext,
+          ),
+        ],
+      ),
     );
   }
 }

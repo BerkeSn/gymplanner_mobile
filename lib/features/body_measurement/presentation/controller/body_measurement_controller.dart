@@ -1,7 +1,6 @@
 // presentation/controllers/body_measurement_controller.dart
 
 import 'package:gymplanner_mobile/features/body_measurement/domain/entites/body_measurement_entity.dart';
-import 'package:gymplanner_mobile/features/body_measurement/domain/entites/measurement_goal.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../../core/error/result.dart';
@@ -65,8 +64,8 @@ class BodyMeasurementController
     required double height,
     double? neck,
     double? waist,
+    double? hip,
     double? bodyFatPercentage,
-    MeasurementGoal? goal,
   }) async {
     try {
       final repository = ref.read(
@@ -79,8 +78,8 @@ class BodyMeasurementController
             height: height,
             neck: neck,
             waist: waist,
+            hip: hip,
             bodyFatPercentage: bodyFatPercentage,
-            goal: goal,
           );
       if (result
           is Failure<BodyMeasurementEntity>) {
@@ -91,6 +90,47 @@ class BodyMeasurementController
     } catch (error, stackTrace) {
       AppLogger.error(
         'BodyMeasurementController - addMeasurement',
+        error,
+        stackTrace,
+      );
+      return false;
+    }
+  }
+
+  // ⬇️ YENİ
+  Future<bool> updateMeasurement({
+    required int id,
+    DateTime? date,
+    double? weight,
+    double? height,
+    double? neck,
+    double? waist,
+    double? hip,
+    double? bodyFatPercentage,
+  }) async {
+    try {
+      final repository = ref.read(
+        bodyMeasurementRepositoryProvider,
+      );
+      final result = await repository
+          .updateMeasurement(
+            id: id,
+            date: date,
+            weight: weight,
+            height: height,
+            neck: neck,
+            waist: waist,
+            hip: hip,
+            bodyFatPercentage: bodyFatPercentage,
+          );
+      if (result is Failure<void>) {
+        throw result.exception;
+      }
+      await refresh();
+      return true;
+    } catch (error, stackTrace) {
+      AppLogger.error(
+        'BodyMeasurementController - updateMeasurement',
         error,
         stackTrace,
       );

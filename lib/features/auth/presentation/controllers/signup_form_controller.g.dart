@@ -7,7 +7,7 @@ part of 'signup_form_controller.dart';
 // **************************************************************************
 
 String _$signupFormControllerHash() =>
-    r'34f62283a9b88d67f2ceee438ea2958c47554e91';
+    r'c4a4658222c8332997ebd55ab27714acea4233eb';
 
 /// See also [SignupFormController].
 @ProviderFor(SignupFormController)

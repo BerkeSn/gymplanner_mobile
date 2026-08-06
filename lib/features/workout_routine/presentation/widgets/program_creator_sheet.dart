@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gymplanner_mobile/core/widgets/labeled_dropdown.dart';
 
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_spacing.dart';
@@ -152,7 +153,7 @@ class _ProgramCreatorSheetState
             Row(
               children: [
                 Expanded(
-                  child: _LabeledDropdown<int>(
+                  child: LabeledDropdown<int>(
                     label: 'Gün / Hafta',
                     value: _selectedDaysPerWeek,
                     items: _dayOptions
@@ -179,7 +180,7 @@ class _ProgramCreatorSheetState
                 ),
                 Expanded(
                   child:
-                      _LabeledDropdown<
+                      LabeledDropdown<
                         TrainingGoal
                       >(
                         label: 'Antrenman Hedefi',

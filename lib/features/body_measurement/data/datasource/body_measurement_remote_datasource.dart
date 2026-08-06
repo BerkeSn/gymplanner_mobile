@@ -1,5 +1,3 @@
-// datasources/body_measurement_remote_datasource.dart
-
 import 'package:dio/dio.dart';
 
 import '../../../../core/error/app_exception.dart';
@@ -55,8 +53,8 @@ class BodyMeasurementRemoteDataSource {
     required double height,
     double? neck,
     double? waist,
+    double? hip,
     double? bodyFatPercentage,
-    String? goal,
   }) async {
     try {
       final response = await _dio.post(
@@ -67,10 +65,10 @@ class BodyMeasurementRemoteDataSource {
           'height': height,
           if (neck != null) 'neck': neck,
           if (waist != null) 'waist': waist,
+          if (hip != null) 'hip': hip,
           if (bodyFatPercentage != null)
             'bodyFatPercentage':
                 bodyFatPercentage,
-          if (goal != null) 'goal': goal,
         },
       );
       final data =
@@ -99,10 +97,53 @@ class BodyMeasurementRemoteDataSource {
     }
   }
 
-  /// ⚠️ Backend'in route dosyasında bu işlem DELETE değil PUT olarak
-  /// tanımlı (bodyMeasurementRoute.js -> router.put('/deleteMeasurement/:id', ...)).
-  /// Standart REST beklentisine aykırı ama backend'i değiştirmeden bu
-  /// tuhaflığa uyuyoruz.
+  /// ⚠️ Backend route'u POST (PUT değil): router.post('/updateMeasurement/:id', ...)
+  Future<void> updateMeasurement({
+    required int id,
+    String? date,
+    double? weight,
+    double? height,
+    double? neck,
+    double? waist,
+    double? hip,
+    double? bodyFatPercentage,
+  }) async {
+    try {
+      await _dio.post(
+        '/bodymeasurement/updateMeasurement/$id',
+        data: {
+          if (date != null) 'date': date,
+          if (weight != null) 'weight': weight,
+          if (height != null) 'height': height,
+          if (neck != null) 'neck': neck,
+          if (waist != null) 'waist': waist,
+          if (hip != null) 'hip': hip,
+          if (bodyFatPercentage != null)
+            'bodyFatPercentage':
+                bodyFatPercentage,
+        },
+      );
+    } on DioException catch (error, stackTrace) {
+      throw AppExceptionFactory.network(
+        source:
+            'BodyMeasurementRemoteDataSource - updateMeasurement',
+        message:
+            _extractMessage(error) ??
+            'Ölçüm güncellenemedi.',
+        originalError: error,
+        stackTrace: stackTrace,
+      );
+    } catch (error, stackTrace) {
+      throw AppExceptionFactory.unexpected(
+        source:
+            'BodyMeasurementRemoteDataSource - updateMeasurement',
+        error: error,
+        stackTrace: stackTrace,
+      );
+    }
+  }
+
+  /// ⚠️ Backend route'u PUT — router.put('/deleteMeasurement/:id', ...) (tuhaf ama böyle)
   Future<void> deleteMeasurement(int id) async {
     try {
       await _dio.put(

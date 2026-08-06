@@ -394,4 +394,114 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get walkSaveError => 'Could not save walk';
+
+  @override
+  String get activityLevelLabel => 'Activity Level';
+
+  @override
+  String get activityLevelSedentary => 'Sedentary';
+
+  @override
+  String get activityLevelLight => 'Lightly Active';
+
+  @override
+  String get activityLevelModerate => 'Moderately Active';
+
+  @override
+  String get activityLevelActive => 'Very Active';
+
+  @override
+  String get goalImproveEndurance => 'Improve Endurance';
+
+  @override
+  String get calculatingTargetMessage => 'Calculating your calorie target...';
+
+  @override
+  String get yourDailyCalorieTargetTitle => 'Your Daily Calorie Target';
+
+  @override
+  String get calorieTargetSubtitle =>
+      'This target was calculated automatically based on your info. You can update it anytime from your profile.';
+
+  @override
+  String get continueButton => 'Continue';
+
+  @override
+  String get totalFriendsLabel => 'Friends';
+
+  @override
+  String get currentStreakShortLabel => 'Streak';
+
+  @override
+  String get languageMenuItem => 'Language';
+
+  @override
+  String get themeMenuItem => 'Appearance';
+
+  @override
+  String get goalMenuLabel => 'Your Goal';
+
+  @override
+  String get activityLevelMenuLabel => 'Your Activity Level';
+
+  @override
+  String get lightThemeOption => 'Light Theme';
+
+  @override
+  String get darkThemeOption => 'Dark Theme';
+
+  @override
+  String get systemThemeOption => 'System Default';
+
+  @override
+  String get turkishLanguageOption => 'Turkish';
+
+  @override
+  String get englishLanguageOption => 'English';
+
+  @override
+  String get appearanceTitle => 'Appearance';
+
+  @override
+  String get welcomeGreetingLabel => 'WELCOME';
+
+  @override
+  String get noActiveProgramLabel => 'You don\'t have an active program yet.';
+
+  @override
+  String get createProgramButton => 'Create a Program';
+
+  @override
+  String get restDayLabel => 'Rest Day';
+
+  @override
+  String get mealsForSelectedDayTitle => 'This Day\'s Meals';
+
+  @override
+  String get calorieSummaryTitle => 'Calorie Summary';
+
+  @override
+  String get exercisesCountSuffix => 'Exercises';
+
+  @override
+  String get editMeasurementTitle => 'Edit Measurement';
+
+  @override
+  String get hipLabelCm => 'Hip (cm)';
+
+  @override
+  String get autoCalculateBodyFatLabel => 'Auto-Calculate';
+
+  @override
+  String get manualBodyFatLabel => 'Enter Manually';
+
+  @override
+  String get bodyFatCalculatedLabel => 'Calculated Body Fat';
+
+  @override
+  String get insufficientDataForBodyFat =>
+      'Neck and waist measurements are required to calculate.';
+
+  @override
+  String get updateMeasurementButton => 'Update';
 }

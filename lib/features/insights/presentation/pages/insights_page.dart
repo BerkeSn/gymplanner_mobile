@@ -7,7 +7,12 @@ import '../../../body_measurement/presentation/widgets/add_measurement_sheet.dar
 import '../../../workout_log/presentation/pages/streak_analytics_view.dart';
 
 class InsightsPage extends StatefulWidget {
-  const InsightsPage({super.key});
+  final int initialTabIndex;
+
+  const InsightsPage({
+    super.key,
+    this.initialTabIndex = 0,
+  });
 
   @override
   State<InsightsPage> createState() =>
@@ -16,7 +21,13 @@ class InsightsPage extends StatefulWidget {
 
 class _InsightsPageState
     extends State<InsightsPage> {
-  int _tabIndex = 0;
+  late int _tabIndex;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabIndex = widget.initialTabIndex; // ⬅️ YENİ
+  }
 
   @override
   Widget build(BuildContext context) {

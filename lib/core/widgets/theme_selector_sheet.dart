@@ -1,6 +1,9 @@
+// core/widgets/theme_selector_sheet.dart — TAMAMEN değiştir
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../l10n/app_localizations.dart';
 import '../theme/app_spacing.dart';
 import '../theme/theme_mode_controller.dart';
 
@@ -19,6 +22,7 @@ class ThemeSelectorSheet extends ConsumerWidget {
     BuildContext context,
     WidgetRef ref,
   ) {
+    final l10n = AppLocalizations.of(context);
     final currentMode =
         ref
             .watch(themeModeControllerProvider)
@@ -39,14 +43,14 @@ class ThemeSelectorSheet extends ConsumerWidget {
               CrossAxisAlignment.start,
           children: [
             Text(
-              'Görünüm',
+              l10n.appearanceTitle,
               style: Theme.of(
                 context,
               ).textTheme.headlineMedium,
             ),
             const SizedBox(height: AppSpacing.md),
             RadioListTile<ThemeMode>(
-              title: const Text('Açık Tema'),
+              title: Text(l10n.lightThemeOption),
               value: ThemeMode.light,
               groupValue: currentMode,
               onChanged: (mode) {
@@ -56,7 +60,7 @@ class ThemeSelectorSheet extends ConsumerWidget {
               },
             ),
             RadioListTile<ThemeMode>(
-              title: const Text('Koyu Tema'),
+              title: Text(l10n.darkThemeOption),
               value: ThemeMode.dark,
               groupValue: currentMode,
               onChanged: (mode) {
@@ -66,7 +70,7 @@ class ThemeSelectorSheet extends ConsumerWidget {
               },
             ),
             RadioListTile<ThemeMode>(
-              title: const Text('Sistem Ayarı'),
+              title: Text(l10n.systemThemeOption),
               value: ThemeMode.system,
               groupValue: currentMode,
               onChanged: (mode) {

@@ -7,7 +7,7 @@ part of 'body_measurement_controller.dart';
 // **************************************************************************
 
 String _$bodyMeasurementControllerHash() =>
-    r'7c3b34327d92ac559442fcdbb58d5fd94cd22fd5';
+    r'7c63b6c4697de85713a90ba0ae58391a51d31318';
 
 /// See also [BodyMeasurementController].
 @ProviderFor(BodyMeasurementController)

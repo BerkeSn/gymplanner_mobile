@@ -1,7 +1,4 @@
-// models/body_measurement_dto.dart
-
 import 'package:gymplanner_mobile/features/body_measurement/domain/entites/body_measurement_entity.dart';
-import 'package:gymplanner_mobile/features/body_measurement/domain/entites/measurement_goal.dart';
 
 class BodyMeasurementDto {
   final int id;
@@ -10,8 +7,8 @@ class BodyMeasurementDto {
   final num height;
   final num? neck;
   final num? waist;
+  final num? hip;
   final num? bodyFatPercentage;
-  final String goal;
 
   BodyMeasurementDto({
     required this.id,
@@ -20,8 +17,8 @@ class BodyMeasurementDto {
     required this.height,
     this.neck,
     this.waist,
+    this.hip,
     this.bodyFatPercentage,
-    required this.goal,
   });
 
   factory BodyMeasurementDto.fromJson(
@@ -35,10 +32,9 @@ class BodyMeasurementDto {
         height: json['height'] as num,
         neck: json['neck'] as num?,
         waist: json['waist'] as num?,
+        hip: json['hip'] as num?,
         bodyFatPercentage:
             json['bodyFatPercentage'] as num?,
-        goal:
-            json['goal'] as String? ?? 'Maintain',
       );
     } catch (error, stackTrace) {
       throw Exception(
@@ -57,8 +53,8 @@ class BodyMeasurementDto {
         height: height.toDouble(),
         neck: neck?.toDouble(),
         waist: waist?.toDouble(),
+        hip: hip?.toDouble(),
         bodyFatPercentage: bodyFatPercentage
             ?.toDouble(),
-        goal: MeasurementGoalX.fromApi(goal),
       );
 }

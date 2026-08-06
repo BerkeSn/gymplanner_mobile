@@ -59,14 +59,14 @@ class AppShell extends StatelessWidget {
               label: 'Beslenme',
             ),
             NavigationDestination(
-              icon: Icon(Icons.home_outlined),
-              selectedIcon: Icon(Icons.home),
-              label: 'Ana Sayfa',
-            ),
-            NavigationDestination(
               icon: Icon(Icons.insights_outlined),
               selectedIcon: Icon(Icons.insights),
               label: 'Analiz',
+            ),
+            NavigationDestination(
+              icon: Icon(Icons.home_outlined),
+              selectedIcon: Icon(Icons.home),
+              label: 'Ana Sayfa',
             ),
             NavigationDestination(
               icon: Icon(

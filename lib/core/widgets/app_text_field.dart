@@ -14,6 +14,7 @@ class AppTextField extends StatelessWidget {
   final TextInputType keyboardType;
   final Widget? suffixIcon;
   final String? errorText;
+  final ValueChanged<String>? onChanged;
 
   const AppTextField({
     super.key,
@@ -23,6 +24,7 @@ class AppTextField extends StatelessWidget {
     this.keyboardType = TextInputType.text,
     this.suffixIcon,
     this.errorText,
+    this.onChanged,
   });
 
   @override
@@ -33,6 +35,7 @@ class AppTextField extends StatelessWidget {
         obscureText: obscureText,
         keyboardType: keyboardType,
         style: AppTextStyles.bodyLarge,
+        onChanged: onChanged,
         decoration: InputDecoration(
           labelText: label,
           labelStyle: AppTextStyles.bodyMedium,

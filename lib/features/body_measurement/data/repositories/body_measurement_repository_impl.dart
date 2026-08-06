@@ -1,8 +1,5 @@
-// repositories/body_measurement_repository_impl.dart
-
 import 'package:gymplanner_mobile/features/body_measurement/data/datasource/body_measurement_remote_datasource.dart';
 import 'package:gymplanner_mobile/features/body_measurement/domain/entites/body_measurement_entity.dart';
-import 'package:gymplanner_mobile/features/body_measurement/domain/entites/measurement_goal.dart';
 
 import '../../../../core/error/app_exception.dart';
 import '../../../../core/error/result.dart';
@@ -49,8 +46,8 @@ class BodyMeasurementRepositoryImpl
     required double height,
     double? neck,
     double? waist,
+    double? hip,
     double? bodyFatPercentage,
-    MeasurementGoal? goal,
   }) async {
     try {
       final dto = await _remoteDataSource
@@ -63,8 +60,8 @@ class BodyMeasurementRepositoryImpl
             height: height,
             neck: neck,
             waist: waist,
+            hip: hip,
             bodyFatPercentage: bodyFatPercentage,
-            goal: goal?.apiValue,
           );
       return Success(dto.toEntity());
     } on AppException catch (error) {
@@ -74,6 +71,46 @@ class BodyMeasurementRepositoryImpl
         AppExceptionFactory.unexpected(
           source:
               'BodyMeasurementRepositoryImpl - createMeasurement',
+          error: error,
+          stackTrace: stackTrace,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<Result<void>> updateMeasurement({
+    required int id,
+    DateTime? date,
+    double? weight,
+    double? height,
+    double? neck,
+    double? waist,
+    double? hip,
+    double? bodyFatPercentage,
+  }) async {
+    try {
+      await _remoteDataSource.updateMeasurement(
+        id: id,
+        date: date
+            ?.toIso8601String()
+            .split('T')
+            .first,
+        weight: weight,
+        height: height,
+        neck: neck,
+        waist: waist,
+        hip: hip,
+        bodyFatPercentage: bodyFatPercentage,
+      );
+      return const Success(null);
+    } on AppException catch (error) {
+      return Failure(error);
+    } catch (error, stackTrace) {
+      return Failure(
+        AppExceptionFactory.unexpected(
+          source:
+              'BodyMeasurementRepositoryImpl - updateMeasurement',
           error: error,
           stackTrace: stackTrace,
         ),
