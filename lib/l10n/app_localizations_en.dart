@@ -504,4 +504,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get updateMeasurementButton => 'Update';
+
+  @override
+  String get allLocationsLabel => 'All';
+
+  @override
+  String get favoritesOnlyLabel => 'Favorites';
 }

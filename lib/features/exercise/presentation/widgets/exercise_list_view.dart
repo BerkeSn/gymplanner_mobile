@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gymplanner_mobile/l10n/app_localizations.dart';
 
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_spacing.dart';
@@ -26,11 +27,14 @@ class ExerciseListView
     extends ConsumerStatefulWidget {
   final ExerciseTapCallback onExerciseTap;
   final ExerciseTrailingBuilder? trailingBuilder;
+  final bool showFavoritesFilter;
 
   const ExerciseListView({
     super.key,
     required this.onExerciseTap,
     this.trailingBuilder,
+    this.showFavoritesFilter = false,
+    
   });
 
   @override
@@ -83,20 +87,57 @@ class _ExerciseListViewState
                   crossAxisAlignment:
                       CrossAxisAlignment.start,
                   children: [
-                    TextField(
-                      controller:
-                          _searchController,
-                      onChanged: controller
-                          .updateSearchQuery,
-                      decoration:
-                          const InputDecoration(
-                            hintText:
-                                'Hareket ara...',
-                            prefixIcon: Icon(
-                              Icons.search,
-                            ),
-                            filled: true,
+                    Row(
+                      children: [
+                        Expanded(
+                          child: TextField(
+                            controller:
+                                _searchController,
+                            onChanged: controller
+                                .updateSearchQuery,
+                            decoration:
+                                const InputDecoration(
+                                  hintText:
+                                      'Hareket ara...',
+                                  prefixIcon: Icon(
+                                    Icons.search,
+                                  ),
+                                  filled: true,
+                                ),
                           ),
+                        ),
+                        if (widget
+                            .showFavoritesFilter) ...[
+                          // ⬅️ YENİ
+                          const SizedBox(
+                            width: AppSpacing.sm,
+                          ),
+                          IconButton.filledTonal(
+                            isSelected: state
+                                .favoritesOnly,
+                            onPressed: controller
+                                .toggleFavoritesOnly,
+                            icon: const Icon(
+                              Icons
+                                  .favorite_border,
+                            ),
+                            selectedIcon:
+                                const Icon(
+                                  Icons.favorite,
+                                ),
+                          ),
+                        ],
+                      ],
+                    ),
+                    const SizedBox(
+                      height: AppSpacing.md,
+                    ),
+                    _LocationFilterChips(
+                      // ⬅️ YENİ
+                      selected:
+                          state.locationFilter,
+                      onSelected: controller
+                          .updateLocationFilter,
                     ),
                     const SizedBox(
                       height: AppSpacing.md,
@@ -118,6 +159,7 @@ class _ExerciseListViewState
                 ),
               ),
             ),
+            
             if (state.filteredExercises.isEmpty)
               const SliverFillRemaining(
                 child: Center(
@@ -308,6 +350,23 @@ class _DifficultyBadge extends StatelessWidget {
     required this.difficulty,
   });
 
+  /// Yeşil = Beginner, Sarı = Intermediate, Kırmızı = Advanced.
+  /// Sabit renkler kullanılıyor (tema paletinden değil) çünkü bu anlamsal
+  /// bir durum göstergesi — dark/light temada her zaman aynı çağrışımı
+  /// (kolay/orta/zor) taşımalı.
+  Color get _color {
+    switch (difficulty) {
+      case 'Beginner':
+        return const Color(0xFF2E7D32);
+      case 'Intermediate':
+        return const Color(0xFFB8860B);
+      case 'Advanced':
+        return const Color(0xFFC62828);
+      default:
+        return AppColors.outline;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -316,15 +375,14 @@ class _DifficultyBadge extends StatelessWidget {
         vertical: 2,
       ),
       decoration: BoxDecoration(
-        color: AppColors.tertiaryContainer
-            .withValues(alpha: 0.25),
+        color: _color.withValues(alpha: 0.15),
         borderRadius: BorderRadius.circular(4),
       ),
       child: Text(
         difficulty,
         style: AppTextStyles.labelSmall.copyWith(
           fontSize: 9,
-          color: AppColors.tertiary,
+          color: _color,
         ),
       ),
     );
@@ -367,6 +425,47 @@ class _ErrorView extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class _LocationFilterChips
+    extends StatelessWidget {
+  final ExerciseLocation? selected;
+  final ValueChanged<ExerciseLocation?>
+  onSelected;
+
+  const _LocationFilterChips({
+    required this.selected,
+    required this.onSelected,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    return Wrap(
+      spacing: AppSpacing.sm,
+      children: [
+        ChoiceChip(
+          label: Text(l10n.allLocationsLabel),
+          selected: selected == null,
+          onSelected: (_) => onSelected(null),
+        ),
+        ChoiceChip(
+          label: Text(l10n.locationHome),
+          selected:
+              selected == ExerciseLocation.home,
+          onSelected: (_) =>
+              onSelected(ExerciseLocation.home),
+        ),
+        ChoiceChip(
+          label: Text(l10n.locationGym),
+          selected:
+              selected == ExerciseLocation.gym,
+          onSelected: (_) =>
+              onSelected(ExerciseLocation.gym),
+        ),
+      ],
     );
   }
 }

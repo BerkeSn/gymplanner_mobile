@@ -16,6 +16,9 @@ class ExerciseLibraryState {
   final Set<int> favoriteIds;
   final int? selectedMuscleGroupId;
   final String searchQuery;
+  final ExerciseLocation?
+  locationFilter;
+  final bool favoritesOnly;
 
   const ExerciseLibraryState({
     this.muscleGroups = const [],
@@ -23,25 +26,48 @@ class ExerciseLibraryState {
     this.favoriteIds = const {},
     this.selectedMuscleGroupId,
     this.searchQuery = '',
+    this.locationFilter,
+    this.favoritesOnly = false,
   });
 
-  /// UI'da gösterilecek filtrelenmiş liste — arama metnine göre client-side
-  /// filtreliyoruz çünkü backend'de isim araması endpoint'i yok, liste
-  /// zaten küçük (seed'de ~30 egzersiz), tekrar network atmaya gerek yok.
   List<ExerciseEntity> get filteredExercises {
-    if (searchQuery.trim().isEmpty)
-      return exercises;
-    final query = searchQuery
-        .trim()
-        .toLowerCase();
-    return exercises
-        .where(
-          (e) => e.name.toLowerCase().contains(
-            query,
-          ),
-        )
-        .toList();
+    var result = exercises;
+
+    if (searchQuery.trim().isNotEmpty) {
+      final query = searchQuery
+          .trim()
+          .toLowerCase();
+      result = result
+          .where(
+            (e) => e.name.toLowerCase().contains(
+              query,
+            ),
+          )
+          .toList();
+    }
+
+    if (locationFilter != null) {
+      result = result
+          .where(
+            (e) => e.availableAt.matchesFilter(
+              locationFilter,
+            ),
+          )
+          .toList();
+    }
+
+    if (favoritesOnly) {
+      result = result
+          .where(
+            (e) => favoriteIds.contains(e.id),
+          )
+          .toList();
+    }
+
+    return result;
   }
+
+  
 
   ExerciseLibraryState copyWith({
     List<MuscleGroupEntity>? muscleGroups,
@@ -49,8 +75,11 @@ class ExerciseLibraryState {
     Set<int>? favoriteIds,
     int? Function()? selectedMuscleGroupId,
     String? searchQuery,
+    ExerciseLocation? Function()?
+    locationFilter,
+    bool? favoritesOnly,
   }) {
-    return ExerciseLibraryState(
+return ExerciseLibraryState(
       muscleGroups:
           muscleGroups ?? this.muscleGroups,
       exercises: exercises ?? this.exercises,
@@ -62,6 +91,11 @@ class ExerciseLibraryState {
           : this.selectedMuscleGroupId,
       searchQuery:
           searchQuery ?? this.searchQuery,
+      locationFilter: locationFilter != null
+          ? locationFilter()
+          : this.locationFilter,
+      favoritesOnly:
+          favoritesOnly ?? this.favoritesOnly,
     );
   }
 }
@@ -164,6 +198,44 @@ class ExerciseLibraryController
     } catch (error, stackTrace) {
       AppLogger.error(
         'ExerciseLibraryController - updateSearchQuery',
+        error,
+        stackTrace,
+      );
+    }
+  }
+
+  void updateLocationFilter(
+    ExerciseLocation? location,
+  ) {
+    try {
+      final current = state.valueOrNull;
+      if (current == null) return;
+      state = AsyncData(
+        current.copyWith(
+          locationFilter: () => location,
+        ),
+      );
+    } catch (error, stackTrace) {
+      AppLogger.error(
+        'ExerciseLibraryController - updateLocationFilter',
+        error,
+        stackTrace,
+      );
+    }
+  }
+
+  void toggleFavoritesOnly() {
+    try {
+      final current = state.valueOrNull;
+      if (current == null) return;
+      state = AsyncData(
+        current.copyWith(
+          favoritesOnly: !current.favoritesOnly,
+        ),
+      );
+    } catch (error, stackTrace) {
+      AppLogger.error(
+        'ExerciseLibraryController - toggleFavoritesOnly',
         error,
         stackTrace,
       );

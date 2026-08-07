@@ -1075,6 +1075,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Update'**
   String get updateMeasurementButton;
+
+  /// No description provided for @allLocationsLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
+  String get allLocationsLabel;
+
+  /// No description provided for @favoritesOnlyLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Favorites'**
+  String get favoritesOnlyLabel;
 }
 
 class _AppLocalizationsDelegate

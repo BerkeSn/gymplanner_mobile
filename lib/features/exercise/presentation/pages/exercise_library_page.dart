@@ -21,6 +21,7 @@ class ExerciseLibraryPage extends ConsumerWidget {
         title: const Text('Egzersiz Kütüphanesi'),
       ),
       body: ExerciseListView(
+        showFavoritesFilter: true,
         onExerciseTap: (exercise) {
           Navigator.of(context).push(
             MaterialPageRoute(

@@ -162,5 +162,7 @@
   "manualBodyFatLabel": "Manuel Gir",
   "bodyFatCalculatedLabel": "Hesaplanan Yağ Oranı",
   "insufficientDataForBodyFat": "Hesaplamak için boyun ve bel ölçüsü gerekli.",
-  "updateMeasurementButton": "Güncelle"
+  "updateMeasurementButton": "Güncelle",
+  "allLocationsLabel": "Hepsi",
+  "favoritesOnlyLabel": "Favoriler"
 }

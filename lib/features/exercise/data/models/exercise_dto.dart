@@ -10,6 +10,7 @@ class ExerciseDto {
   final String difficulty;
   final String muscleGroupName;
   final String equipmentName;
+  final String availableAt;
 
   ExerciseDto({
     required this.id,
@@ -19,6 +20,7 @@ class ExerciseDto {
     required this.difficulty,
     required this.muscleGroupName,
     required this.equipmentName,
+    required this.availableAt,
   });
 
   /// Backend `include` ile muscleGroup/equipment ilişkisini iç içe JSON
@@ -47,6 +49,9 @@ class ExerciseDto {
             '—',
         equipmentName:
             equipment?['name'] as String? ?? '—',
+        availableAt:
+            json['availableAt'] as String? ??
+            'Gym',
       );
     } catch (error, stackTrace) {
       throw Exception(
@@ -63,5 +68,8 @@ class ExerciseDto {
     difficulty: difficulty,
     muscleGroupName: muscleGroupName,
     equipmentName: equipmentName,
+    availableAt: ExerciseLocationX.fromApi(
+      availableAt,
+    ),
   );
 }

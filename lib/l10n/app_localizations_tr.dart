@@ -503,4 +503,10 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get updateMeasurementButton => 'Güncelle';
+
+  @override
+  String get allLocationsLabel => 'Hepsi';
+
+  @override
+  String get favoritesOnlyLabel => 'Favoriler';
 }

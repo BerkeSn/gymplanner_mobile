@@ -7,7 +7,7 @@ part of 'exercise_library_controller.dart';
 // **************************************************************************
 
 String _$exerciseLibraryControllerHash() =>
-    r'677f410ec4811381b5bb9de2a2799d2203130447';
+    r'9cf966d02d0be05ff02deffb9ff954bb88589825';
 
 /// See also [ExerciseLibraryController].
 @ProviderFor(ExerciseLibraryController)

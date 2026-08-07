@@ -162,5 +162,7 @@
   "manualBodyFatLabel": "Enter Manually",
   "bodyFatCalculatedLabel": "Calculated Body Fat",
   "insufficientDataForBodyFat": "Neck and waist measurements are required to calculate.",
-  "updateMeasurementButton": "Update"
+  "updateMeasurementButton": "Update",
+  "allLocationsLabel": "All",
+  "favoritesOnlyLabel": "Favorites"
 }
