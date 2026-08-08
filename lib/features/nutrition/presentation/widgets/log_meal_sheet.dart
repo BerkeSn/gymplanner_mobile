@@ -48,7 +48,7 @@ class _LogMealSheetState
   final _carbsController =
       TextEditingController();
   final _fatsController = TextEditingController();
-  MealType _selectedType = MealType.snack;
+  // MealType _selectedType = MealType.snack;
   bool _isSubmitting = false;
   String? _errorText;
 
@@ -90,7 +90,7 @@ class _LogMealSheetState
           )
           .addMeal(
             date: widget.date, // ⬅️ YENİ
-            mealType: _selectedType,
+            mealType: MealType.snack,
             name: _nameController.text.trim(),
             servingWeight: double.tryParse(
               _weightController.text,
@@ -164,55 +164,56 @@ class _LogMealSheetState
               ).textTheme.headlineMedium,
             ),
             const SizedBox(height: AppSpacing.lg),
-            Wrap(
-              spacing: AppSpacing.sm,
-              children: [
-                ChoiceChip(
-                  label: Text(
-                    l10n.mealTypeBreakfast,
-                  ),
-                  selected:
-                      _selectedType ==
-                      MealType.breakfast,
-                  onSelected: (_) => setState(
-                    () => _selectedType =
-                        MealType.breakfast,
-                  ),
-                ),
-                ChoiceChip(
-                  label: Text(l10n.mealTypeLunch),
-                  selected:
-                      _selectedType ==
-                      MealType.lunch,
-                  onSelected: (_) => setState(
-                    () => _selectedType =
-                        MealType.lunch,
-                  ),
-                ),
-                ChoiceChip(
-                  label: Text(
-                    l10n.mealTypeDinner,
-                  ),
-                  selected:
-                      _selectedType ==
-                      MealType.dinner,
-                  onSelected: (_) => setState(
-                    () => _selectedType =
-                        MealType.dinner,
-                  ),
-                ),
-                ChoiceChip(
-                  label: Text(l10n.mealTypeSnack),
-                  selected:
-                      _selectedType ==
-                      MealType.snack,
-                  onSelected: (_) => setState(
-                    () => _selectedType =
-                        MealType.snack,
-                  ),
-                ),
-              ],
-            ),
+            // Wrap(
+            //   spacing: AppSpacing.sm,
+            //   children: [
+            //     ChoiceChip(
+            //       label: Text(
+            //         l10n.mealTypeBreakfast,
+            //       ),
+            //       selected:
+            //           _selectedType ==
+            //           MealType.breakfast,
+            //       onSelected: (_) => setState(
+            //         () => _selectedType =
+            //             MealType.breakfast,
+            //       ),
+            //     ),
+            //     ChoiceChip(
+            //       label: Text(l10n.mealTypeLunch),
+            //       selected:
+            //           _selectedType ==
+            //           MealType.lunch,
+            //       onSelected: (_) => setState(
+            //         () => _selectedType =
+            //             MealType.lunch,
+            //       ),
+            //     ),
+            //     ChoiceChip(
+            //       label: Text(
+            //         l10n.mealTypeDinner,
+            //       ),
+            //       selected:
+            //           _selectedType ==
+            //           MealType.dinner,
+            //       onSelected: (_) => setState(
+            //         () => _selectedType =
+            //             MealType.dinner,
+            //       ),
+            //     ),
+            //     ChoiceChip(
+            //       label: Text(l10n.mealTypeSnack),
+            //       selected:
+            //           _selectedType ==
+            //           MealType.snack,
+            //       onSelected: (_) => setState(
+            //         () => _selectedType =
+            //             MealType.snack,
+            //       ),
+            //     ),
+            //   ],
+            // ),
+            
             const SizedBox(height: AppSpacing.lg),
             AppTextField(
               label: l10n.mealNameLabel,

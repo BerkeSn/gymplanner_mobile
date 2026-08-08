@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:gymplanner_mobile/features/nutrition/domain/entites/meal_entry_entity.dart';
-import 'package:gymplanner_mobile/features/nutrition/domain/entites/meal_type.dart';
 import 'package:gymplanner_mobile/features/nutrition/presentation/controller/nutrition_controller.dart';
 import 'package:gymplanner_mobile/features/nutrition/presentation/widgets/log_meal_sheet.dart';
+import 'package:gymplanner_mobile/features/nutrition/presentation/widgets/meal_tile.dart';
 
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_spacing.dart';
@@ -145,7 +144,7 @@ class CalorieTrackerPage extends ConsumerWidget {
                 )
               else
                 ...state.summary.meals.reversed.map(
-                  (meal) => _MealTile(
+                  (meal) => MealTile(
                     meal: meal,
                     onDelete: () => ref
                         .read(
@@ -315,91 +314,6 @@ class _MacroCell extends StatelessWidget {
             style: AppTextStyles.bodyLarge,
           ),
         ],
-      ),
-    );
-  }
-}
-
-class _MealTile extends StatelessWidget {
-  final MealEntryEntity meal;
-  final VoidCallback onDelete;
-
-  const _MealTile({
-    required this.meal,
-    required this.onDelete,
-  });
-
-  String _mealTypeLabel(
-    BuildContext context,
-    MealType type,
-  ) {
-    final l10n = AppLocalizations.of(context);
-    switch (type) {
-      case MealType.breakfast:
-        return l10n.mealTypeBreakfast;
-      case MealType.lunch:
-        return l10n.mealTypeLunch;
-      case MealType.dinner:
-        return l10n.mealTypeDinner;
-      case MealType.snack:
-        return l10n.mealTypeSnack;
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(
-        bottom: AppSpacing.sm,
-      ),
-      child: Container(
-        padding: const EdgeInsets.all(
-          AppSpacing.md,
-        ),
-        decoration: BoxDecoration(
-          color: AppColors.surfaceContainerLowest,
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(
-            color: AppColors.outlineVariant
-                .withValues(alpha: 0.15),
-          ),
-        ),
-        child: Row(
-          children: [
-            Expanded(
-              child: Column(
-                crossAxisAlignment:
-                    CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    meal.name,
-                    style:
-                        AppTextStyles.bodyLarge,
-                  ),
-                  Text(
-                    _mealTypeLabel(
-                      context,
-                      meal.mealType,
-                    ),
-                    style:
-                        AppTextStyles.bodyMedium,
-                  ),
-                ],
-              ),
-            ),
-            Text(
-              '${meal.calories} kcal',
-              style: AppTextStyles.bodyLarge,
-            ),
-            IconButton(
-              icon: const Icon(
-                Icons.delete_outline,
-                size: 20,
-              ),
-              onPressed: onDelete,
-            ),
-          ],
-        ),
       ),
     );
   }

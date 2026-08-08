@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:gymplanner_mobile/features/nutrition/domain/entites/meal_entry_entity.dart';
 import 'package:gymplanner_mobile/features/nutrition/presentation/controller/nutrition_controller.dart';
+import 'package:gymplanner_mobile/features/nutrition/presentation/widgets/meal_tile.dart';
 import 'package:gymplanner_mobile/features/walk_tracking/presentation/pages/active_walk_page.dart';
 
 import '../../../../core/router/app_router.dart';
@@ -660,7 +660,7 @@ class _NutritionSection extends ConsumerWidget {
             return Column(
               children: summary.meals
                   .map(
-                    (meal) => _DashboardMealTile(
+                    (meal) => MealTile(
                       meal: meal,
                     ),
                   )
@@ -682,48 +682,6 @@ class _NutritionSection extends ConsumerWidget {
           ),
         ),
       ],
-    );
-  }
-}
-
-class _DashboardMealTile extends StatelessWidget {
-  final MealEntryEntity meal;
-  const _DashboardMealTile({required this.meal});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(
-        bottom: AppSpacing.sm,
-      ),
-      child: Container(
-        padding: const EdgeInsets.all(
-          AppSpacing.md,
-        ),
-        decoration: BoxDecoration(
-          color: AppColors.surfaceContainerLow,
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: Row(
-          children: [
-            Icon(
-              Icons.restaurant,
-              color: AppColors.primary,
-            ),
-            const SizedBox(width: AppSpacing.md),
-            Expanded(
-              child: Text(
-                meal.name,
-                style: AppTextStyles.bodyLarge,
-              ),
-            ),
-            Text(
-              '${meal.calories} kcal',
-              style: AppTextStyles.bodyMedium,
-            ),
-          ],
-        ),
-      ),
     );
   }
 }
