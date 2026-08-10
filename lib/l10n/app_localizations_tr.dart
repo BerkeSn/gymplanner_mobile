@@ -509,4 +509,28 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get favoritesOnlyLabel => 'Favoriler';
+
+  @override
+  String get lastSessionLabel => 'Son Antrenman';
+
+  @override
+  String get noPreviousDataLabel => 'Bu hareket için önceki veri yok.';
+
+  @override
+  String get noWorkoutLoggedForDay => 'Bu gün için antrenman kaydı yok.';
+
+  @override
+  String get weeklyRecordsTitle => 'Haftalık Kayıtlar';
+
+  @override
+  String get updateButton => 'Güncelle';
+
+  @override
+  String get editSetsRepsTitle => 'Set/Tekrar Güncelle';
+
+  @override
+  String get volumeMetricLabel => 'Hacim';
+
+  @override
+  String get prMetricLabel => 'PR';
 }

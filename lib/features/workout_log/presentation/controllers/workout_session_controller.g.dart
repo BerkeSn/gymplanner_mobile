@@ -7,7 +7,7 @@ part of 'workout_session_controller.dart';
 // **************************************************************************
 
 String _$workoutSessionControllerHash() =>
-    r'6c7504fab7250abbc96ef17963b64fcd7796d612';
+    r'd79622aa9305d286b73567335704cb9ef01fede7';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -37,37 +37,17 @@ abstract class _$WorkoutSessionController
   FutureOr<WorkoutSessionState> build(int routineId);
 }
 
-/// family: her (routineId) için bağımsız bir oturum state'i.
-/// autoDispose (varsayılan @riverpod) BİLİNÇLİ tercih — kullanıcı antrenman
-/// ekranından çıkınca oturum state'i belleğinden silinmeli, bir sonraki
-/// girişte YENİ bir startWorkoutLog çağrısı yapılmalı.
-///
-/// Copied from [WorkoutSessionController].
+/// See also [WorkoutSessionController].
 @ProviderFor(WorkoutSessionController)
 const workoutSessionControllerProvider = WorkoutSessionControllerFamily();
 
-/// family: her (routineId) için bağımsız bir oturum state'i.
-/// autoDispose (varsayılan @riverpod) BİLİNÇLİ tercih — kullanıcı antrenman
-/// ekranından çıkınca oturum state'i belleğinden silinmeli, bir sonraki
-/// girişte YENİ bir startWorkoutLog çağrısı yapılmalı.
-///
-/// Copied from [WorkoutSessionController].
+/// See also [WorkoutSessionController].
 class WorkoutSessionControllerFamily
     extends Family<AsyncValue<WorkoutSessionState>> {
-  /// family: her (routineId) için bağımsız bir oturum state'i.
-  /// autoDispose (varsayılan @riverpod) BİLİNÇLİ tercih — kullanıcı antrenman
-  /// ekranından çıkınca oturum state'i belleğinden silinmeli, bir sonraki
-  /// girişte YENİ bir startWorkoutLog çağrısı yapılmalı.
-  ///
-  /// Copied from [WorkoutSessionController].
+  /// See also [WorkoutSessionController].
   const WorkoutSessionControllerFamily();
 
-  /// family: her (routineId) için bağımsız bir oturum state'i.
-  /// autoDispose (varsayılan @riverpod) BİLİNÇLİ tercih — kullanıcı antrenman
-  /// ekranından çıkınca oturum state'i belleğinden silinmeli, bir sonraki
-  /// girişte YENİ bir startWorkoutLog çağrısı yapılmalı.
-  ///
-  /// Copied from [WorkoutSessionController].
+  /// See also [WorkoutSessionController].
   WorkoutSessionControllerProvider call(int routineId) {
     return WorkoutSessionControllerProvider(routineId);
   }
@@ -94,24 +74,14 @@ class WorkoutSessionControllerFamily
   String? get name => r'workoutSessionControllerProvider';
 }
 
-/// family: her (routineId) için bağımsız bir oturum state'i.
-/// autoDispose (varsayılan @riverpod) BİLİNÇLİ tercih — kullanıcı antrenman
-/// ekranından çıkınca oturum state'i belleğinden silinmeli, bir sonraki
-/// girişte YENİ bir startWorkoutLog çağrısı yapılmalı.
-///
-/// Copied from [WorkoutSessionController].
+/// See also [WorkoutSessionController].
 class WorkoutSessionControllerProvider
     extends
         AutoDisposeAsyncNotifierProviderImpl<
           WorkoutSessionController,
           WorkoutSessionState
         > {
-  /// family: her (routineId) için bağımsız bir oturum state'i.
-  /// autoDispose (varsayılan @riverpod) BİLİNÇLİ tercih — kullanıcı antrenman
-  /// ekranından çıkınca oturum state'i belleğinden silinmeli, bir sonraki
-  /// girişte YENİ bir startWorkoutLog çağrısı yapılmalı.
-  ///
-  /// Copied from [WorkoutSessionController].
+  /// See also [WorkoutSessionController].
   WorkoutSessionControllerProvider(int routineId)
     : this._internal(
         () => WorkoutSessionController()..routineId = routineId,

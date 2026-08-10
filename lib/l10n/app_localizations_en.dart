@@ -510,4 +510,28 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get favoritesOnlyLabel => 'Favorites';
+
+  @override
+  String get lastSessionLabel => 'Last Session';
+
+  @override
+  String get noPreviousDataLabel => 'No previous data for this exercise.';
+
+  @override
+  String get noWorkoutLoggedForDay => 'No workout logged for this day.';
+
+  @override
+  String get weeklyRecordsTitle => 'Weekly Records';
+
+  @override
+  String get updateButton => 'Update';
+
+  @override
+  String get editSetsRepsTitle => 'Update Sets/Reps';
+
+  @override
+  String get volumeMetricLabel => 'Volume';
+
+  @override
+  String get prMetricLabel => 'PR';
 }

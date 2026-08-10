@@ -226,4 +226,37 @@ class WorkoutProgramsController
       rethrow;
     }
   }
+
+  // presentation/controllers/workout_programs_controller.dart — sınıfa ekle:
+
+  Future<void> updateRoutineExercise({
+    required int routineExerciseId,
+    required WeekDay day,
+    required int targetSets,
+    required int targetReps,
+  }) async {
+    try {
+      final repository = ref.read(
+        workoutRoutineRepositoryProvider,
+      );
+      final result = await repository
+          .updateRoutineExercise(
+            routineExerciseId: routineExerciseId,
+            day: day,
+            targetSets: targetSets,
+            targetReps: targetReps,
+          );
+      if (result is Failure<void>)
+        throw result.exception;
+      await refresh();
+    } catch (error, stackTrace) {
+      AppLogger.error(
+        'WorkoutProgramsController - updateRoutineExercise',
+        error,
+        stackTrace,
+      );
+      rethrow;
+    }
+  }
+
 }

@@ -184,4 +184,35 @@ class WorkoutRoutineRepositoryImpl
       );
     }
   }
+
+  @override
+  Future<Result<void>> updateRoutineExercise({
+    required int routineExerciseId,
+    WeekDay? day,
+    int? targetSets,
+    int? targetReps,
+  }) async {
+    try {
+      await _remoteDataSource
+          .updateRoutineExercise(
+            routineExerciseId: routineExerciseId,
+            day: day?.apiValue,
+            targetSets: targetSets,
+            targetReps: targetReps,
+          );
+      return const Success(null);
+    } on AppException catch (error) {
+      return Failure(error);
+    } catch (error, stackTrace) {
+      return Failure(
+        AppExceptionFactory.unexpected(
+          source:
+              'WorkoutRoutineRepositoryImpl - updateRoutineExercise',
+          error: error,
+          stackTrace: stackTrace,
+        ),
+      );
+    }
+  }
+
 }

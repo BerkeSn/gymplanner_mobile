@@ -2,6 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gymplanner_mobile/features/workout_routine/domain/entities/routine_exercise_entity.dart';
+import 'package:gymplanner_mobile/l10n/app_localizations.dart';
 
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_spacing.dart';
@@ -17,12 +19,16 @@ import '../controllers/workout_programs_controller.dart';
 class ScheduleExerciseSheet
     extends ConsumerStatefulWidget {
   final int routineId;
-  final ExerciseEntity exercise;
+  final ExerciseEntity?
+  exercise; // Ekleme modunda dolu
+  final RoutineExerciseEntity?
+  existing; // Düzenleme modunda dolu
 
   const ScheduleExerciseSheet({
     super.key,
     required this.routineId,
-    required this.exercise,
+    this.exercise,
+    this.existing,
   });
 
   static Future<void> show(
@@ -33,8 +39,6 @@ class ScheduleExerciseSheet
     return showModalBottomSheet(
       context: context,
       isScrollControlled: true,
-      // Hero görsele yer açmak için sheet'i ekranın büyük kısmını
-      // kaplayacak şekilde sabitliyoruz (mockup'taki tam sayfa hissi).
       builder: (_) => FractionallySizedBox(
         heightFactor: 0.92,
         child: ScheduleExerciseSheet(
@@ -45,23 +49,59 @@ class ScheduleExerciseSheet
     );
   }
 
-  @override
+  static Future<void> showEdit(
+    BuildContext context, {
+    required int routineId,
+    required RoutineExerciseEntity existing,
+  }) {
+    return showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      builder: (_) => ScheduleExerciseSheet(
+        routineId: routineId,
+        existing: existing,
+      ),
+    );
+  }
+
+ @override
   ConsumerState<ScheduleExerciseSheet>
   createState() => _ScheduleExerciseSheetState();
 }
 
 class _ScheduleExerciseSheetState
     extends ConsumerState<ScheduleExerciseSheet> {
-  final _setsController = TextEditingController(
-    text: '3',
-  );
-  final _repsController = TextEditingController(
-    text: '8',
-  );
-  WeekDay _selectedDay = WeekDay.monday;
+  late final TextEditingController
+  _setsController;
+  late final TextEditingController
+  _repsController;
+  late WeekDay _selectedDay;
   bool _isSubmitting = false;
   String? _errorText;
 
+  bool get _isEditMode => widget.existing != null;
+  String get _displayName =>
+      widget.existing?.exerciseName ??
+      widget.exercise!.name;
+  String? get _displayImageUrl =>
+      widget.existing?.exerciseImageUrl ??
+      widget.exercise?.imageUrl;
+
+  @override
+  void initState() {
+    super.initState();
+    _setsController = TextEditingController(
+      text: '${widget.existing?.targetSets ?? 3}',
+    );
+    _repsController = TextEditingController(
+      text:
+          '${widget.existing?.targetReps ?? (widget.exercise?.name != null ? 8 : 8)}',
+    );
+    _selectedDay =
+        widget.existing?.day ?? WeekDay.monday;
+  }
+
+  
   @override
   void dispose() {
     _setsController.dispose();
@@ -76,7 +116,6 @@ class _ScheduleExerciseSheetState
     final reps = int.tryParse(
       _repsController.text,
     );
-
     if (sets == null ||
         reps == null ||
         sets <= 0 ||
@@ -94,21 +133,29 @@ class _ScheduleExerciseSheetState
     });
 
     try {
-      await ref
-          .read(
-            workoutProgramsControllerProvider
-                .notifier,
-          )
-          .addExerciseToRoutine(
-            routineId: widget.routineId,
-            exerciseId: widget.exercise.id,
-            exerciseName: widget.exercise.name,
-            exerciseImageUrl:
-                widget.exercise.imageUrl,
-            day: _selectedDay,
-            targetSets: sets,
-            targetReps: reps,
-          );
+      final controller = ref.read(
+        workoutProgramsControllerProvider
+            .notifier,
+      );
+      if (_isEditMode) {
+        await controller.updateRoutineExercise(
+          routineExerciseId: widget.existing!.id,
+          day: _selectedDay,
+          targetSets: sets,
+          targetReps: reps,
+        );
+      } else {
+        await controller.addExerciseToRoutine(
+          routineId: widget.routineId,
+          exerciseId: widget.exercise!.id,
+          exerciseName: widget.exercise!.name,
+          exerciseImageUrl:
+              widget.exercise!.imageUrl,
+          day: _selectedDay,
+          targetSets: sets,
+          targetReps: reps,
+        );
+      }
       if (mounted) Navigator.of(context).pop();
     } catch (error, stackTrace) {
       AppLogger.error(
@@ -116,11 +163,11 @@ class _ScheduleExerciseSheetState
         error,
         stackTrace,
       );
-      if (mounted) {
+      if (mounted)
         setState(
-          () => _errorText = 'Eklenemedi: $error',
+          () => _errorText =
+              'İşlem başarısız: $error',
         );
-      }
     } finally {
       if (mounted)
         setState(() => _isSubmitting = false);
@@ -161,7 +208,7 @@ class _ScheduleExerciseSheetState
               ),
             ),
             Text(
-              widget.exercise.name,
+              _displayName,
               style: AppTextStyles.headlineMedium,
             ),
             const SizedBox(height: AppSpacing.md),
@@ -169,17 +216,17 @@ class _ScheduleExerciseSheetState
             // ⬇️ YENİ: Başlık ile gün seçimi arasında, tam genişlikte,
             // ekran yüksekliğinin büyük bir kısmını kaplayan hero görsel.
             ExercisePlaceholderHero(
-              imageUrl: widget.exercise.imageUrl,
-              muscleGroupName:
-                  widget.exercise.muscleGroupName,
+              imageUrl: _displayImageUrl,
+              muscleGroupName: _displayName,
               height: screenHeight * 0.34,
             ),
 
             const SizedBox(height: AppSpacing.lg),
-            Text(
-              '${widget.exercise.muscleGroupName} • ${widget.exercise.equipmentName}',
-              style: AppTextStyles.bodyMedium,
-            ),
+            if (widget.exercise != null)
+              Text(
+                '${widget.exercise!.muscleGroupName} • ${widget.exercise!.equipmentName}',
+                style: AppTextStyles.bodyMedium,
+              ),
             const SizedBox(height: AppSpacing.lg),
 
             Text(
@@ -262,7 +309,9 @@ class _ScheduleExerciseSheetState
             ],
             const SizedBox(height: AppSpacing.xl),
             PrimaryButton(
-              label: 'Programa Ekle',
+              label: AppLocalizations.of(
+                context,
+              ).updateButton,
               isLoading: _isSubmitting,
               onPressed: _handleConfirm,
             ),

@@ -25,10 +25,14 @@ class ExerciseLibraryPage extends ConsumerWidget {
         onExerciseTap: (exercise) {
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (_) =>
-                  ExerciseProgressPage(
-                    exercise: exercise,
-                  ),
+              builder: (_) => ExerciseProgressPage(
+                exerciseId: exercise.id,
+                exerciseName: exercise.name,
+                exerciseImageUrl:
+                    exercise.imageUrl,
+                subtitle:
+                    '${exercise.muscleGroupName} • ${exercise.equipmentName}',
+              ),
             ),
           );
         },

@@ -164,5 +164,13 @@
   "insufficientDataForBodyFat": "Neck and waist measurements are required to calculate.",
   "updateMeasurementButton": "Update",
   "allLocationsLabel": "All",
-  "favoritesOnlyLabel": "Favorites"
+  "favoritesOnlyLabel": "Favorites",
+  "lastSessionLabel": "Last Session",
+  "noPreviousDataLabel": "No previous data for this exercise.",
+  "noWorkoutLoggedForDay": "No workout logged for this day.",
+  "weeklyRecordsTitle": "Weekly Records",
+  "updateButton": "Update",
+  "editSetsRepsTitle": "Update Sets/Reps",
+  "volumeMetricLabel": "Volume",
+  "prMetricLabel": "PR"
 }

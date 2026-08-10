@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:gymplanner_mobile/features/nutrition/presentation/controller/nutrition_controller.dart';
 import 'package:gymplanner_mobile/features/nutrition/presentation/widgets/meal_tile.dart';
 import 'package:gymplanner_mobile/features/walk_tracking/presentation/pages/active_walk_page.dart';
+import 'package:gymplanner_mobile/features/workout_log/presentation/pages/workout_session_history_page.dart';
 
 import '../../../../core/router/app_router.dart';
 import '../../../../core/theme/app_colors.dart';
@@ -415,15 +416,42 @@ class _ActiveProgramSection
 
         return InkWell(
           borderRadius: BorderRadius.circular(16),
-          onTap: () => Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (_) => WorkoutSessionPage(
-                routineId: active.id,
-                day: weekDay,
-                exercises: dayExercises,
-              ),
-            ),
-          ),
+          onTap: () {
+            final today = DateTime.now();
+            final normalizedToday = DateTime(
+              today.year,
+              today.month,
+              today.day,
+            );
+
+            if (selectedDate.isAtSameMomentAs(
+              normalizedToday,
+            )) {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (_) =>
+                      WorkoutSessionPage(
+                        routineId: active.id,
+                        day: weekDay,
+                        exercises: dayExercises,
+                      ),
+                ),
+              );
+            } else if (selectedDate.isBefore(
+              normalizedToday,
+            )) {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (_) =>
+                      WorkoutSessionHistoryPage(
+                        routineId: active.id,
+                        date: selectedDate,
+                      ),
+                ),
+              );
+            }
+            // Gelecek tarihler için hiçbir şey yapma — henüz gerçekleşmemiş.
+          },
           child: Container(
             padding: const EdgeInsets.all(
               AppSpacing.lg,

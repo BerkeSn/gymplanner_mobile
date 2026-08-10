@@ -164,5 +164,13 @@
   "insufficientDataForBodyFat": "Hesaplamak için boyun ve bel ölçüsü gerekli.",
   "updateMeasurementButton": "Güncelle",
   "allLocationsLabel": "Hepsi",
-  "favoritesOnlyLabel": "Favoriler"
+  "favoritesOnlyLabel": "Favoriler",
+  "lastSessionLabel": "Son Antrenman",
+  "noPreviousDataLabel": "Bu hareket için önceki veri yok.",
+  "noWorkoutLoggedForDay": "Bu gün için antrenman kaydı yok.",
+  "weeklyRecordsTitle": "Haftalık Kayıtlar",
+  "updateButton": "Güncelle",
+  "editSetsRepsTitle": "Set/Tekrar Güncelle",
+  "volumeMetricLabel": "Hacim",
+  "prMetricLabel": "PR"
 }

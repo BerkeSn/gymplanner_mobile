@@ -240,4 +240,42 @@ class WorkoutRoutineRemoteDataSource {
     }
     return null;
   }
+
+  Future<void> updateRoutineExercise({
+    required int routineExerciseId,
+    String? day,
+    int? targetSets,
+    int? targetReps,
+  }) async {
+    try {
+      await _dio.post(
+        '/routineexercise/updateRoutineExercise/$routineExerciseId',
+        data: {
+          if (day != null) 'day': day,
+          if (targetSets != null)
+            'targetSets': targetSets,
+          if (targetReps != null)
+            'targetReps': targetReps,
+        },
+      );
+    } on DioException catch (error, stackTrace) {
+      throw AppExceptionFactory.network(
+        source:
+            'WorkoutRoutineRemoteDataSource - updateRoutineExercise',
+        message:
+            _extractMessage(error) ??
+            'Hareket güncellenemedi.',
+        originalError: error,
+        stackTrace: stackTrace,
+      );
+    } catch (error, stackTrace) {
+      throw AppExceptionFactory.unexpected(
+        source:
+            'WorkoutRoutineRemoteDataSource - updateRoutineExercise',
+        error: error,
+        stackTrace: stackTrace,
+      );
+    }
+  }
+
 }

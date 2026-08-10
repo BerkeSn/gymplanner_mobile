@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gymplanner_mobile/features/exercise_progress/domain/entities/set_detail_entity.dart';
+import 'package:gymplanner_mobile/features/exercise_progress/presentation/controllers/exercise_progress_controller.dart';
 import 'package:gymplanner_mobile/features/workout_log/domain/entites/workout_set_entity.dart';
 
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_spacing.dart';
 import '../../../../core/theme/app_text_styles.dart';
 import '../../../../core/utils/app_logger.dart';
+import '../../../../core/widgets/exercise_placeholder_thumbnail.dart';
+import '../../../../l10n/app_localizations.dart';
+import '../../../exercise_progress/presentation/pages/exercise_progress_page.dart';
 import '../../../workout_routine/domain/entities/routine_exercise_entity.dart';
 import '../../../workout_routine/domain/entities/week_day.dart';
 import '../controllers/workout_session_controller.dart';
 
-/// standardized_workout_session.html temel alınmıştır.
 class WorkoutSessionPage extends ConsumerWidget {
   final int routineId;
   final WeekDay day;
@@ -57,7 +61,7 @@ class WorkoutSessionPage extends ConsumerWidget {
             AppSpacing.containerMargin,
             AppSpacing.containerMargin,
             AppSpacing.containerMargin,
-            120, // sticky footer'a yer açmak için
+            120,
           ),
           itemCount: exercises.length,
           itemBuilder: (context, index) {
@@ -73,6 +77,8 @@ class WorkoutSessionPage extends ConsumerWidget {
                     routineExercise.exerciseId,
                 exerciseName:
                     routineExercise.exerciseName,
+                exerciseImageUrl: routineExercise
+                    .exerciseImageUrl,
                 targetSets:
                     routineExercise.targetSets,
                 targetReps:
@@ -116,6 +122,7 @@ class _ExerciseSessionCard
   final int routineId;
   final int exerciseId;
   final String exerciseName;
+  final String? exerciseImageUrl;
   final int targetSets;
   final int targetReps;
 
@@ -123,6 +130,7 @@ class _ExerciseSessionCard
     required this.routineId,
     required this.exerciseId,
     required this.exerciseName,
+    required this.exerciseImageUrl,
     required this.targetSets,
     required this.targetReps,
   });
@@ -134,44 +142,55 @@ class _ExerciseSessionCard
 
 class _ExerciseSessionCardState
     extends ConsumerState<_ExerciseSessionCard> {
-  // Her taslak satır için ayrı controller çifti — set numarasına göre anahtarlanır.
   final Map<int, TextEditingController>
   _weightControllers = {};
   final Map<int, TextEditingController>
   _repsControllers = {};
-  final Set<int> _draftSetNumbers = {
-    1,
-  }; // en az bir taslak satırla başla
+  late Set<int> _draftSetNumbers;
   final Set<int> _submittingSetNumbers = {};
+
+  @override
+  void initState() {
+    super.initState();
+    // ⬇️ DÜZELTİ: taslak numarasını devam eden oturumdaki mevcut set
+    // sayısına göre başlat — 1'den değil, kaldığı yerden.
+    final sessionState = ref
+        .read(
+          workoutSessionControllerProvider(
+            widget.routineId,
+          ),
+        )
+        .valueOrNull;
+    final savedCount =
+        sessionState
+            ?.setsFor(widget.exerciseId)
+            .length ??
+        0;
+    _draftSetNumbers = {savedCount + 1};
+  }
 
   TextEditingController _weightControllerFor(
     int setNumber,
-  ) {
-    return _weightControllers.putIfAbsent(
-      setNumber,
-      () => TextEditingController(),
-    );
-  }
+  ) => _weightControllers.putIfAbsent(
+    setNumber,
+    () => TextEditingController(),
+  );
 
   TextEditingController _repsControllerFor(
     int setNumber,
-  ) {
-    return _repsControllers.putIfAbsent(
-      setNumber,
-      () => TextEditingController(
-        text: '${widget.targetReps}',
-      ),
-    );
-  }
+  ) => _repsControllers.putIfAbsent(
+    setNumber,
+    () => TextEditingController(
+      text: '${widget.targetReps}',
+    ),
+  );
 
   @override
   void dispose() {
-    for (final c in _weightControllers.values) {
+    for (final c in _weightControllers.values)
       c.dispose();
-    }
-    for (final c in _repsControllers.values) {
+    for (final c in _repsControllers.values)
       c.dispose();
-    }
     super.dispose();
   }
 
@@ -200,7 +219,6 @@ class _ExerciseSessionCardState
     setState(
       () => _submittingSetNumbers.add(setNumber),
     );
-
     try {
       final success = await ref
           .read(
@@ -216,13 +234,10 @@ class _ExerciseSessionCardState
           );
 
       if (!mounted) return;
-
       if (success) {
         setState(() {
           _draftSetNumbers.remove(setNumber);
-          _draftSetNumbers.add(
-            setNumber + 1,
-          ); // sıradaki set için yeni taslak
+          _draftSetNumbers.add(setNumber + 1);
         });
       } else {
         ScaffoldMessenger.of(
@@ -242,13 +257,12 @@ class _ExerciseSessionCardState
         stackTrace,
       );
     } finally {
-      if (mounted) {
+      if (mounted)
         setState(
           () => _submittingSetNumbers.remove(
             setNumber,
           ),
         );
-      }
     }
   }
 
@@ -275,8 +289,22 @@ class _ExerciseSessionCardState
     }
   }
 
+  void _openProgressPage() {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (_) => ExerciseProgressPage(
+          exerciseId: widget.exerciseId,
+          exerciseName: widget.exerciseName,
+          exerciseImageUrl:
+              widget.exerciseImageUrl,
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     final sessionState = ref
         .watch(
           workoutSessionControllerProvider(
@@ -292,9 +320,6 @@ class _ExerciseSessionCardState
     final savedSetNumbers = savedSets
         .map((s) => s.setNumber)
         .toSet();
-
-    // Taslak numaraları arasından zaten kaydedilmiş olanları filtrele
-    // (aynı ekranda hızlı ardışık kayıt sırasında çakışma olmasın diye).
     final pendingDrafts =
         _draftSetNumbers
             .where(
@@ -302,6 +327,14 @@ class _ExerciseSessionCardState
             )
             .toList()
           ..sort();
+
+    final progressAsync = ref.watch(
+      exerciseProgressProvider(widget.exerciseId),
+    );
+    final lastSessionSets = _findLastSessionSets(
+      progressAsync.valueOrNull,
+      sessionState?.workoutLogId,
+    );
 
     return Container(
       padding: const EdgeInsets.all(
@@ -319,18 +352,90 @@ class _ExerciseSessionCardState
         crossAxisAlignment:
             CrossAxisAlignment.start,
         children: [
-          Text(
-            widget.exerciseName,
-            style: AppTextStyles.headlineMedium,
-          ),
-          const SizedBox(height: AppSpacing.xs),
-          Text(
-            'Hedef: ${widget.targetSets} set × ${widget.targetReps} tekrar',
-            style: AppTextStyles.bodyMedium,
+          InkWell(
+            // ⬅️ YENİ: fotoğraf/isim tıklanınca Antrenman Kaydı'na gider
+            onTap: _openProgressPage,
+            borderRadius: BorderRadius.circular(
+              12,
+            ),
+            child: Row(
+              children: [
+                ExercisePlaceholderThumbnail(
+                  imageUrl:
+                      widget.exerciseImageUrl,
+                  muscleGroupName:
+                      widget.exerciseName,
+                  size: 48,
+                ),
+                const SizedBox(
+                  width: AppSpacing.md,
+                ),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment:
+                        CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        widget.exerciseName,
+                        style: AppTextStyles
+                            .headlineMedium,
+                      ),
+                      Text(
+                        'Hedef: ${widget.targetSets} set × ${widget.targetReps} tekrar',
+                        style: AppTextStyles
+                            .bodyMedium,
+                      ),
+                    ],
+                  ),
+                ),
+                Icon(
+                  Icons.chevron_right,
+                  color: AppColors.outline,
+                ),
+              ],
+            ),
           ),
           const SizedBox(height: AppSpacing.md),
 
-          // Kaydedilmiş (committed) satırlar — disabled, tik ikonlu.
+          // ⬇️ YENİ: geçmiş referans — read-only
+          if (lastSessionSets != null) ...[
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(
+                AppSpacing.sm,
+              ),
+              decoration: BoxDecoration(
+                color: AppColors
+                    .surfaceContainerHigh
+                    .withValues(alpha: 0.5),
+                borderRadius:
+                    BorderRadius.circular(10),
+              ),
+              child: Row(
+                crossAxisAlignment:
+                    CrossAxisAlignment.start,
+                children: [
+                  Icon(
+                    Icons.history,
+                    size: 16,
+                    color: AppColors.outline,
+                  ),
+                  const SizedBox(
+                    width: AppSpacing.xs,
+                  ),
+                  Expanded(
+                    child: Text(
+                      '${l10n.lastSessionLabel}: ${lastSessionSets.map((s) => "${s.weight}kg×${s.reps}").join(", ")}',
+                      style: AppTextStyles
+                          .bodyMedium,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: AppSpacing.md),
+          ],
+
           ...savedSets.map(
             (set) => _SavedSetRow(
               set: set,
@@ -338,8 +443,6 @@ class _ExerciseSessionCardState
                   _handleRemoveSavedSet(set),
             ),
           ),
-
-          // Taslak (draft) satırlar — aktif input.
           ...pendingDrafts.map(
             (setNumber) => _DraftSetRow(
               setNumber: setNumber,
@@ -354,25 +457,20 @@ class _ExerciseSessionCardState
                   _submitSet(setNumber),
             ),
           ),
-
           const SizedBox(height: AppSpacing.sm),
           OutlinedButton.icon(
             onPressed: () {
-              final nextNumber =
-                  (savedSetNumbers.isEmpty
-                      ? pendingDrafts.isEmpty
-                            ? 0
-                            : pendingDrafts.last
-                      : [
-                          ...savedSetNumbers,
-                          ...pendingDrafts,
-                        ].reduce(
-                          (a, b) => a > b ? a : b,
-                        )) +
-                  1;
+              final maxNumber =
+                  [
+                    ...savedSetNumbers,
+                    ...pendingDrafts,
+                  ].fold(
+                    0,
+                    (max, n) => n > max ? n : max,
+                  );
               setState(
                 () => _draftSetNumbers.add(
-                  nextNumber,
+                  maxNumber + 1,
                 ),
               );
             },
@@ -383,12 +481,32 @@ class _ExerciseSessionCardState
       ),
     );
   }
+
+  /// exerciseProgress geçmişinden, BUGÜNKÜ (şu an devam eden) oturuma ait
+  /// OLMAYAN en son kaydı bulur — "geçen sefer" bu şekilde belirlenir.
+  List<SetDetailEntity>? _findLastSessionSets(
+    dynamic history,
+    int? currentWorkoutLogId,
+  ) {
+    if (history == null) return null;
+    final list = history as List;
+    for (var i = list.length - 1; i >= 0; i--) {
+      final entry = list[i];
+      if (entry.workoutLogId !=
+              currentWorkoutLogId &&
+          entry.sets.isNotEmpty) {
+        return List<SetDetailEntity>.from(
+          entry.sets,
+        );
+      }
+    }
+    return null;
+  }
 }
 
 class _SavedSetRow extends StatelessWidget {
   final WorkoutSetEntity set;
   final VoidCallback onDelete;
-
   const _SavedSetRow({
     required this.set,
     required this.onDelete,

@@ -1,5 +1,6 @@
-// presentation/controllers/workout_session_controller.dart
+// features/workout_log/presentation/controllers/workout_session_controller.dart — TAMAMEN değiştir
 
+import 'package:gymplanner_mobile/features/workout_log/domain/entites/workout_log_entity.dart';
 import 'package:gymplanner_mobile/features/workout_log/domain/entites/workout_set_entity.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -36,10 +37,6 @@ class WorkoutSessionState {
   }
 }
 
-/// family: her (routineId) için bağımsız bir oturum state'i.
-/// autoDispose (varsayılan @riverpod) BİLİNÇLİ tercih — kullanıcı antrenman
-/// ekranından çıkınca oturum state'i belleğinden silinmeli, bir sonraki
-/// girişte YENİ bir startWorkoutLog çağrısı yapılmalı.
 @riverpod
 class WorkoutSessionController
     extends _$WorkoutSessionController {
@@ -51,12 +48,61 @@ class WorkoutSessionController
       final repository = ref.read(
         workoutLogRepositoryProvider,
       );
-      final result = await repository
-          .startWorkoutLog(routineId);
-      if (result is Failure<dynamic>) {
-        throw (result as Failure).exception;
+
+      // 1) Bugüne, bu programa ait zaten başlamış bir oturum var mı bak.
+      final logsResult = await repository
+          .getWorkoutLogs();
+      if (logsResult
+          is Success<List<WorkoutLogEntity>>) {
+        final today = DateTime.now();
+        final existing = logsResult.data
+            .where(
+              (log) =>
+                  log.workoutRoutineId ==
+                      routineId &&
+                  log.date.year == today.year &&
+                  log.date.month == today.month &&
+                  log.date.day == today.day,
+            )
+            .firstOrNull;
+
+        if (existing != null) {
+          final grouped =
+              <int, List<WorkoutSetEntity>>{};
+          for (final s in existing.sets) {
+            grouped
+                .putIfAbsent(
+                  s.exerciseId,
+                  () => [],
+                )
+                .add(
+                  WorkoutSetEntity(
+                    id: s.id,
+                    workoutLogId: existing.id,
+                    exerciseId: s.exerciseId,
+                    setNumber: s.setNumber,
+                    reps: s.reps,
+                    weight: s.weight,
+                  ),
+                );
+          }
+          return WorkoutSessionState(
+            workoutLogId: existing.id,
+            setsByExerciseId: grouped,
+          );
+        }
       }
-      final log = (result as Success).data;
+
+      // 2) Yoksa yeni oturum başlat.
+      final startResult = await repository
+          .startWorkoutLog(routineId);
+      if (startResult
+          is Failure<WorkoutLogEntity>)
+        throw startResult.exception;
+      final log =
+          (startResult
+                  as Success<WorkoutLogEntity>)
+              .data;
       return WorkoutSessionState(
         workoutLogId: log.id,
       );
@@ -70,6 +116,7 @@ class WorkoutSessionController
     }
   }
 
+  // addSet / removeSet metotları AYNEN kalıyor, değişiklik yok.
   Future<bool> addSet({
     required int exerciseId,
     required int setNumber,
@@ -78,7 +125,6 @@ class WorkoutSessionController
   }) async {
     final current = state.valueOrNull;
     if (current == null) return false;
-
     try {
       final repository = ref.read(
         workoutLogRepositoryProvider,
@@ -90,13 +136,11 @@ class WorkoutSessionController
         reps: reps,
         weight: weight,
       );
-      if (result is Failure<WorkoutSetEntity>) {
+      if (result is Failure<WorkoutSetEntity>)
         throw result.exception;
-      }
       final newSet =
           (result as Success<WorkoutSetEntity>)
               .data;
-
       final updatedMap =
           Map<int, List<WorkoutSetEntity>>.from(
             current.setsByExerciseId,
@@ -127,7 +171,6 @@ class WorkoutSessionController
   }) async {
     final current = state.valueOrNull;
     if (current == null) return false;
-
     try {
       final repository = ref.read(
         workoutLogRepositoryProvider,
@@ -136,10 +179,8 @@ class WorkoutSessionController
         workoutLogId: current.workoutLogId,
         setId: setId,
       );
-      if (result is Failure<void>) {
+      if (result is Failure<void>)
         throw result.exception;
-      }
-
       final updatedMap =
           Map<int, List<WorkoutSetEntity>>.from(
             current.setsByExerciseId,

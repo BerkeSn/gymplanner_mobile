@@ -83,8 +83,9 @@ class _WorkoutProgramsPageState
                         MaterialPageRoute(
                           builder: (_) =>
                               ExerciseProgressPage(
-                                exercise:
-                                    exercise,
+                                exerciseId:
+                                    exercise.id,
+                                exerciseName: exercise.name,    
                               ),
                         ),
                       ),

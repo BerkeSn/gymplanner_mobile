@@ -46,4 +46,11 @@ Future<Result<void>> updateWorkoutRoutine({
   Future<Result<void>> deleteRoutineExercise(
     int routineExerciseId,
   );
+
+  Future<Result<void>> updateRoutineExercise({
+    required int routineExerciseId,
+    WeekDay? day,
+    int? targetSets,
+    int? targetReps,
+  });
 }

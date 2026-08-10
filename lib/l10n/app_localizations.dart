@@ -1087,6 +1087,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Favorites'**
   String get favoritesOnlyLabel;
+
+  /// No description provided for @lastSessionLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Last Session'**
+  String get lastSessionLabel;
+
+  /// No description provided for @noPreviousDataLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'No previous data for this exercise.'**
+  String get noPreviousDataLabel;
+
+  /// No description provided for @noWorkoutLoggedForDay.
+  ///
+  /// In en, this message translates to:
+  /// **'No workout logged for this day.'**
+  String get noWorkoutLoggedForDay;
+
+  /// No description provided for @weeklyRecordsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly Records'**
+  String get weeklyRecordsTitle;
+
+  /// No description provided for @updateButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Update'**
+  String get updateButton;
+
+  /// No description provided for @editSetsRepsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Update Sets/Reps'**
+  String get editSetsRepsTitle;
+
+  /// No description provided for @volumeMetricLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Volume'**
+  String get volumeMetricLabel;
+
+  /// No description provided for @prMetricLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'PR'**
+  String get prMetricLabel;
 }
 
 class _AppLocalizationsDelegate

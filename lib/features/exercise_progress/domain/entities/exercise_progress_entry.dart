@@ -1,4 +1,6 @@
-// entities/exercise_progress_entry.dart
+// features/exercise_progress/domain/entities/exercise_progress_entry.dart — TAMAMEN değiştir
+
+import 'set_detail_entity.dart';
 
 class ExerciseProgressEntry {
   final int workoutLogId;
@@ -7,6 +9,7 @@ class ExerciseProgressEntry {
   final double maxWeight;
   final double totalVolume;
   final double estimated1RM;
+  final List<SetDetailEntity> sets; // ⬅️ YENİ
 
   const ExerciseProgressEntry({
     required this.workoutLogId,
@@ -15,5 +18,6 @@ class ExerciseProgressEntry {
     required this.maxWeight,
     required this.totalVolume,
     required this.estimated1RM,
+    this.sets = const [],
   });
 }
